@@ -50,18 +50,13 @@ const Container = styled.div<{ hideInput: boolean }>`
   border: 0px;
   background-color: ${({ theme }) => theme.bg1};
   width: ${({ hideInput }) => (hideInput ? '100%' : 'initial')};
-  :focus,
-  :hover {
-    border: 1px solid ${({ theme, hideInput }) => (hideInput ? ' transparent' : theme.bg3)};
-  }
+  
 `
 
 const CurrencySelect = styled(ButtonGray) <{ visible: boolean; selected: boolean; hideInput?: boolean }>`
   align-items: center;
-  background-color: ${({ selected, theme }) => (selected ? theme.bg2 : theme.primary1)};
   box-shadow: ${({ selected }) => (selected ? 'none' : '0px 6px 10px rgba(0, 0, 0, 0.075)')};
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.075);
-  color: ${({ selected, theme }) => (selected ? theme.text1 : theme.white)};
   cursor: pointer;
   border-radius: 16px;
   outline: none;
@@ -229,7 +224,8 @@ export default function CurrencyInputPanel({
               value={value}
               onUserInput={onUserInput}
               $loading={loading}
-              
+              style={{ color: "#A6A0BB" }}
+
             /> : <CurrencySelect
               visible={currency !== undefined}
               selected={!!currency}

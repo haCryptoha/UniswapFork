@@ -47,7 +47,6 @@ const Web3StatusGeneric = styled(ButtonSecondary)`
 `
 const Web3StatusError = styled(Web3StatusGeneric)`
   background-color: ${({ theme }) => theme.red1};
-  border: 1px solid ${({ theme }) => theme.red1};
   color: ${({ theme }) => theme.white};
   font-weight: 500;
   :hover,
@@ -57,46 +56,25 @@ const Web3StatusError = styled(Web3StatusGeneric)`
 `
 
 const Web3StatusConnect = styled(Web3StatusGeneric) <{ faded?: boolean }>`
-  background-color: ${({ theme }) => theme.primary4};
-  border: none;
 
-  color: ${({ theme }) => theme.primaryText1};
   font-weight: 500;
+  background-color: #1C1924;
+    height: 40px ;
+    border: none;
+    margin-right: 0px;
+    margin-left:0px;
+    width: 200px ;
 
-  :hover,
-  :focus {
-    border: 1px solid ${({ theme }) => darken(0.05, theme.primary4)};
-    color: ${({ theme }) => theme.primaryText1};
-  }
-
-  ${({ faded }) =>
-    faded &&
-    css`
-      background-color: ${({ theme }) => theme.primary5};
-      border: 1px solid ${({ theme }) => theme.primary5};
-      color: ${({ theme }) => theme.primaryText1};
-
-      :hover,
-      :focus {
-        border: 1px solid ${({ theme }) => darken(0.05, theme.primary4)};
-        color: ${({ theme }) => darken(0.05, theme.primaryText1)};
-      }
-    `}
 `
 
 const Web3StatusConnected = styled(Web3StatusGeneric) <{ pending?: boolean }>`
-  background-color: ${({ pending, theme }) => (pending ? theme.primary1 : theme.bg1)};
-  border: 1px solid ${({ pending, theme }) => (pending ? theme.primary1 : theme.bg1)};
-  color: ${({ pending, theme }) => (pending ? theme.white : theme.text1)};
+  background-color: #1C1924;
+    height: 40px ;
+    border: none;
+    margin-right: 0px;
+    width: 200px ;
   font-weight: 500;
-  :hover,
-  :focus {
-    border: 1px solid ${({ theme }) => darken(0.05, theme.bg3)};
-
-    :focus {
-      border: 1px solid ${({ pending, theme }) => (pending ? darken(0.1, theme.primary1) : darken(0.1, theme.bg2))};
-    }
-  }
+ 
 `
 
 const Text = styled.p`
@@ -108,6 +86,9 @@ const Text = styled.p`
   font-size: 1rem;
   width: fit-content;
   font-weight: 500;
+  background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
 `
 
 const NetworkIcon = styled(Activity)`
@@ -212,11 +193,6 @@ export default function Web3Status() {
 
   return (
     <>
-      {/* <Web3StatusConnect className='sqa-balance'>
-        <Text className='text' >
-          0 SQA
-        </Text>
-      </Web3StatusConnect> */}
       <Web3StatusInner />
       {(contextNetwork.active || active) && (
         <WalletModal ENSName={ENSName ?? undefined} pendingTransactions={pending} confirmedTransactions={confirmed} />

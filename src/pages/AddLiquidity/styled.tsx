@@ -5,8 +5,9 @@ import { BodyWrapper } from 'pages/AppBody'
 import styled from 'styled-components/macro'
 
 export const PageWrapper = styled(BodyWrapper) <{ wide: boolean }>`
-  max-width: ${({ wide }) => (wide ? '880px' : '480px')};
-  width: 100%;
+ 
+  width: 462px ;
+  height: 532px ;
 
   padding: ${({ wide }) => (wide ? '10px' : '0')};
 
@@ -40,8 +41,8 @@ export const ScrollablePage = styled.div`
 `
 
 export const DynamicSection = styled(AutoColumn) <{ disabled?: boolean }>`
-  opacity: ${({ disabled }) => (disabled ? '0.2' : '1')};
-  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'initial')};
+opacity: 1 ;
+    pointer-events: auto ;
 `
 
 export const CurrencyDropdown = styled(CurrencyInputPanel)`
@@ -66,7 +67,6 @@ export const ResponsiveTwoColumns = styled.div<{ wide: boolean }>`
 
   padding-top: 20px;
 
-  border-top: 1px solid ${({ theme }) => theme.bg2};
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
     grid-template-columns: 1fr;

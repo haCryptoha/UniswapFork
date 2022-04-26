@@ -100,7 +100,6 @@ const OptionGrid = styled.div`
 
 const HoverText = styled.div`
   text-decoration: none;
-  color: ${({ theme }) => theme.text1};
   display: flex;
   align-items: center;
 

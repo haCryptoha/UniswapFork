@@ -4,53 +4,40 @@
 }
 
 .header-nav-link {
-    color: #A6A0BB !important;
-    margin-right: 7px !important;
+    color: #A6A0BB;
+    margin-right: 7px;
 }
 
 .header-nav-link:hover {
-    color: white !important;
+    color: white;
 }
 
 .header-nav .ACTIVE {
-    border-bottom: solid !important;
-    background-color: transparent !important;
-    color: white !important;
-    border-radius: 0 !important;
+    border-bottom: solid;
+    background-color: transparent;
+    color: white;
+    border-radius: 0;
 }
 
-.connect-wallet {
-    background-color: #1C1924 !important;
-    height: 40px !important;
-    border: none !important;
-    margin-right: 0px !important;
-    width: 200px !important;
-}
-
-.connect-wallet .text {
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%) !important;
-    -webkit-text-fill-color: transparent !important;
-    -webkit-background-clip: text !important;
-}
 
 .sqa-balance {
-    width: 100px !important;
-    background-color: #1C1924 !important;
-    height: 40px !important;
-    border: none !important;
-    margin-right: 16px !important;
-    border-radius: 100px !important;
+    width: 100px;
+    background-color: #1C1924;
+    height: 40px;
+    border: none;
+    margin-right: 16px;
+    border-radius: 100px;
 }
 
 .sqa-balance .text {
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%) !important;
-    -webkit-text-fill-color: transparent !important;
-    -webkit-background-clip: text !important;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
 }
 
 .select-network {
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%) !important;
-    border: none !important;
-    height: 40px !important;
-    margin-right: 100px !important;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    border: none;
+    height: 40px;
+    margin-right: 100px;
 }

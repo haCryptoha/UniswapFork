@@ -176,9 +176,7 @@ const Title = styled.a`
 
 const UniIcon = styled.div`
   transition: transform 0.3s ease;
-  :hover {
-    transform: rotate(-5deg);
-  }
+  
 
   position: relative;
 `
@@ -194,7 +192,6 @@ const StyledNavLink = styled(NavLink).attrs({
   outline: none;
   cursor: pointer;
   text-decoration: none;
-  color: ${({ theme }) => theme.text2};
   font-size: 1rem;
   font-weight: 500;
   padding: 8px 12px;
@@ -202,17 +199,11 @@ const StyledNavLink = styled(NavLink).attrs({
   overflow: hidden;
   white-space: nowrap;
   &.${activeClassName} {
-    border-radius: 14px;
     font-weight: 600;
     justify-content: center;
-    color: ${({ theme }) => theme.text1};
-    background-color: ${({ theme }) => theme.bg1};
   }
 
-  :hover,
-  :focus {
-    color: ${({ theme }) => darken(0.1, theme.text1)};
-  }
+
 `
 
 const Logo = styled.a`
@@ -354,8 +345,8 @@ export default function Header() {
               <CardNoise />
             </UNIWrapper>
           )}
-          <a style={{ width: "48px", height: "24px", alignItems: "center", display: "flex", justifyContent: "center", cursor: "pointer" }} className="sqa-balance">
-            <Text className='text' style={{ color: "white", fontSize: "14px" }}>
+          <a style={{ alignItems: "center", display: "flex", justifyContent: "center", cursor: "pointer" }} className="sqa-balance">
+            <Text className='text' style={{ fontSize: "14px" }}>
               0 SQA
             </Text>
           </a>

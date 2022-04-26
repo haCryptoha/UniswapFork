@@ -34,7 +34,9 @@ const OptionCardClickable = styled(OptionCard as any) <{ clickable?: boolean }>`
   margin-top: 0;
   &:hover {
     cursor: ${({ clickable }) => (clickable ? 'pointer' : '')};
-    border: ${({ clickable, theme }) => (clickable ? `1px solid ${theme.primary1}` : ``)};
+  }
+  :focus{
+    box-shadow: none;
   }
   opacity: ${({ disabled }) => (disabled ? '0.5' : '1')};
 `
@@ -111,7 +113,7 @@ export default function Option({
   id: string
 }) {
   const content = (<div className='modal-option-card-warrap'>
-    <OptionCardClickable className="modal-option-card" style={{ window: "416px" }} id={id} onClick={onClick} clickable={clickable && !active} active={active}>
+    <OptionCardClickable className="modal-option-card" style={{ width: "416px", borderRadius: "8px", backgroundColor: "#1C1924" }} id={id} onClick={onClick} clickable={clickable && !active} active={active}>
       <OptionCardLeft >
         <HeaderText color={color} >
           {active ? (

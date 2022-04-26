@@ -1,26 +1,26 @@
 .pool-body-NoLiquidity {
-    border-radius: 0px !important;
+    border-radius: 0px;
 }
 
 .pool-body-connect {
-    width: 384px !important;
-    height: 48px !important;
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%) !important;
-    border-radius: 100px !important;
-    color: white !important;
+    width: 384px;
+    height: 48px;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    border-radius: 100px;
+    color: white;
 }
 
 .pool-body-connect:active {
-    box-shadow: none !important;
+    box-shadow: none;
 }
 
 .pool-body-connect:focus {
-    box-shadow: none !important;
+    box-shadow: none;
 }
 
 .main-warrap {
-    width: 586px !important;
-    height: 586px !important;
+    width: 586px;
+    height: 586px;
     padding: 1px;
 }
 
@@ -70,13 +70,13 @@
     font-size: 16px;
     font-weight: 400;
     color: #A6A0BB;
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .single-token-right {
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
     font-size: 16px;
     font-weight: 400;
     color: white;
@@ -88,11 +88,11 @@
 }
 
 .description p {
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%) !important;
-    -webkit-text-fill-color: transparent !important;
-    -webkit-background-clip: text !important;
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .single-liquidity-content button {
@@ -105,7 +105,7 @@
 }
 
 .single-liquidity-content button p {
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%) !important;
-    -webkit-text-fill-color: transparent !important;
-    -webkit-background-clip: text !important;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
 }

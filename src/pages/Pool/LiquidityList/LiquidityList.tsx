@@ -54,73 +54,77 @@ const LiquidityList = () => {
                         </div>
                     </div>
                 </div> :
-                    <div className="remove-liquidity">
-                        {/* <div className="remove-header-top" style={{ display: "flex", justifyContent: "center" }}>
+                    <div className="remove-liquidity-warrap">
+                        <div className="remove-liquidity">
+                            {/* <div className="remove-header-top" style={{ display: "flex", justifyContent: "center" }}>
                             <p>Remove Liquidity</p>
                         </div> */}
-                        <div className="remove-header">
-                            <p >
-                                Confirm to close your position
-                            </p>
-                        </div>
-                        <div className="remove-content">
-                            <div className="content-header">
-                                <p>You will receive</p>
+                            <div className="remove-header">
+                                <p >
+                                    Confirm to close your position
+                                </p>
                             </div>
-                            <div className="description2">
-                                <div className="eth">
-                                    <div className="eth-left">
-                                        <p>0.000226482</p>
-                                    </div>
-                                    <div className="eth-right">
-                                        <img style={{ width: "32px", height: "32px" }} src="./images/eth.png" />
-                                        <p>ETH</p>
-                                    </div>
+                            <div className="remove-content">
+                                <div className="content-header">
+                                    <p>You will receive</p>
                                 </div>
-                                <div className="eth">
-                                    <div className="eth-left">
-                                        <p>0.00069562691</p>
-                                    </div>
-                                    <div className="eth-right">
-                                        <img style={{ width: "32px", height: "32px", marginLeft: "8px" }} src="./images/aave.png" />
-                                        <p>AAVE</p>
-                                    </div>
-                                </div>
-                                <div className="change-description">
-                                    <p>Output is estimated. If the price changes by more than 0.5% your transaction will revert.</p>
-                                </div>
-                                <div className="earned-table-header">
-                                    <p>ETH/AWC</p>
-                                </div>
-                                <div className="earned-table">
-                                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                        <div><p style={{ color: "#A6A0BB" }}>ETH/AAVE</p></div>
-                                        <div style={{ display: "flex", alignItems: "center" }}>
-                                            <p style={{ color: "white" }}>0.325646436</p>
+                                <div className="description2">
+                                    <div className="eth">
+                                        <div className="eth-left">
+                                            <p>0.000226482</p>
+                                        </div>
+                                        <div className="eth-right">
                                             <img style={{ width: "32px", height: "32px" }} src="./images/eth.png" />
+                                            <p>ETH</p>
+                                        </div>
+                                    </div>
+                                    <div className="eth">
+                                        <div className="eth-left">
+                                            <p>0.00069562691</p>
+                                        </div>
+                                        <div className="eth-right">
                                             <img style={{ width: "32px", height: "32px", marginLeft: "8px" }} src="./images/aave.png" />
+                                            <p>AAVE</p>
                                         </div>
                                     </div>
-                                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                        <div><p style={{ color: "#A6A0BB" }}>ETH/AAVE</p></div>
-                                        <div style={{ display: "flex", flexDirection: "column" }}>
-                                            <p style={{ color: "white" }}>1ETH=1084.40 AVVE</p>
-                                            <p style={{ color: "white" }}>1AVVE=0.000922 AVVE</p>
+                                    <div className="change-description">
+                                        <p>Output is estimated. If the price changes by more than 0.5% your transaction will revert.</p>
+                                    </div>
+                                    <div className="earned-table-header">
+                                        <p>ETH/AWC</p>
+                                    </div>
+                                    <div className="earned-table">
+                                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div><p style={{ color: "#A6A0BB" }}>ETH/AAVE</p></div>
+                                            <div style={{ display: "flex", alignItems: "center" }}>
+                                                <p style={{ color: "white" }}>0.325646436</p>
+                                                <img style={{ width: "32px", height: "32px", marginLeft: "8px" }} src="./images/eth.png" />
+                                                <img style={{ width: "32px", height: "32px", marginLeft: "8px" }} src="./images/aave.png" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div style={{ width: "380", height: "71px", display: "flex", justifyContent: "center" }}>
-                                        <p style={{ color: "white", fontSize: "20px", fontWeight: "700" }}>You earned 15% APY with Double</p>
-                                    </div>
+                                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div><p style={{ color: "#A6A0BB" }}>ETH/AAVE</p></div>
+                                            <div style={{ display: "flex", flexDirection: "column" }}>
+                                                <div style={{ display: "flex", justifyContent: "end" }}>
+                                                    <p style={{ color: "white" }}>1ETH=1084.40 AVVE</p>
+                                                </div>
+                                                <p style={{ color: "white" }}>1AVVE=0.000922 AVVE</p>
+                                            </div>
+                                        </div>
+                                        <div style={{ width: "380", height: "71px", display: "flex", justifyContent: "center" }}>
+                                            <p style={{ color: "white", fontSize: "20px", fontWeight: "700" }}>You earned 15% APY with Double</p>
+                                        </div>
 
-                                </div>
-                                <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                    <button onClick={removeOnClick}>cancel</button>
-                                    <button onClick={removeOnClick}>confirm</button>
+                                    </div>
+                                    <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
+                                        <div className="cancel-button-warrap">
+                                            <button className="cancel-button" style={{ width: "199px", height: "46px", border: "0px" }} onClick={removeOnClick}><p>cancel</p></button>
+                                        </div>
+                                        <button className="confirm" style={{ width: "201px", height: "48px", border: "0px" }} onClick={removeOnClick}><p>confirm</p></button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>}
-
+                        </div></div>}
             </div>
         </>
     )

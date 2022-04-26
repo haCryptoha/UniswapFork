@@ -544,8 +544,8 @@ export default function AddLiquidity({
               )}
             </AddRemoveTabs>
             <Wrapper className='remove-tab-content' style={{ minWidth: "400px" }}>
-              <ResponsiveTwoColumns wide={!hasExistingPosition} className="remove-tab-content-inner">
-                <AutoColumn gap="lg" className='select-pair-and-fee-tire'>
+              <ResponsiveTwoColumns wide={!hasExistingPosition} style={{ display: "block" }} className="remove-tab-content-inner">
+                <AutoColumn gap="lg" className='select-pair-and-fee-tire' style={{ display: "none" }}>
                   {!hasExistingPosition && (
                     <>
                       <AutoColumn gap="md" >
@@ -682,7 +682,7 @@ export default function AddLiquidity({
                     <HideMedium>
                       <Buttons />
                     </HideMedium>
-                    <RightContainer gap="lg" className="confirm-modal-right" >
+                    <RightContainer gap="lg" className="confirm-modal-right" style={{ display: "none" }} >
                       <DynamicSection gap="md" disabled={!feeAmount || invalidPool}>
                         {!noLiquidity ? (
                           <>
@@ -916,12 +916,12 @@ export default function AddLiquidity({
               </ResponsiveTwoColumns>
             </Wrapper>
             <div className='add-liquidity-footer'>
-              {approve === false ? <button className='Approve-pair' onClick={() => setApprove(true)} >Approve Paire</button>
+              {approve === false ? <button className='Approve-pair' style={{ border: "0px" }} onClick={() => setApprove(true)} >Approve Pair</button>
                 : <div className='Approve-success-warrap'>
-                  <button className='Approve-success'><p>success</p></button>
+                  <button className='Approve-success' style={{ border: "0px" }}><p>success</p></button>
                 </div>}
               <div className='add-liquidity-warrap'>
-                <button className='add-liquidity'><p>Add Liquidity</p></button>
+                <button className='add-liquidity' style={{ border: "0px" }}><p>Add Liquidity</p></button>
               </div>
             </div>
           </PageWrapper>

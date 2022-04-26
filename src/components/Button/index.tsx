@@ -8,14 +8,14 @@ import { RowBetween } from '../Row'
 
 type ButtonProps = Omit<ButtonPropsOriginal, 'css'>
 
-export const BaseButton = styled(RebassButton)<
+export const BaseButton = styled(RebassButton) <
   {
     padding?: string
     width?: string
     $borderRadius?: string
     altDisabledStyle?: boolean
   } & ButtonProps
->`
+  >`
   padding: ${({ padding }) => padding ?? '16px'};
   width: ${({ width }) => width ?? '100%'};
   font-weight: 500;
@@ -52,24 +52,12 @@ export const BaseButton = styled(RebassButton)<
 `
 
 export const ButtonPrimary = styled(BaseButton)`
-  background-color: ${({ theme }) => theme.primary1};
   color: white;
-  &:focus {
-    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.05, theme.primary1)};
-    background-color: ${({ theme }) => darken(0.05, theme.primary1)};
-  }
-  &:hover {
-    background-color: ${({ theme }) => darken(0.05, theme.primary1)};
-  }
-  &:active {
-    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.1, theme.primary1)};
-    background-color: ${({ theme }) => darken(0.1, theme.primary1)};
-  }
   &:disabled {
     background-color: ${({ theme, altDisabledStyle, disabled }) =>
-      altDisabledStyle ? (disabled ? theme.primary1 : theme.bg2) : theme.bg2};
+    altDisabledStyle ? (disabled ? theme.primary1 : theme.bg2) : theme.bg2};
     color: ${({ altDisabledStyle, disabled, theme }) =>
-      altDisabledStyle ? (disabled ? theme.white : theme.text2) : theme.text2};
+    altDisabledStyle ? (disabled ? theme.white : theme.text2) : theme.text2};
     cursor: auto;
     box-shadow: none;
     border: 1px solid transparent;
@@ -127,13 +115,6 @@ export const ButtonSecondary = styled(BaseButton)`
   border-radius: 12px;
   padding: ${({ padding }) => (padding ? padding : '10px')};
 
-  &:focus {
-    box-shadow: 0 0 0 1pt ${({ theme }) => theme.primary4};
-    border: 1px solid ${({ theme }) => theme.primary3};
-  }
-  &:hover {
-    border: 1px solid ${({ theme }) => theme.primary3};
-  }
   &:active {
     box-shadow: 0 0 0 1pt ${({ theme }) => theme.primary4};
     border: 1px solid ${({ theme }) => theme.primary3};

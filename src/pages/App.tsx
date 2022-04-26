@@ -30,6 +30,7 @@ import Swap from './Swap'
 import { OpenClaimAddressModalAndRedirectToSwap, RedirectPathToSwapOnly } from './Swap/redirects'
 
 const AppWrapper = styled.div`
+height: 100vh;
   display: flex;
   flex-flow: column;
   align-items: flex-start;

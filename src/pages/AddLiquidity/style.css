@@ -1,54 +1,40 @@
-.confirm-modal-right {
-    display: none !important;
-}
-
-.deposit-amount {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-}
-
-.select-pair-and-fee-tire {
-    display: none !important;
-}
-
 .remove-tab {
-    width: 462px !important;
-    height: 532px !important;
-    background-color: #131118 !important;
-    border-radius: 8px !important;
-    box-shadow: none !important;
-    margin: 0px !important;
+
+    background-color: #131118;
+    border-radius: 8px;
+    box-shadow: none;
+    margin: 0px;
 }
 
 .remove-tab-warrap {
-    width: 464px !important;
-    height: 534px !important;
-    padding: 1px !important;
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%) !important;
+    width: 464px;
+    height: 534px;
+    padding: 1px;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     border-radius: 8px;
 }
 
 .arrow-left-warrap {
-    display: none !important;
+    display: none;
 }
 
 .settingTab-warrap {
-    display: none !important;
+    display: none;
 }
 
 .remove-tab-content-inner {
-    border-top: 0px !important;
-    display: block !important;
+    border-top: 0px;
+    display: block;
 }
 
 .fromToken {
-    border-bottom: solid 1px grey !important;
+    border-bottom: solid 1px grey;
 }
 
 .fromToken .open-currency-select-button {
-    margin-top: 16px !important;
-    background-color: transparent !important;
-    color: white !important;
+    margin-top: 16px;
+    background-color: transparent;
+    color: white;
     box-shadow: none;
 }
 
@@ -57,9 +43,9 @@
 }
 
 .toToken .open-currency-select-button {
-    margin-top: 16px !important;
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%) !important;
-    color: white !important;
+    margin-top: 16px;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    color: white;
     box-shadow: none;
 }
 
@@ -95,17 +81,17 @@
 }
 
 .add-liquidity p {
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%) !important;
-    -webkit-text-fill-color: transparent !important;
-    -webkit-background-clip: text !important;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
     font-size: 16px;
     line-height: 24px;
     font-weight: 700;
-    margin: 0px !important;
+    margin: 0px;
 }
 
 .add-liquidity-warrap {
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%) !important;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     width: 423px;
     height: 48px;
     border-radius: 100px;
@@ -129,7 +115,7 @@
 }
 
 .Approve-success-warrap {
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%) !important;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     width: 423px;
     height: 48px;
     border-radius: 100px;
@@ -138,13 +124,13 @@
 }
 
 .Approve-success p {
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%) !important;
-    -webkit-text-fill-color: transparent !important;
-    -webkit-background-clip: text !important;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
     font-size: 16px;
     line-height: 24px;
     font-weight: 700;
-    margin: 0px !important;
+    margin: 0px;
 }
 
 .remove-header-top p {
@@ -156,7 +142,7 @@
 .remove-header {
     display: flex;
     justify-content: center;
-    height: 80px !important;
+    height: 80px;
     align-items: center;
 }
 
@@ -165,7 +151,7 @@
     font-weight: 700;
     color: white;
     height: 54px;
-    margin: 0px !important;
+    margin: 0px;
 }
 
 .remove-content {
@@ -192,10 +178,20 @@
     justify-content: center;
 }
 
+.remove-liquidity-warrap {
+    width: 586px;
+    height: 660px;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    padding: 1px;
+}
+
 .remove-liquidity {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 584px;
+    height: 658px;
+    background: #131118;
 }
 
 .description2 {
@@ -209,7 +205,7 @@
 }
 
 .description2 .eth-left p {
-    color: white !important;
+    color: white;
 }
 
 .eth-right {
@@ -249,4 +245,37 @@
     background-color: #1C1924;
     border-radius: 16px;
     padding: 10px;
+}
+
+.confirm {
+    color: black;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.confirm p {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0px;
+}
+
+.cancel-button-warrap {
+    width: 201px;
+    height: 48px;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    border-radius: 100px;
+    padding: 1px;
+}
+
+.cancel-button {
+    background-color: #131118;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.cancel-button p {
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
 }
