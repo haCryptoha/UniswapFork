@@ -1,0 +1,30 @@
+.wallet-modal {}
+
+.modal-header-text {
+    font-size: 20px !important;
+    color: white !important;
+}
+
+.modal-option-card {
+    height: 72px !important;
+    border-radius: 8px !important;
+    width: 416px !important;
+    background-color: #1C1924 !important;
+}
+
+.modal-option-card:hover {
+    border: 1px solid transparent !important;
+    height: 70px !important;
+}
+
+.modal-option-card:focus {
+    box-shadow: none !important;
+    height: 70px !important;
+}
+
+.modal-option-card-warrap:hover,
+.modal-option-card-warrap:focus {
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%) !important;
+    padding: 1px !important;
+    border-radius: 8px !important;
+}
