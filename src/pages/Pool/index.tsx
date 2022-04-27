@@ -23,99 +23,7 @@ import { LoadingRows } from './styleds'
 
 require('./style.css');
 
-const Wrapper = styled.div`
-  height: auto;
-  width: 164px;
-  padding: 0px 16px 24px 16px;
-  box-sizing: border-box;
-`;
 
-const Item = styled.div`
-  display: flex;
-  align-items: center;
-  height: 48px;
-  position: relative;
-`;
-
-const RadioButtonLabel = styled.label`
-  position: absolute;
-  top: 25%;
-  left: 4px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: white;
-  border: 1px solid #bebebe;
-`;
-const RadioButton = styled.input`
-  opacity: 0;
-  z-index: 1;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-  &:hover ~ ${RadioButtonLabel} {
-    background: #bebebe;
-    &::after {
-      content: "";
-      display: block;
-      border-radius: 50%;
-      width: 12px;
-      height: 12px;
-      margin: 6px;
-      background: #eeeeee;
-    }
-  }
-  ${(props) =>
-    props.checked &&
-    ` 
-    &:checked + ${RadioButtonLabel} {
-      background: #db7290;
-      border: 1px solid #db7290;
-      &::after {
-        content: "";
-        display: block;
-        border-radius: 50%;
-        width: 12px;
-        height: 12px;
-        margin: 6px;
-        box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.1);
-        background: white;
-      }
-    }
-  `}
-`;
-
-const SelecteBox = () => {
-  const [select, setSelect] = useState("");
-  return (
-    <Wrapper>
-      <Item>
-        <RadioButton
-          type="radio"
-          name="radio"
-          value="Trisolaris"
-          checked={select === "Trisolaris"}
-          onChange={(event) => setSelect(event.target.value)}
-        />
-        <RadioButtonLabel />
-        <div>Trisolaris</div>
-      </Item>
-      <Item>
-        <RadioButton
-          type="radio"
-          name="radio"
-          value="Uniswap V2"
-          checked={select === "Uniswap V2"}
-          onChange={(event) => setSelect(event.target.value)}
-        />
-        <RadioButtonLabel />
-        <div>Uniswap V2</div>
-      </Item>
-    
-    </Wrapper>
-  );
-};
 const PageWrapper = styled(AutoColumn)`
   max-width: 870px;
   width: 100%;
@@ -329,17 +237,31 @@ export default function Pool() {
                 {params.platform ? capitalizeFirstLetter(params.platform) : ''} Pools Overview
               </ThemedText.Body> */}
               <ButtonRow className="test" style={{ justifyContent: "space-between", width: "100%" }}>
-                
-                <SelecteBox />
+                {showV2Features && (
+                  <Menu
+                    menuItems={menuItems}
+                    flyoutAlignment={FlyoutAlignment.LEFT}
+                    selectedParam={params.platform}
+                    style={{ marginLeft: "0px" }}
+                    ToggleUI={(props: any) => (
+                      <MoreOptionsButton {...props} style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
+                        <ThemedText.Body style={{ alignItems: 'center', display: 'flex', color: "white" }}>
+                          {!params.platform ? capitalizeFirstLetter(params.platform) : 'Uniswap V2'}
+                          <ChevronDown size={15} />
+                        </ThemedText.Body>
+                      </MoreOptionsButton>
+                    )}
+                  />
+                )}
                 <ThemedText.Body fontSize={'20px'} color={'white'}>
                   {params.platform ? capitalizeFirstLetter(params.platform) : ''} Pools Overview
                 </ThemedText.Body>
-                <button id="join-pool-button" as={Link} to="/add/ETH" style={{ "background": "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)","border":"0px","border-radius":"12px","width":"130px","height":"33px"  }}>
+                <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/add/ETH" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
                   New Position
-                </button>
+                </ResponsiveButtonPrimary>
               </ButtonRow>
             </TitleRow>
-            {!showLiquidityComponent ? <div className="main-warrap" style={{ background: showConnectAWallet ? "transparent" : "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)"}}>
+            {!showLiquidityComponent ? <div className="main-warrap" style={{ background: showConnectAWallet ? "transparent" : "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
               <MainContentWrapper className='pool-body-NoLiquidity' style={{ background: showConnectAWallet ? "#09080c" : "#1E1E1E", width: "584px", height: "584px" }} >
                 {positionsLoading ? (
                   <PositionsLoadingPlaceholder />
