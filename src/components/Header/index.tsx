@@ -279,7 +279,10 @@ export default function Header() {
       <ClaimModal />
       <Title href="." style={{ marginLeft: '20px' }}>
         <UniIcon >
-          <img style={{  width: "32px", height: "32px", marginLeft: "8px" }} src="./images/favicon.svg"></img>
+		  <div style={{display:'flex'}}>
+			<img style={{width:"32px", height:"32px", marginLeft:"8px" }} src="./images/favicon.svg"></img>
+			<span style={{color:'#9bbscfb', margin:'-4px'}}><font style={{'font-size':"32px",'font-weight':'bold','color':'#9bbcfb'}}>DOUBLE</font></span>
+		  </div>          
           <HolidayOrnament />
         </UniIcon>
       </Title>

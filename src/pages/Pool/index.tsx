@@ -57,6 +57,7 @@ const ButtonRow = styled(RowFixed)`
   `};
 `
 const Menu = styled(NewMenu)`
+  
   margin-left: 0;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     flex: 1 1 auto;
@@ -80,6 +81,7 @@ const MoreOptionsButton = styled(ButtonGray)`
   flex: 1 1 auto;
   padding: 6px 8px;
   width: 100%;
+  border: none;
   background-color: ${({ theme }) => theme.bg0};
   margin-right: 8px;
 `
@@ -96,6 +98,7 @@ const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   border-radius: 12px;
   padding: 6px 8px;
   width: fit-content;
+  border: none;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     flex: 1 1 auto;
     width: 100%;
@@ -242,11 +245,11 @@ export default function Pool() {
                     menuItems={menuItems}
                     flyoutAlignment={FlyoutAlignment.LEFT}
                     selectedParam={params.platform}
-                    style={{ marginLeft: "0px" }}
+                    style={{ 'marginLeft': "0px"}}
                     ToggleUI={(props: any) => (
                       <MoreOptionsButton {...props} style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
                         <ThemedText.Body style={{ alignItems: 'center', display: 'flex', color: "white" }}>
-                          {!params.platform ? capitalizeFirstLetter(params.platform) : 'Uniswap V2'}
+                          {params.platform=='uniswap' ? 'Uniswap V2' : 'Trisolaris'}
                           <ChevronDown size={15} />
                         </ThemedText.Body>
                       </MoreOptionsButton>

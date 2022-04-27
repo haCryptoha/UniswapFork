@@ -26,6 +26,7 @@ const StyledMenu = styled.div`
   position: relative;
   border: none;
   text-align: left;
+  
 `
 
 const MenuFlyout = styled.span<{ flyoutAlignment?: FlyoutAlignment }>`
@@ -102,6 +103,9 @@ interface NewMenuProps {
 
 const NewMenuFlyout = styled(MenuFlyout)`
   top: 3rem !important;
+  
+  background-color:#1c1924;
+  border-color:#888d9b
 `
 const NewMenuItem = styled(InternalMenuItem)`
   width: max-content;
