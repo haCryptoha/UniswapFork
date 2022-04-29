@@ -498,7 +498,7 @@ export default function AddLiquidity({
           hash={txHash}
           content={() => (
             <ConfirmationModalContent
-              title={"Add Liquidity"}
+              title={""}
               onDismiss={handleDismissConfirmation}
               topContent={() => (
                 <Review
@@ -512,11 +512,11 @@ export default function AddLiquidity({
                 />
               )}
               bottomContent={() => (
-                <ButtonPrimary style={{ marginTop: '1rem',background: '#302b2b' }} onClick={onAdd}>
-                  <Text fontWeight={500} fontSize={20}>
+                <button className='view-etherscan' onClick={onAdd}>
+                  <p>
                     View on Etherscan
-                  </Text>
-                </ButtonPrimary>
+                  </p>
+                </button>
               )}
             />
           )}

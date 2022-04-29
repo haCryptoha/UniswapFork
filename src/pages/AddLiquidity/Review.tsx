@@ -6,6 +6,7 @@ import styled from 'styled-components/macro'
 
 import { Bound, Field } from '../../state/mint/v3/actions'
 
+require('./style.css');
 const Wrapper = styled.div`
   padding-top: 12px;
 `
@@ -33,7 +34,11 @@ export function Review({
             ticksAtLimit={ticksAtLimit}
             title={'Selected Range'}
           />
-        ) : <>Successed your adding liquidity!</>}
+        ) : <div style={{margin:'auto'}}>
+				<img style={{'margin':'0px 0px 0px 13px'}} src="images/transaction.png" ></img>
+				<p className = "transaction-submited">Transcation Submitted</p>
+				<p className = "transaction-type">Liquidity Position Created</p>
+			</div>}
       </AutoColumn>
     </Wrapper>
   )
