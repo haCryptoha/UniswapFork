@@ -2,6 +2,7 @@ import { BigNumber } from '@ethersproject/bignumber'
 import { TransactionResponse } from '@ethersproject/providers'
 import { Currency, CurrencyAmount, Percent } from '@uniswap/sdk-core'
 import { FeeAmount, NonfungiblePositionManager } from '@uniswap/v3-sdk'
+import ConfirmSwapModal from 'components/swap/ConfirmSwapModal'
 import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useCallback, useContext, useEffect, useState } from 'react'
@@ -140,6 +141,19 @@ export default function AddLiquidity({
     useV3MintActionHandlers(noLiquidity)
 
   const isValid = !errorMessage && !invalidRange
+  // show addliquiditybutton
+  const[approved, setApproved] = useState(false) 
+  const showAddLiquidityButton = () => {
+    setApprove(true)
+    const timeId = setTimeout(() => {
+          setApproved(true)
+        }, 1000)
+
+        return () => {
+            clearTimeout(timeId)
+            }
+
+  }
 
   // modal and loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
@@ -472,6 +486,8 @@ export default function AddLiquidity({
       </AutoColumn>
     )
 
+
+  
   return (
     <>
       <ScrollablePage>
@@ -496,9 +512,9 @@ export default function AddLiquidity({
                 />
               )}
               bottomContent={() => (
-                <ButtonPrimary style={{ marginTop: '1rem' }} onClick={onAdd}>
+                <ButtonPrimary style={{ marginTop: '1rem',background: '#302b2b' }} onClick={onAdd}>
                   <Text fontWeight={500} fontSize={20}>
-                    Add
+                    View on Etherscan
                   </Text>
                 </ButtonPrimary>
               )}
@@ -506,6 +522,7 @@ export default function AddLiquidity({
           )}
           pendingText={pendingText}
         />
+       
         <div className='remove-tab-warrap'>
           <PageWrapper wide={!hasExistingPosition} className="remove-tab">
             <AddRemoveTabs
@@ -916,13 +933,15 @@ export default function AddLiquidity({
               </ResponsiveTwoColumns>
             </Wrapper>
             <div className='add-liquidity-footer'>
-              {approve === false ? <button className='Approve-pair' style={{ border: "0px" }} onClick={() => setApprove(true)} >Approve Pair</button>
-                : <div className='Approve-success-warrap'>
-                  <button className='Approve-success' style={{ border: "0px" }}><p>success</p></button>
-                </div>}
-              <div className='add-liquidity-warrap'>
-                <button className='add-liquidity' style={{ border: "0px" }}><p>Add Liquidity</p></button>
-              </div>
+              {approve === false ? <button className='Approve-pair' style={{ border: "0px" }} onClick={showAddLiquidityButton} >Approve</button>
+                : !approved ? <div className='Approve-success-warrap'>
+                                <button className='Approve-success' style={{ border: "0px" }}><p style={{color: "white"}}>Transaction in progress-Please wait</p></button>
+                              </div>
+                  :<div className='add-liquidity-warrap'>
+                    <button className='add-liquidity' style={{ border: "0px" }} onClick = {()=>setShowConfirm(true)}><p>Add Liquidity</p></button>
+                    </div>
+                  }
+              
             </div>
           </PageWrapper>
         </div>

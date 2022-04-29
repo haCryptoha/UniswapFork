@@ -66,7 +66,7 @@
     height: 48px;
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     border-radius: 100px;
-    color: black;
+    color: white;
     font-size: 16px;
     line-height: 24px;
     font-weight: 700;
@@ -75,15 +75,15 @@
 }
 
 .add-liquidity {
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .add-liquidity p {
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
+  
+    color:white;
     font-size: 16px;
     line-height: 24px;
     font-weight: 700;
@@ -110,7 +110,8 @@
     width: 421px;
     height: 46px;
     border-radius: 100px;
-    background-color: black;
+    background-color: rgba(32, 29, 41, 1);
+    
     cursor: pointer;
 }
 
@@ -121,16 +122,16 @@
     border-radius: 100px;
     padding: 1px;
     margin-bottom: 10px;
+    color:white;
 }
 
 .Approve-success p {
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
+    
     font-size: 16px;
     line-height: 24px;
     font-weight: 700;
     margin: 0px;
+    color:white;
 }
 
 .remove-header-top p {

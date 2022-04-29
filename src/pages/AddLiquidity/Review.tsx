@@ -33,7 +33,7 @@ export function Review({
             ticksAtLimit={ticksAtLimit}
             title={'Selected Range'}
           />
-        ) : null}
+        ) : <>Successed your adding liquidity!</>}
       </AutoColumn>
     </Wrapper>
   )

@@ -285,7 +285,7 @@ export default function CurrencyInputPanel({
           > */}
 
         </InputRow>
-        {!hideInput && !hideBalance && currency && (
+        {!hideInput && !hideBalance  && (
           <FiatRow>
             <RowBetween>
               <LoadingOpacityContainer $loading={loading}>
@@ -300,13 +300,13 @@ export default function CurrencyInputPanel({
                     fontSize={14}
                     style={{ display: 'inline', cursor: 'pointer' }}
                   >
-                    {!hideBalance && currency && selectedCurrencyBalance ? (
+                    {!hideBalance && selectedCurrencyBalance ? (
                       renderBalance ? (
                         renderBalance(selectedCurrencyBalance)
                       ) : (
                         <>Balance: {formatCurrencyAmount(selectedCurrencyBalance, 4)}</>
                       )
-                    ) : null}
+                    ) : <>Balance: 0</>}
                   </ThemedText.Body>
                   {showMaxButton && selectedCurrencyBalance ? (
                     <StyledBalanceMax onClick={onMax}>
