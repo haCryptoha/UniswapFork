@@ -1,34 +1,38 @@
-import { useState } from "react";
-const LiquidityList = () => {
-    const [collapse, setCollapse] = useState(false);
-    const [removeStatus, setRemovestatus] = useState(false);
-    const changeCollpase = () => {
+import React, { useState} from "react";
+
+const LiquidityBox = () =>{
+	const [collapse, setCollapse] = useState(true);
+	const [removed, setRemoved] = useState(false);
+	const [removeClicked, setRemoveClicked] = useState(false);
+	const confimrOnClick = () => {
+		setRemoved(true);
+		removeOnClick();
+	}
+	const removeOnClick = () => {
+        if (removeClicked === false)
+            setRemoveClicked(true);
+        else setRemoveClicked(false);
+    }
+	const changeCollpase = () => {
         if (collapse === true)
             setCollapse(false);
         else setCollapse(true);
     }
-    const removeOnClick = () => {
-        if (removeStatus === false)
-            setRemovestatus(true);
-        else setRemovestatus(false);
-    }
-    return (
-        <>
-            <div className="LiquidityList">
-                {!removeStatus ? <div className="single-liquidity">
-                    <a onClick={changeCollpase} style={{ cursor: "pointer" }}>
-                        <div className="single-liquidity-header">
-                            <div className="single-liquidity-header-left">
-                                <img style={{ width: "32px", height: "32px" }} src="./images/eth.png" />
-                                <img style={{ width: "32px", height: "32px", marginLeft: "8px" }} src="./images/aave.png" />
-                                <p >ETH/AAVE</p>
-                            </div>
-                            <div className="single-liquidity-header-right">
-                                <img src="./images/up.png" style={{ width: "20px", height: "20px", display: collapse ? "none" : "block" }} />
-                                <img src="./images/down.png" style={{ width: "20px", height: "20px", display: collapse ? "block" : "none" }} />
-                            </div>
-                        </div>
-                    </a>
+	return (
+	<>{!removeClicked?<>{!removed?<div className="single-liquidity">
+						<a onClick={changeCollpase} style={{ cursor: "pointer" }}>
+							<div className="single-liquidity-header">
+								<div className="single-liquidity-header-left">
+									<img style={{ width: "32px", height: "32px" }} src="./images/eth.png" />
+									<img style={{ width: "32px", height: "32px", marginLeft: "8px" }} src="./images/aave.png" />
+									<p >ETH/AAVE</p>
+								</div>
+								<div className="single-liquidity-header-right">
+									<img src="./images/up.png" style={{ width: "20px", height: "20px", display: collapse ? "none" : "block" }} />
+									<img src="./images/down.png" style={{ width: "20px", height: "20px", display: collapse ? "block" : "none" }} />
+								</div>
+							</div>
+						</a>
                     <div className="single-liquidity-content" style={{ height: collapse ? "0px" : "296px" }}>
                         <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
                             <p className="single-token-left">Your total pool tokens</p>
@@ -50,11 +54,13 @@ const LiquidityList = () => {
                             <p>View Accure Fees and Analytics</p>
                         </div>
                         <div style={{ display: collapse ? "none" : "flex", justifyContent: "center", transition: "1s" }}>
-                            <button onClick={removeOnClick}><p>Remove</p></button>
+                            <button onClick={()=>setRemoveClicked(true)}><p>Remove</p></button>
                         </div>
                     </div>
-                </div> :
-                    <div className="remove-liquidity-warrap">
+		    </div>:<></>}
+			</>		
+		    :
+			<div className="remove-liquidity-warrap">
                         <div className="remove-liquidity">
                             {/* <div className="remove-header-top" style={{ display: "flex", justifyContent: "center" }}>
                             <p>Remove Liquidity</p>
@@ -120,11 +126,34 @@ const LiquidityList = () => {
                                         <div className="cancel-button-warrap">
                                             <button className="cancel-button" style={{ width: "199px", height: "46px", border: "0px" }} onClick={removeOnClick}><p>cancel</p></button>
                                         </div>
-                                        <button className="confirm" style={{ width: "201px", height: "48px", border: "0px" }} onClick={removeOnClick}><p>confirm</p></button>
+                                        <button className="confirm" style={{ width: "201px", height: "48px", border: "0px" }} onClick={confimrOnClick}><p>confirm</p></button>
                                     </div>
                                 </div>
                             </div>
-                        </div></div>}
+                        </div>
+			</div>
+		}
+	</>)
+	
+}
+const LiquidityList = () => {
+    const [collapse, setCollapse] = useState(false);
+	const [removeClicked, setRemoveClicked] = useState(false);
+    const [removeStatus, setRemovestatus] = useState(false);
+	const [removeStatus1, setRemovestatus1] = useState(false);
+	const [removeStatus2, setRemovestatus2] = useState(false);
+    
+    
+    return (
+        <>
+            <div className="LiquidityList">
+               
+				   <>
+					<LiquidityBox />
+					<LiquidityBox />
+					<LiquidityBox />
+				   </>
+				
             </div>
         </>
     )

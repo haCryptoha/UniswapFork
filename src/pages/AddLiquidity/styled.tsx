@@ -7,7 +7,7 @@ import styled from 'styled-components/macro'
 export const PageWrapper = styled(BodyWrapper) <{ wide: boolean }>`
  
   width: 462px ;
-  height: 532px ;
+  height: 492px ;
 
   padding: ${({ wide }) => (wide ? '10px' : '0')};
 

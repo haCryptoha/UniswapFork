@@ -8,7 +8,7 @@
 
 .remove-tab-warrap {
     width: 464px;
-    height: 534px;
+    height: 494px;
     padding: 1px;
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     border-radius: 8px;
@@ -57,6 +57,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+	margin-top: 40px;
 }
 
 .add-liquidity-footer button {}
@@ -394,4 +395,40 @@ flex: none;
 order: 1;
 flex-grow: 0;
 margin:auto;
+}
+.inputStyle{
+	
+  color: white;
+  width: 150px;
+  position: relative;
+  font-weight: 500;
+  outline: none;
+  border: none;
+  flex: 1 1 auto;
+  background-color: transparent;
+  font-size: 28px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0px;
+  -webkit-appearance: textfield;
+
+  ::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+
+  [type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  ::placeholder {
+    color: grey;
+  }
+	
+	
 }

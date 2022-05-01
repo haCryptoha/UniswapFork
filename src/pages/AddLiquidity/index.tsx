@@ -486,7 +486,18 @@ export default function AddLiquidity({
       </AutoColumn>
     )
 
-
+  const [inputA, setInputA] = useState('');
+  const [inputB,setInputB] = useState('');
+  const changeInputA = (value:string) => {
+	  setInputA(value)
+	  if(value=='') {return;}
+	  setInputB((parseFloat(value)*200).toString());
+  }
+  const changeInputB = (value:string) => {
+	  setInputB(value)
+	  if(value=='') {return;}
+	  setInputA((parseFloat(value)/200).toString());
+  }
   
   return (
     <>
@@ -632,9 +643,9 @@ export default function AddLiquidity({
                         Capital Type
                       </ThemedText.Label>
                       <div className="fromToken" style={{ display: "flex", justifyContent: "space-between" }}>
-                        <CurrencyInputPanel
-                          value={formattedAmounts[Field.CURRENCY_A]}
-                          onUserInput={onFieldAInput}
+						  {/*<CurrencyInputPanel
+                          value={''}
+                          onUserInput={onInputA}
                           onMax={() => {
                             onFieldAInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
                           }}
@@ -644,7 +655,23 @@ export default function AddLiquidity({
                           fiatValue={usdcValues[Field.CURRENCY_A]}
                           showCommonBases
                           locked={depositADisabled}
-                        />
+                        />*/}
+						<div>
+						<input className = "inputStyle" 
+							inputMode="decimal"
+							autoComplete="off"
+							autoCorrect="off"
+							// text-specific options
+							type="text"
+							pattern="^[0-9]*[.]?[0-9]*$"
+							placeholder={'0.0'}
+							minLength={1}
+							maxLength={79}
+							spellCheck="false" 
+							value={inputA} onChange = {(e) => e.target.validity.valid ? changeInputA(e.target.value):inputA} >
+						</input>
+						<label style={{display:'block',color:'#c4c3c5'}}>Balance:70.45</label>
+						</div>
                         <CurrencyDropdown
                           value={formattedAmounts[Field.CURRENCY_A]}
                           onUserInput={onFieldAInput}
@@ -663,9 +690,9 @@ export default function AddLiquidity({
                         Token
                       </ThemedText.Label>
                       <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
-                        <CurrencyInputPanel
-                          value={formattedAmounts[Field.CURRENCY_B]}
-                          onUserInput={onFieldBInput}
+						  {/*<CurrencyInputPanel
+                          value={inputB}
+                          onUserInput={onInputB}
                           onMax={() => {
                             onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
                           }}
@@ -675,7 +702,23 @@ export default function AddLiquidity({
                           id="add-liquidity-input-tokenb"
                           showCommonBases
                           locked={depositBDisabled}
-                        />
+						  />*/}
+						<div>
+						<input className = "inputStyle" 
+							inputMode="decimal"
+							autoComplete="off"
+							autoCorrect="off"
+							// text-specific options
+							type="text"
+							pattern="^[0-9]*[.]?[0-9]*$"
+							placeholder={'0.0'}
+							minLength={1}
+							maxLength={79}
+							spellCheck="false" 
+							value={inputB} onChange = {(e) =>e.target.validity.valid ? changeInputB(e.target.value):inputB} >
+						</input>
+						<label style={{display:'block',color:'#c4c3c5'}}>Available Assets:100000</label>
+						</div>
                         <CurrencyDropdown
                           value={formattedAmounts[Field.CURRENCY_B]}
                           hideInput={true}
