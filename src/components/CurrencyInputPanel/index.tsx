@@ -56,7 +56,7 @@ const Container = styled.div<{ hideInput: boolean }>`
 const CurrencySelect = styled(ButtonGray) <{ visible: boolean; selected: boolean; hideInput?: boolean }>`
   align-items: center;
   box-shadow: ${({ selected }) => (selected ? 'none' : '0px 6px 10px rgba(0, 0, 0, 0.075)')};
-  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.075);
+  box-shadow: none;
   cursor: pointer;
   border-radius: 16px;
   outline: none;
