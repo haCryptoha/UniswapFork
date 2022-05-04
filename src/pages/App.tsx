@@ -4,7 +4,6 @@ import ApeModeQueryParamReader from 'hooks/useApeModeQueryParamReader'
 import { Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
-
 import GoogleAnalyticsReporter from '../components/analytics/GoogleAnalyticsReporter'
 import AddressClaimModal from '../components/claim/AddressClaimModal'
 import ErrorBoundary from '../components/ErrorBoundary'
@@ -28,6 +27,7 @@ import RemoveLiquidity from './RemoveLiquidity'
 import RemoveLiquidityV3 from './RemoveLiquidity/V3'
 import Swap from './Swap'
 import { OpenClaimAddressModalAndRedirectToSwap, RedirectPathToSwapOnly } from './Swap/redirects'
+
 
 const AppWrapper = styled.div`
 height: 100vh;
