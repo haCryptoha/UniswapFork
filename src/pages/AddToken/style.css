@@ -43,12 +43,15 @@
 }
 
 .toToken .open-currency-select-button {
-    margin-top: 16px;
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     color: white;
     box-shadow: none;
 }
-
+.toToken .open-currency-select-button-black{
+    background: black;
+    color: white;
+    box-shadow: none; 
+}
 .toToken .open-currency-select-button path {
     stroke: white;
 }

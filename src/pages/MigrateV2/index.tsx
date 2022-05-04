@@ -214,7 +214,7 @@ export default function Pool() {
           {/* <ChevronsRight size={16} /> */}
         </MenuItem>
       ),
-      link: '/pool/trisolaris',
+      link: '/migrate/trisolaris',
       external: false,
     },
     {
@@ -224,7 +224,7 @@ export default function Pool() {
           {/* <Layers size={16} /> */}
         </MenuItem>
       ),
-      link: '/pool/uniswap',
+      link: '/migrate/uniswap',
       external: false,
     },
   ]

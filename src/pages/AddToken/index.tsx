@@ -676,6 +676,7 @@ export default function AddToken({
             </div>
                   
                         <CurrencyDropdown
+                          black={true}
                           value={formattedAmounts[Field.CURRENCY_B]}
                           hideInput={true}
                           onUserInput={onFieldBInput}
