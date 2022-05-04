@@ -539,6 +539,7 @@ export default function AddLiquidity({
             <AddRemoveTabs
               creating={false}
               adding={true}
+              migrate={false}
               positionID={tokenId}
               defaultSlippage={DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE}
               showBackLink={!hasExistingPosition}

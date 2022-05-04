@@ -538,7 +538,8 @@ export default function AddToken({
           <PageWrapper wide={!hasExistingPosition} className="remove-tab">
             <AddRemoveTabs
               creating={false}
-              adding={true}
+              adding={false}
+              migrate={true}
               positionID={tokenId}
               defaultSlippage={DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE}
               showBackLink={!hasExistingPosition}
@@ -633,62 +634,16 @@ export default function AddToken({
                     />
                   )}
                 </AutoColumn>
-                <div>
+            <div>
                   <DynamicSection
                     disabled={tickLower === undefined || tickUpper === undefined || invalidPool || invalidRange}
                     className="deposit-amount"
                   >
-                    <AutoColumn gap="md">
+        <AutoColumn gap="md">
                       <ThemedText.Label style={{ fontSize: "16px", color: "white" }}>
-                        Capital Type
+                        LP Token
                       </ThemedText.Label>
-                      <div className="fromToken" style={{ display: "flex", justifyContent: "space-between" }}>
-						  {/*<CurrencyInputPanel
-                          value={''}
-                          onUserInput={onInputA}
-                          onMax={() => {
-                            onFieldAInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
-                          }}
-                          showMaxButton={!atMaxAmounts[Field.CURRENCY_A]}
-                          currency={currencies[Field.CURRENCY_A] ?? null}
-                          id="add-liquidity-input-tokena"
-                          fiatValue={usdcValues[Field.CURRENCY_A]}
-                          showCommonBases
-                          locked={depositADisabled}
-                        />*/}
-						<div>
-						<input className = "inputStyle" 
-							inputMode="decimal"
-							autoComplete="off"
-							autoCorrect="off"
-							// text-specific options
-							type="text"
-							pattern="^[0-9]*[.]?[0-9]*$"
-							placeholder={'0.0'}
-							minLength={1}
-							maxLength={79}
-							spellCheck="false" 
-							value={inputA} onChange = {(e) => e.target.validity.valid ? changeInputA(e.target.value):inputA} >
-						</input>
-						<label style={{display:'block',color:'#c4c3c5'}}>Balance:70.45</label>
-						</div>
-                        <CurrencyDropdown
-                          value={formattedAmounts[Field.CURRENCY_A]}
-                          onUserInput={onFieldAInput}
-                          hideInput={true}
-                          onMax={() => {
-                            onFieldAInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
-                          }}
-                          onCurrencySelect={handleCurrencyASelect}
-                          showMaxButton={!atMaxAmounts[Field.CURRENCY_A]}
-                          currency={currencies[Field.CURRENCY_A] ?? null}
-                          id="add-liquidity-input-tokena"
-                          showCommonBases
-                        />
-                      </div>
-                      <ThemedText.Label style={{ fontSize: "16px", color: "white" }}>
-                        Token
-                      </ThemedText.Label>
+                      
                       <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
 						  {/*<CurrencyInputPanel
                           value={inputB}
@@ -704,21 +659,22 @@ export default function AddToken({
                           locked={depositBDisabled}
 						  />*/}
 						<div>
-						<input className = "inputStyle" 
-							inputMode="decimal"
-							autoComplete="off"
-							autoCorrect="off"
-							// text-specific options
-							type="text"
-							pattern="^[0-9]*[.]?[0-9]*$"
-							placeholder={'0.0'}
-							minLength={1}
-							maxLength={79}
-							spellCheck="false" 
-							value={inputB} onChange = {(e) =>e.target.validity.valid ? changeInputB(e.target.value):inputB} >
-						</input>
-						<label style={{display:'block',color:'#c4c3c5'}}>Available Assets:100000</label>
-						</div>
+						  <input className = "inputStyle" 
+						  	inputMode="decimal"
+						  	autoComplete="off"
+						  	autoCorrect="off"
+						  	// text-specific options
+                type="text"
+                pattern="^[0-9]*[.]?[0-9]*$"
+                placeholder={'0.0'}
+                minLength={1}
+                maxLength={79}
+                spellCheck="false" 
+                value={inputB} onChange = {(e) =>e.target.validity.valid ? changeInputB(e.target.value):inputB} >
+              </input>
+              <label style={{display:'block',color:'#c4c3c5'}}>Available Assets:100000</label>
+            </div>
+                  
                         <CurrencyDropdown
                           value={formattedAmounts[Field.CURRENCY_B]}
                           hideInput={true}
@@ -732,10 +688,11 @@ export default function AddToken({
                           id="add-liquidity-input-tokenb"
                           showCommonBases
                         />
-                      </div>
-                    </AutoColumn>
-                  </DynamicSection>
-                </div>
+                   
+          </div>
+        </AutoColumn>
+      </DynamicSection>
+      </div>
 
                 {!hasExistingPosition ? (
                   <>
