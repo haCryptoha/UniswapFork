@@ -19,7 +19,7 @@ import AddLiquidity from './AddLiquidity'
 import { RedirectDuplicateTokenIds } from './AddLiquidity/redirects'
 import { RedirectDuplicateTokenIdsV2 } from './AddLiquidityV2/redirects'
 import AddToken from './AddToken'
-import Earn from './Earn'
+import Deposit from './Deposit'
 import Manage from './Earn/Manage'
 import MigrateV2 from './MigrateV2'
 import MigrateV2Pair from './MigrateV2/MigrateV2Pair'
@@ -27,7 +27,7 @@ import Pool from './Pool'
 import { PositionPage } from './Pool/PositionPage'
 import RemoveLiquidity from './RemoveLiquidity'
 import RemoveLiquidityV3 from './RemoveLiquidity/V3'
-import Swap from './Swap'
+import Lend from './Lend'
 import { OpenClaimAddressModalAndRedirectToSwap, RedirectPathToSwapOnly } from './Swap/redirects'
 
 const AppWrapper = styled.div`
@@ -89,14 +89,15 @@ export default function App() {
             <Suspense fallback={<Loader />}>
               <Switch>
                 <Route exact strict path="/claim" component={OpenClaimAddressModalAndRedirectToSwap} />
-                <Route exact strict path="/uni" component={Earn} />
+                <Route exact strict path="/uni" component={Deposit} />
                 <Route exact strict path="/uni/:currencyIdA/:currencyIdB" component={Manage} />
 
                 {/* <Route exact strict path="/send" component={RedirectPathToSwapOnly} /> */}
                 {/* <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} /> */}
-                <Route exact strict path="/lend" component={Swap} />
-                <Route exact strict path="/join" component={Swap} />
-                <Route exact strict path="/claim" component={Swap} />
+                <Route exact strict path="/lend" component={Lend} />
+                <Route exact strict path="/join" component={Lend} />
+                <Route exact strict path="/claim" component={Lend} />
+				<Route exact strict path="/lend/deposit" component={Deposit} />
                 <Route exact strict path="/pool/:platform" component={Pool} />
                 <Route exact strict path="/pool/detail/:tokenId" component={PositionPage} />
 

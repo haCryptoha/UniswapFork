@@ -100,13 +100,15 @@ export function AddRemoveTabs({
   adding,
   creating,
   migrate,
+  deposit,
   defaultSlippage,
   positionID,
   children,
 }: {
-  adding: boolean
-  creating: boolean
-  migrate:boolean
+  adding?: boolean | false
+  creating?: boolean | false
+  migrate?:boolean | false
+  deposit?:boolean | false
   defaultSlippage: Percent
   positionID?: string | undefined
   showBackLink?: boolean
@@ -141,6 +143,7 @@ export function AddRemoveTabs({
             <StyledArrowLeft stroke={theme.text2} />
           </StyledHistoryLink>
         </div>
+		<div className='go-back-arrow-import' style={{backgroundImage:'url(./images/left.png)'}} as={HistoryLink} to="/migrate_import"></div>
         <ThemedText.MediumHeader
           fontWeight={500}
           fontSize={20}
@@ -152,11 +155,12 @@ export function AddRemoveTabs({
             <>New Position</>
           ) : migrate?(
             <>Import</>
-          ):(
-            <></>
-          )} 
+          ):deposit?(
+            <>Deposit</>
+          ):<></>} 
           
         </ThemedText.MediumHeader>
+		
         <div className='settingTab-warrap'>
           <Box style={{ marginRight: '.5rem' }}>{children}</Box>
           <SettingsTab placeholderSlippage={defaultSlippage} />

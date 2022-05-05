@@ -1,15 +1,15 @@
-.remove-tab {
+.remove-tab-deposit {
 
     background-color: #131118;
     border-radius: 8px;
     box-shadow: none;
     margin: 0px;
-	height:492px;
+	height:362px;
 }
 
-.remove-tab-warrap {
+.remove-tab-warrap-deposit {
     width: 464px;
-    height: 494px;
+    height: 364px;
     padding: 1px;
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     border-radius: 8px;

@@ -501,7 +501,7 @@ export default function AddToken({
   
   return (
     <>
-      <ScrollablePage>
+      <ScrollablePage style={{margin: "50px 0px 0px 0px"}}>
         <TransactionConfirmationModal
           isOpen={showConfirm}
           onDismiss={handleDismissConfirmation}
@@ -534,12 +534,10 @@ export default function AddToken({
           pendingText={pendingText}
         />
        
-        <div className='remove-tab-warrap'>
-          <PageWrapper wide={!hasExistingPosition} className="remove-tab">
+        <div className='remove-tab-warrap-deposit'>
+          <PageWrapper wide={!hasExistingPosition} className="remove-tab-deposit">
             <AddRemoveTabs
-              creating={false}
-              adding={false}
-              migrate={true}
+			  deposit={true}
               positionID={tokenId}
               defaultSlippage={DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE}
               showBackLink={!hasExistingPosition}
@@ -640,10 +638,7 @@ export default function AddToken({
                     className="deposit-amount"
                   >
                         <AutoColumn gap="md">
-                          <ThemedText.Label style={{ fontSize: "16px", color: "white" }}>
-                            LP Token
-                          </ThemedText.Label>
-                      
+                         
                           <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
                                   {/*<CurrencyInputPanel
                                               value={inputB}
@@ -939,7 +934,7 @@ export default function AddToken({
                                 <button className='Approve-success' style={{ border: "0px" }}><p style={{color: "white"}}>Waiting...</p></button>
                               </div>
                   :<div className='add-liquidity-warrap'>
-                    <button className='add-liquidity' style={{ border: "0px" }} onClick = {()=>setShowConfirm(true)}><p>Import</p></button>
+                    <button className='add-liquidity' style={{ border: "0px" }} onClick = {()=>setShowConfirm(true)}><p>Deposit</p></button>
                     </div>
                   }
               
