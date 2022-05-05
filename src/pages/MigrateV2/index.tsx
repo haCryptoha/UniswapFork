@@ -214,7 +214,7 @@ export default function Pool() {
           {/* <ChevronsRight size={16} /> */}
         </MenuItem>
       ),
-      link: '/pool/trisolaris',
+      link: '/migrate/trisolaris',
       external: false,
     },
     {
@@ -224,7 +224,7 @@ export default function Pool() {
           {/* <Layers size={16} /> */}
         </MenuItem>
       ),
-      link: '/pool/uniswap',
+      link: '/migrate/uniswap',
       external: false,
     },
   ]
@@ -259,7 +259,7 @@ export default function Pool() {
                 <ThemedText.Body fontSize={'20px'} color={'white'}>
                   {params.platform ? capitalizeFirstLetter(params.platform) : ''} Migration Overview
                 </ThemedText.Body>
-                <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/migrate/import" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
+                <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/migrate_import" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
                   Import
                 </ResponsiveButtonPrimary>
               </ButtonRow>

@@ -29,6 +29,8 @@ const InputPanel = styled.div<{ hideInput?: boolean }>`
   background-color: ${({ theme, hideInput }) => (hideInput ? 'transparent' : theme.bg2)};
   z-index: 1;
   width: ${({ hideInput }) => (hideInput ? '100%' : 'initial')};
+  height:fit-content;
+  padding:1px;
   transition: height 1s ease;
   will-change: height;
 `
@@ -151,6 +153,7 @@ const StyledNumericalInput = styled(NumericalInput) <{ $loading: boolean }>`
 `
 
 interface CurrencyInputPanelProps {
+  black?:boolean | false
   value: string
   onUserInput: (value: string) => void
   onMax?: () => void
@@ -174,6 +177,7 @@ interface CurrencyInputPanelProps {
 }
 
 export default function CurrencyInputPanel({
+  black,
   value,
   onUserInput,
   onMax,
@@ -205,7 +209,7 @@ export default function CurrencyInputPanel({
   }, [setModalOpen])
 
   return (
-    <InputPanel id={id} hideInput={hideInput} {...rest} style={{ backgroundColor: "transparent" }}>
+    <InputPanel id={id} hideInput={hideInput} {...rest} style={ black?{ 'background':"linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)"}:{'background':"transparent"} }>
       {locked && (
         <FixedContainer >
           <AutoColumn gap="sm" justify="center">
@@ -230,7 +234,7 @@ export default function CurrencyInputPanel({
               visible={currency !== undefined}
               selected={!!currency}
               hideInput={hideInput}
-              className="open-currency-select-button"
+              className={black?"open-currency-select-button-black":"open-currency-select-button"}
               onClick={() => {
                 if (onCurrencySelect) {
                   setModalOpen(true)

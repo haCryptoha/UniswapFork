@@ -99,12 +99,14 @@ export function FindPoolTabs({ origin }: { origin: string }) {
 export function AddRemoveTabs({
   adding,
   creating,
+  migrate,
   defaultSlippage,
   positionID,
   children,
 }: {
   adding: boolean
   creating: boolean
+  migrate:boolean
   defaultSlippage: Percent
   positionID?: string | undefined
   showBackLink?: boolean
@@ -144,14 +146,16 @@ export function AddRemoveTabs({
           fontSize={20}
           style={{ flex: '1', margin: 'auto', textAlign: children ? 'center' : 'center', color: "white" }}
         >
-          {/* {creating ? (
+           {creating ? (
             <>Create a pair</>
           ) : adding ? (
-            <>Add Liquidity</>
-          ) : (
-            <>Remove Liquidity</>
-          )} */}
-          New Position
+            <>New Position</>
+          ) : migrate?(
+            <>Import</>
+          ):(
+            <></>
+          )} 
+          
         </ThemedText.MediumHeader>
         <div className='settingTab-warrap'>
           <Box style={{ marginRight: '.5rem' }}>{children}</Box>

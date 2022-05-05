@@ -4,6 +4,7 @@ import ApeModeQueryParamReader from 'hooks/useApeModeQueryParamReader'
 import { Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
+
 import GoogleAnalyticsReporter from '../components/analytics/GoogleAnalyticsReporter'
 import AddressClaimModal from '../components/claim/AddressClaimModal'
 import ErrorBoundary from '../components/ErrorBoundary'
@@ -28,7 +29,6 @@ import RemoveLiquidity from './RemoveLiquidity'
 import RemoveLiquidityV3 from './RemoveLiquidity/V3'
 import Swap from './Swap'
 import { OpenClaimAddressModalAndRedirectToSwap, RedirectPathToSwapOnly } from './Swap/redirects'
-
 
 const AppWrapper = styled.div`
 height: 100vh;
@@ -73,6 +73,7 @@ function TopLevelModals() {
 export default function App() {
   return (
     <ErrorBoundary>
+
       <Route component={GoogleAnalyticsReporter} />
       <Route component={DarkModeQueryParamReader} />
       <Route component={ApeModeQueryParamReader} />
@@ -123,7 +124,8 @@ export default function App() {
                 <Route exact strict path="/remove/:tokenId" component={RemoveLiquidityV3} />
 
                 <Route exact strict path="/migrate/v2" component={MigrateV2} />
-                <Route exact strict path="/migrate/v2/:address" component={MigrateV2Pair} />
+                <Route exact strict path="/migrate/:platform" component={MigrateV2} />
+                <Route exact strict path="/migrate_import" component={AddToken} />
 
                 <Route component={RedirectPathToSwapOnly} />
               </Switch>

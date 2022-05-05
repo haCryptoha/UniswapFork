@@ -28,8 +28,8 @@ const LiquidityBox = () =>{
 									<p >ETH/AAVE</p>
 								</div>
 								<div className="single-liquidity-header-right">
-									<img src="./images/up.png" style={{ width: "20px", height: "20px", display: collapse ? "none" : "block" }} />
-									<img src="./images/down.png" style={{ width: "20px", height: "20px", display: collapse ? "block" : "none" }} />
+									<img src="./images/up1.png" style={{ width: "20px", height: "20px", display: collapse ? "none" : "block" }} />
+									<img src="./images/down1.png" style={{ width: "20px", height: "20px", display: collapse ? "block" : "none" }} />
 								</div>
 							</div>
 						</a>
@@ -51,10 +51,10 @@ const LiquidityBox = () =>{
                             <p className="single-token-right">0.14%</p>
                         </div>
                         <div className="description" style={{ display: collapse ? "none" : "flex", transition: "1s" }}>
-                            <p>View Accure Fees and Analytics</p>
+                            <p>View Accured Fees and Analytics</p>
                         </div>
                         <div style={{ display: collapse ? "none" : "flex", justifyContent: "center", transition: "1s" }}>
-                            <button onClick={()=>setRemoveClicked(true)}><p>Remove</p></button>
+                            <button onClick={()=>setRemoveClicked(true)}><p>Migrate</p></button>
                         </div>
                     </div>
 		    </div>:<></>}
@@ -62,9 +62,11 @@ const LiquidityBox = () =>{
 		    :
 			<div className="remove-liquidity-warrap">
                         <div className="remove-liquidity">
-                            {/* <div className="remove-header-top" style={{ display: "flex", justifyContent: "center" }}>
-                            <p>Remove Liquidity</p>
-                        </div> */}
+                            <div className="remove-header-top" style={{ display: "flex", justifyContent: "center" }}>
+                                <div className='go-back-arrow' style={{backgroundImage:'url(./images/left.png)'}} onClick={removeOnClick}></div>
+                                <p>Migrate Liquidity</p>
+                                <div className='help-button' style={{backgroundImage:'url(./images/help.png)'}}></div>
+                            </div> 
                             <div className="remove-header">
                                 <p >
                                     Confirm to close your position
@@ -123,10 +125,8 @@ const LiquidityBox = () =>{
 
                                     </div>
                                     <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
-                                        <div className="cancel-button-warrap">
-                                            <button className="cancel-button" style={{ width: "199px", height: "46px", border: "0px" }} onClick={removeOnClick}><p>cancel</p></button>
-                                        </div>
-                                        <button className="confirm" style={{ width: "201px", height: "48px", border: "0px" }} onClick={confimrOnClick}><p>confirm</p></button>
+                                        
+                                        <button className="confirm" style={{ width:"100%", height: "48px", border: "0px" }} onClick={confimrOnClick}><p>confirm</p></button>
                                     </div>
                                 </div>
                             </div>
