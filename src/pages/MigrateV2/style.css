@@ -110,3 +110,26 @@
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
 }
+.go-back-arrow{
+
+    width: 40px;
+    height: 30px;
+    float: left;
+    margin-top: 14px;
+    margin-left: 22px;
+    margin-right: 144px;
+    cursor: pointer;
+}
+
+
+
+.help-button{
+ 
+    width: 40px;
+    height: 32px;
+    float: left;
+    margin-top: 14px;
+    margin-left: 140px;
+    margin-right: 22px;
+    background-size: cover;
+}
