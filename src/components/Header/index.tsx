@@ -40,7 +40,7 @@ const HeaderFrame = styled.div<{ showBackground: boolean }>`
   position: relative;
   /* Background slide effect on scroll. */
   background-image: ${({ theme }) => `linear-gradient(to bottom, transparent 50%, ${theme.bg0} 50% )}}`};
-  background-position: ${({ showBackground }) => (showBackground ? '0 -100%' : '0 0')};
+  background-position: ${({ showBackground }) => (showBackground ? '0 0' : '0 0')};
   background-size: 100% 200%;
   box-shadow: 0px 0px 0px 1px ${({ theme, showBackground }) => (showBackground ? theme.bg2 : 'transparent;')};
   transition: background-position 0.1s, box-shadow 0.1s;

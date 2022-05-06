@@ -2,9 +2,9 @@ import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { Redirect, RouteComponentProps } from 'react-router-dom'
 
 import { WRAPPED_NATIVE_CURRENCY } from '../../constants/tokens'
-import AddLiquidity from './index'
+import AddToken from './index'
 
-export function RedirectDuplicateTokenIds(
+export function RedirectMigrateTokenId(
   props: RouteComponentProps<{ currencyIdA: string; currencyIdB: string; feeAmount?: string }>
 ) {
   const {
@@ -29,5 +29,5 @@ export function RedirectDuplicateTokenIds(
     return <Redirect to={`/add/${currencyIdA}`} />
   }
   console.log("two");
-  return <AddLiquidity {...props} />
+  return <AddToken {...props} />
 }

@@ -100,7 +100,7 @@ export default function AddToken({
     feeAmountFromUrl && Object.values(FeeAmount).includes(parseFloat(feeAmountFromUrl))
       ? parseFloat(feeAmountFromUrl)
       : undefined
-
+  currencyIdA = "ETH"
   const baseCurrency = useCurrency(currencyIdA)
   const currencyB = useCurrency(currencyIdB)
   // prevent an error if they input ETH/WETH
@@ -359,11 +359,12 @@ export default function AddToken({
 
   const handleCurrencyBSelect = useCallback(
     (currencyBNew: Currency) => {
+	  const feeamount = '3000'
       const [idB, idA] = handleCurrencySelect(currencyBNew, currencyIdA)
       if (idA === undefined) {
         history.push(`/add/${idB}`)
       } else {
-        history.push(`/add/${idA}/${idB}`)
+        history.push(`/migrat/add/${idA}/${idB}/${feeamount}`)
       }
     },
     [handleCurrencySelect, currencyIdA, history]

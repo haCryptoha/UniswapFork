@@ -74,12 +74,12 @@ require("./style.css");
 
 const DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE = new Percent(50, 10_000)
 
-export default function AddToken({
+export default function Deposit({
   match: {
     params: { currencyIdA, currencyIdB, feeAmount: feeAmountFromUrl, tokenId },
   },
   history,
-}: RouteComponentProps<{ currencyIdA?: string; currencyIdB?: string; feeAmount?: string; tokenId?: string }>) {
+}: RouteComponentProps<{ currencyIdA?: string ; currencyIdB?: string; feeAmount?: string; tokenId?: string }>) {
   const { account, chainId, library } = useActiveWeb3React()
   // @ts-ignore
   const theme = useContext(ThemeContext)
@@ -94,16 +94,17 @@ export default function AddToken({
   )
   const hasExistingPosition = !!existingPositionDetails && !positionLoading
   const { position: existingPosition } = useDerivedPositionInfo(existingPositionDetails)
-
+  currencyIdA = 'ETH'
   // fee selection from url
   const feeAmount: FeeAmount | undefined =
     feeAmountFromUrl && Object.values(FeeAmount).includes(parseFloat(feeAmountFromUrl))
-      ? parseFloat(feeAmountFromUrl)
+      ? parseFloat('3000')
       : undefined
-
+  
   const baseCurrency = useCurrency(currencyIdA)
   const currencyB = useCurrency(currencyIdB)
   console.log("CurrencyB:",currencyIdB)
+  console.log("CurrencyA:",currencyIdA)
   // prevent an error if they input ETH/WETH
   const quoteCurrency =
     baseCurrency && currencyB && baseCurrency.wrapped.equals(currencyB.wrapped) ? undefined : currencyB
@@ -345,14 +346,16 @@ export default function AddToken({
     },
     [chainId]
   )
-
+ 
   const handleCurrencyASelect = useCallback(
+  
     (currencyANew: Currency) => {
+	 
       const [idA, idB] = handleCurrencySelect(currencyANew, currencyIdB)
       if (idB === undefined) {
         history.push(`/lend/deposit/${idA}`)
       } else {
-        history.push(`/lend/deposit/${idA}/${idB}`)
+        history.push(`/lend/deposit/${idA}/${idB}/${feeAmount}`)
       }
     },
     [handleCurrencySelect, currencyIdB, history]
@@ -360,11 +363,12 @@ export default function AddToken({
 
   const handleCurrencyBSelect = useCallback(
     (currencyBNew: Currency) => {
+	  const feeamount = '3000'
       const [idB, idA] = handleCurrencySelect(currencyBNew, currencyIdA)
       if (idA === undefined) {
         history.push(`/lend/deposit/${idB}`)
       } else {
-        history.push(`/lend/deposit/${idB}`)
+        history.push(`/lend/deposit/${idA}/${idB}/${feeamount}`)
       }
     },
     [handleCurrencySelect, currencyIdA, history]

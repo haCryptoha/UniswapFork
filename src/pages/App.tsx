@@ -19,6 +19,7 @@ import AddLiquidity from './AddLiquidity'
 import { RedirectDuplicateTokenIds } from './AddLiquidity/redirects'
 import { RedirectDuplicateTokenIdsV2 } from './AddLiquidityV2/redirects'
 import AddToken from './AddToken'
+import {RedirectMigrateTokenId} from './AddToken/redirects'
 import Deposit from './Deposit'
 import { RedirectDepositTokenId } from './Deposit/redirects'
 import Manage from './Earn/Manage'
@@ -98,12 +99,18 @@ export default function App() {
                 <Route exact strict path="/lend" component={Lend} />
                 <Route exact strict path="/join" component={Lend} />
                 <Route exact strict path="/claim" component={Lend} />
-				        <Route exact strict path="/lend/deposit" component={Deposit} />
+				<Route exact strict path="/lend/deposit" component={Deposit} />
                 <Route
                   exact
                   strict
                   path="/lend/deposit/:currencyIdA?/:currencyIdB?/:feeAmount?"
                   component={RedirectDepositTokenId}
+                />
+				<Route
+                  exact
+                  strict
+                  path="/migrat/add/:currencyIdA?/:currencyIdB?/:feeAmount?"
+                  component={RedirectMigrateTokenId}
                 />
                 <Route exact strict path="/pool/:platform" component={Pool} />
                 <Route exact strict path="/pool/detail/:tokenId" component={PositionPage} />

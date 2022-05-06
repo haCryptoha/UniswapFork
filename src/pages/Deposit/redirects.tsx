@@ -3,7 +3,6 @@ import { Redirect, RouteComponentProps } from 'react-router-dom'
 
 import { WRAPPED_NATIVE_CURRENCY } from '../../constants/tokens'
 import Deposit from './index';
-import AddLiquidity from './index'
 
 export function RedirectDepositTokenId(
   props: RouteComponentProps<{ currencyIdA: string; currencyIdB: string; feeAmount?: string }>
@@ -27,7 +26,7 @@ export function RedirectDepositTokenId(
     currencyIdB &&
     (currencyIdA.toLowerCase() === currencyIdB.toLowerCase() || (isETHOrWETHA && isETHOrWETHB))
   ) {
-    return <Redirect to={`/lend/${currencyIdA}`} />
+    return <Deposit {...props} />
   }
   console.log("two", props);
   return <Deposit {...props} />
