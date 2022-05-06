@@ -131,7 +131,7 @@ function PositionsLoadingPlaceholder() {
   )
 }
 
-export default function Pool() {
+export default function Lend() {
   const { account, chainId } = useActiveWeb3React()
   const toggleWalletModal = useWalletModalToggle()
   const theme = useContext(ThemeContext)

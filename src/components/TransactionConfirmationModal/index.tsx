@@ -159,8 +159,8 @@ export function ConfirmationModalContent({
   topContent,
 }: {
   title: ReactNode
-  onDismiss: () => void
-  topContent: () => ReactNode
+  onDismiss?: () => void | undefined
+  topContent?: () => ReactNode | undefined
   bottomContent?: () => ReactNode | undefined
 }) {
   return (
@@ -313,11 +313,11 @@ function L2Content({
 
 interface ConfirmationModalProps {
   isOpen: boolean
-  onDismiss: () => void
-  hash: string | undefined
-  content: () => ReactNode
-  attemptingTxn: boolean
-  pendingText: ReactNode
+  onDismiss?: () => void | undefined
+  hash?: string | undefined
+  content?: () => ReactNode | undefined
+  attemptingTxn?: boolean | undefined
+  pendingText?: ReactNode | undefined
   currencyToAdd?: Currency | undefined
 }
 

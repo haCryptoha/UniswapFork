@@ -1,3 +1,5 @@
+import TransactionConfirmationModal, { ConfirmationModalContent } from "components/TransactionConfirmationModal";
+import { Review } from "pages/Deposit/Review";
 import React, { useState} from "react";
 
 const LiquidityBox = () =>{
@@ -6,7 +8,7 @@ const LiquidityBox = () =>{
 	const [removed, setRemoved] = useState(false);
 	const [withdraw, setWithdraw] = useState(false);
 	const [claim, setClaim] = useState(false);
-	
+	const [showConfirm, setShowConfirm] = useState(false);
 	const confimrOnClick = () => {
 		setRemoved(true);
 		removeOnClick();
@@ -29,30 +31,24 @@ const LiquidityBox = () =>{
 		setRemoveClicked(true);
 		setWithdraw(false);
 	}
+    const tickAtLimit = {LOWER:false, UPPER:false};
 	return (
 	<>
 	<TransactionConfirmationModal
           isOpen={showConfirm}
-          onDismiss={handleDismissConfirmation}
-          attemptingTxn={attemptingTxn}
-          hash={txHash}
+          onDismiss={()=>setShowConfirm(false)}
           content={() => (
             <ConfirmationModalContent
               title={""}
-              onDismiss={handleDismissConfirmation}
+              onDismiss={()=>setShowConfirm(false)}
               topContent={() => (
-                <Review
-                  parsedAmounts={parsedAmounts}
-                  position={position}
-                  existingPosition={existingPosition}
-                  priceLower={priceLower}
-                  priceUpper={priceUpper}
-                  outOfRange={outOfRange}
-                  ticksAtLimit={ticksAtLimit}
+                <Review 
+                  outOfRange = {false}                
+                  ticksAtLimit={tickAtLimit}
                 />
               )}
               bottomContent={() => (
-                <button className='view-etherscan' onClick={onAdd}>
+                <button className='view-etherscan'>
                   <p>
                     View on Etherscan
                   </p>
@@ -60,7 +56,7 @@ const LiquidityBox = () =>{
               )}
             />
           )}
-          pendingText={pendingText}
+          pendingText={"pending"}
         />
 	{!removeClicked?(<>{!removed?<div className="single-liquidity-lend">
 						<a onClick={changeCollpase} style={{ cursor: "pointer" }}>
@@ -130,7 +126,7 @@ const LiquidityBox = () =>{
                                     </div>                                 
                                     <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
                                         
-                                        <button className="confirm" style={{ width:"100%", height: "48px", border: "0px" }} onClick={confimrOnClick}><p>confirm</p></button>
+                                        <button className="confirm" style={{ width:"100%", height: "48px", border: "0px" }} onClick={()=> setShowConfirm(true)}><p>confirm</p></button>
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +162,7 @@ const LiquidityBox = () =>{
                                         </div>									
                                     <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
                                         
-                                        <button className="confirm" style={{ width:"100%", height: "48px", border: "0px" }} onClick={confimrOnClick}><p>confirm</p></button>
+                                        <button className="confirm" style={{ width:"100%", height: "48px", border: "0px" }} onClick={()=> setShowConfirm(true)}><p>confirm</p></button>
                                     </div>
                                 </div>
                             </div>

@@ -18,7 +18,7 @@ export function Review({
 }: {
   position?: Position
   existingPosition?: Position
-  parsedAmounts: { [field in Field]?: CurrencyAmount<Currency> }
+  parsedAmounts?: { [field in Field]?: CurrencyAmount<Currency> }
   priceLower?: Price<Currency, Currency>
   priceUpper?: Price<Currency, Currency>
   outOfRange: boolean
