@@ -2,9 +2,10 @@ import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { Redirect, RouteComponentProps } from 'react-router-dom'
 
 import { WRAPPED_NATIVE_CURRENCY } from '../../constants/tokens'
+import Deposit from './index';
 import AddLiquidity from './index'
 
-export function RedirectDuplicateTokenIds(
+export function RedirectDepositTokenId(
   props: RouteComponentProps<{ currencyIdA: string; currencyIdB: string; feeAmount?: string }>
 ) {
   const {
@@ -26,8 +27,8 @@ export function RedirectDuplicateTokenIds(
     currencyIdB &&
     (currencyIdA.toLowerCase() === currencyIdB.toLowerCase() || (isETHOrWETHA && isETHOrWETHB))
   ) {
-    return <Redirect to={`/add/${currencyIdA}`} />
+    return <Redirect to={`/lend/${currencyIdA}`} />
   }
-  console.log("two");
-  return <AddLiquidity {...props} />
+  console.log("two", props);
+  return <Deposit {...props} />
 }

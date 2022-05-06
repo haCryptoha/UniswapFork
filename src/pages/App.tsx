@@ -20,6 +20,7 @@ import { RedirectDuplicateTokenIds } from './AddLiquidity/redirects'
 import { RedirectDuplicateTokenIdsV2 } from './AddLiquidityV2/redirects'
 import AddToken from './AddToken'
 import Deposit from './Deposit'
+import { RedirectDepositTokenId } from './Deposit/redirects'
 import Manage from './Earn/Manage'
 import Lend from './Lend'
 import MigrateV2 from './MigrateV2'
@@ -28,6 +29,7 @@ import { PositionPage } from './Pool/PositionPage'
 import RemoveLiquidity from './RemoveLiquidity'
 import RemoveLiquidityV3 from './RemoveLiquidity/V3'
 import { OpenClaimAddressModalAndRedirectToSwap, RedirectPathToSwapOnly } from './Swap/redirects'
+
 
 const AppWrapper = styled.div`
 height: 100vh;
@@ -96,7 +98,13 @@ export default function App() {
                 <Route exact strict path="/lend" component={Lend} />
                 <Route exact strict path="/join" component={Lend} />
                 <Route exact strict path="/claim" component={Lend} />
-				<Route exact strict path="/lend/deposit" component={Deposit} />
+				        <Route exact strict path="/lend/deposit" component={Deposit} />
+                <Route
+                  exact
+                  strict
+                  path="/lend/deposit/:currencyIdA?/:currencyIdB?/:feeAmount?"
+                  component={RedirectDepositTokenId}
+                />
                 <Route exact strict path="/pool/:platform" component={Pool} />
                 <Route exact strict path="/pool/detail/:tokenId" component={PositionPage} />
 

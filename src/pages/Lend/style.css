@@ -144,14 +144,15 @@
     font-size: 24px;
     font-weight: 600;
 }
-.lend-confirm-warrap {
+.lend-confirm-withdraw-warrap {
     width: 586px;
     height: 334px;
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     padding: 1px;
+    margin-bottom:20px;
 }
 
-.lend-confirm {
+.lend-confirm-withdraw {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -164,6 +165,7 @@
     height: 378px;
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     padding: 1px;
+    margin-bottom:20px;
 }
 
 .lend-confirm-claim {

@@ -103,6 +103,7 @@ export default function AddToken({
 
   const baseCurrency = useCurrency(currencyIdA)
   const currencyB = useCurrency(currencyIdB)
+  console.log("CurrencyB:",currencyIdB)
   // prevent an error if they input ETH/WETH
   const quoteCurrency =
     baseCurrency && currencyB && baseCurrency.wrapped.equals(currencyB.wrapped) ? undefined : currencyB
@@ -349,9 +350,9 @@ export default function AddToken({
     (currencyANew: Currency) => {
       const [idA, idB] = handleCurrencySelect(currencyANew, currencyIdB)
       if (idB === undefined) {
-        history.push(`/add/${idA}`)
+        history.push(`/lend/deposit/${idA}`)
       } else {
-        history.push(`/add/${idA}/${idB}`)
+        history.push(`/lend/deposit/${idA}/${idB}`)
       }
     },
     [handleCurrencySelect, currencyIdB, history]
@@ -361,9 +362,9 @@ export default function AddToken({
     (currencyBNew: Currency) => {
       const [idB, idA] = handleCurrencySelect(currencyBNew, currencyIdA)
       if (idA === undefined) {
-        history.push(`/add/${idB}`)
+        history.push(`/lend/deposit/${idB}`)
       } else {
-        history.push(`/add/${idA}/${idB}`)
+        history.push(`/lend/deposit/${idB}`)
       }
     },
     [handleCurrencySelect, currencyIdA, history]
@@ -373,9 +374,9 @@ export default function AddToken({
     (newFeeAmount: FeeAmount) => {
       onLeftRangeInput('')
       onRightRangeInput('')
-      history.push(`/add/${currencyIdA}/${currencyIdB}/${newFeeAmount}`)
+      history.push(`/lend/${currencyIdB}`)
     },
-    [currencyIdA, currencyIdB, history, onLeftRangeInput, onRightRangeInput]
+    [currencyIdB,history, onLeftRangeInput, onRightRangeInput]
   )
 
   const handleDismissConfirmation = useCallback(() => {

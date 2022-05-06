@@ -102,8 +102,8 @@ const LiquidityBox = () =>{
 		    </div>:<></>}
 			</>)		
 		    :withdraw?
-				(<div className="lend-confirm-warrap">
-                        <div className="lend-confirm">
+				(<div className="lend-confirm-withdraw-warrap">
+                        <div className="lend-confirm-withdraw">
                             <div className="remove-header-top" style={{ display: "flex", justifyContent: "center" }}>
                                 <div className='go-back-arrow' style={{backgroundImage:'url(./images/left.png)'}} onClick={removeOnClick}></div>
                                 <p>Withdraw Tokens</p>
