@@ -10,7 +10,7 @@ import { RowBetween } from 'components/Row'
 import { useToken } from 'hooks/Tokens'
 import useIsTickAtLimit from 'hooks/useIsTickAtLimit'
 import { usePool } from 'hooks/usePools'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Bound } from 'state/mint/v3/actions'
 import styled from 'styled-components/macro'
@@ -189,38 +189,159 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
   const {
     capital: token0Address,
     asset: token1Address,
-    lpAmount: liquidity
-  } = positionDetails
+    lpAmount: liquidity,
+    capitalAmount: token0Amount,
+    assetAmount: token1Amount,
+  } = positionDetails;
 
-  const feeAmount = 3000;
+  const [collapse, setCollapse] = useState(true);
+  const [removed, setRemoved] = useState(false);
+  const [removeClicked, setRemoveClicked] = useState(false);
+  const confimrOnClick = () => {
+    setRemoved(true);
+    removeOnClick();
+  }
+  const removeOnClick = () => {
+    if (removeClicked === false)
+      setRemoveClicked(true);
+    else setRemoveClicked(false);
+  }
+  const changeCollpase = () => {
+    if (collapse === true)
+      setCollapse(false);
+    else setCollapse(true);
+  }
 
   const token0 = useToken(token0Address)
   const token1 = useToken(token1Address)
 
   const currency0 = token0 ? unwrappedToken(token0) : undefined
   const currency1 = token1 ? unwrappedToken(token1) : undefined
-
   const positionSummaryLink = '/pool/detail/' + positionDetails.tokenId
 
-  const removed = liquidity == 0 ? true : false;
-
   return (
-    <LinkRow to={positionSummaryLink}>
+    // <LinkRow to={positionSummaryLink}>
       <RowBetween>
-        <PrimaryPositionIdData>
-          <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={18} margin />
-          <DataText>
-            &nbsp;{currency0?.symbol}&nbsp;/&nbsp;{currency1?.symbol}
-          </DataText>
-          &nbsp;
-          <Badge>
-            <BadgeText>
-              {new Percent(feeAmount, 1_000_000).toSignificant()}%
-            </BadgeText>
-          </Badge>
-        </PrimaryPositionIdData>
-        <RangeBadge removed={removed} inRange={true} />
+        <>{!removeClicked ? <>{!removed ? <div className="single-liquidity">
+            <a onClick={changeCollpase} style={{ cursor: "pointer" }}>
+              <div className="single-liquidity-header">
+                <div className="single-liquidity-header-left">
+                <PrimaryPositionIdData>
+                  <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={36} margin />
+                  <DataText>
+                    &nbsp;{currency0?.symbol}&nbsp;/&nbsp;{currency1?.symbol}
+                  </DataText>
+                  &nbsp;
+                </PrimaryPositionIdData>
+                </div>
+                <div className="single-liquidity-header-right">
+                  <img src="./images/up.png" style={{ width: "20px", height: "20px", display: collapse ? "none" : "block" }} />
+                  <img src="./images/down.png" style={{ width: "20px", height: "20px", display: collapse ? "block" : "none" }} />
+                </div>
+              </div>
+            </a>
+            <div className="single-liquidity-content" style={{ height: collapse ? "0px" : "296px", overflow: 'hidden' }}>
+              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                <p className="single-token-left">Your total pool tokens</p>
+                <p className="single-token-right">{liquidity}</p>
+              </div>
+              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                <p className="single-token-left">Pooled {currency0?.symbol}</p>
+                <p className="single-token-right">{token0Amount} {currency0?.symbol}</p>
+              </div>
+              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                <p className="single-token-left">Pooled {currency1?.symbol}</p>
+                <p className="single-token-right">{token1Amount} {currency1?.symbol}</p>
+              </div>
+              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                <p className="single-token-left">Your pool share</p>
+                <p className="single-token-right">0.14%</p>
+              </div>
+              <div className="description" style={{ display: collapse ? "none" : "flex", transition: "1s" }}>
+                <p>View Accure Fees and Analytics</p>
+              </div>
+              <div style={{ display: collapse ? "none" : "flex", justifyContent: "center", transition: "1s" }}>
+                <button onClick={() => setRemoveClicked(true)}><p>Remove</p></button>
+              </div>
+            </div>
+          </div> : <></>}
+        </>
+          :
+          <div className="remove-liquidity-warrap">
+            <div className="remove-liquidity">
+              {/* <div className="remove-header-top" style={{ display: "flex", justifyContent: "center" }}>
+                                <p>Remove Liquidity</p>
+                            </div> */}
+              <div className="remove-header">
+                <p >
+                  Confirm to close your position
+                </p>
+              </div>
+              <div className="remove-content">
+                <div className="content-header">
+                  <p>You will receive</p>
+                </div>
+                <div className="description2">
+                  <div className="eth">
+                    <div className="eth-left">
+                      <p>{token0Amount}</p>
+                    </div>
+                    <div className="eth-right">
+                      <img style={{ width: "32px", height: "32px" }} src="./images/eth.png" />
+                      <p>{currency0?.symbol}</p>
+                    </div>
+                  </div>
+                  <div className="eth">
+                    <div className="eth-left">
+                      <p>{token1Amount}</p>
+                    </div>
+                    <div className="eth-right">
+                      <img style={{ width: "32px", height: "32px", marginLeft: "8px" }} src="./images/aave.png" />
+                      <p>{currency1?.symbol}</p>
+                    </div>
+                  </div>
+                  <div className="change-description">
+                    <p>Output is estimated. If the price changes by more than 0.5% your transaction will revert.</p>
+                  </div>
+                  <div className="earned-table-header">
+                    <p>{currency0?.symbol}&nbsp;/&nbsp;{currency1?.symbol}</p>
+                  </div>
+                  <div className="earned-table">
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                      <div><p style={{ color: "#A6A0BB" }}>{currency1?.symbol} / {currency1?.symbol}</p></div>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <p style={{ color: "white" }}>0.325646436</p>
+                        <img style={{ width: "32px", height: "32px", marginLeft: "8px" }} src="./images/eth.png" />
+                        <img style={{ width: "32px", height: "32px", marginLeft: "8px" }} src="./images/aave.png" />
+                      </div>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                      <div><p style={{ color: "#A6A0BB" }}>{currency1?.symbol} / {currency1?.symbol}</p></div>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <div style={{ display: "flex", justifyContent: "end" }}>
+                          <p style={{ color: "white" }}>1ETH=1084.40 AVVE</p>
+                        </div>
+                        <p style={{ color: "white" }}>1AVVE=0.000922 AVVE</p>
+                      </div>
+                    </div>
+                    <div style={{ width: "380", height: "71px", display: "flex", justifyContent: "center" }}>
+                      <p style={{ color: "white", fontSize: "20px", fontWeight: "700" }}>You earned 15% APY with Double</p>
+                    </div>
+
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
+                    <div className="cancel-button-warrap">
+                      <button className="cancel-button" style={{ width: "199px", height: "46px", border: "0px" }} onClick={removeOnClick}><p>cancel</p></button>
+                    </div>
+                    <button className="confirm" style={{ width: "201px", height: "48px", border: "0px" }} onClick={confimrOnClick}><p>confirm</p></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+        </>
       </RowBetween>
-    </LinkRow>
+    // </LinkRow>
   )
 }

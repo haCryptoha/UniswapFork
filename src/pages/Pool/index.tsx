@@ -136,26 +136,24 @@ export default function Pool() {
   const toggleWalletModal = useWalletModalToggle()
   const theme = useContext(ThemeContext)
   const [userHideClosedPositions, setUserHideClosedPositions] = useUserHideClosedPositions()
-  const [openPositions, setOpenPositions] = useState([]);
-  const [closedPositions, setClosedPositions] = useState([]);
   const [filteredPositions, setFilteredPositions] = useState([]);
   const [positionsLoading, setPositionsLoading] = useState(true);
-  const [showLiquidityComponent, setShowLiquidityComponent] = useState(false)
   const params: any = useParams()
   const showConnectAWallet = Boolean(!account)
-  const showV2Features = Boolean(chainId && V2_FACTORY_ADDRESSES[chainId])
 
   const loadPools = async (accountAddr, ammType) => {
     if (accountAddr != undefined) {
       const APIURL = 'https://api.thegraph.com/subgraphs/name/muranox/double2win'
       const tokensQuery = `
         query {
-          bundleEntities(where: {id: "${accountAddr.toLowerCase()}"}) {
+          liquidities(where: {owner: "${accountAddr.toLowerCase()}", ammType : "${ammType}"}) {
             id
             asset
             capital
             lpAmount
             ammType
+            capitalAmount
+            assetAmount
           }
         }
       `
@@ -169,9 +167,9 @@ export default function Pool() {
           query: gql(tokensQuery),
         });
 
-      if (resp.data.bundleEntities) {
+      if (resp.data.liquidities) {
         console.log(resp);
-        return resp.data.bundleEntities;
+        return resp.data.liquidities;
       }
     }
     return [];
@@ -184,23 +182,23 @@ export default function Pool() {
       setPositionsLoading(true);
       const closed = [], opened = [];
       //fetch pool
-      // const pools = await loadPools(account, params.platform);
-      // for (let i = 0; i < pools.length; i++) {
-      //   if (pools[i].lpAmount == 0) {
-      //     closed.push(pools[i]);
-      //   } else {
-      //     opened.push(pools[i]);
-      //   }
-      // }
-      setOpenPositions(opened);
-      setClosedPositions(closed);
+      const pools = await loadPools(account, capitalizeFirstLetter(params.platform));
+      for (let i = 0; i < pools.length; i++) {
+        if (pools[i].lpAmount == 0) {
+          closed.push(pools[i]);
+        } else {
+          opened.push(pools[i]);
+        }
+      }
+      console.log(userHideClosedPositions);
+      console.log(closed);
       setFilteredPositions([...opened, ...(userHideClosedPositions ? [] : closed)])
       setPositionsLoading(false);
 
       // ...
     }
     fetchData();
-  }, [params.platform, account])
+  }, [params.platform, account, userHideClosedPositions])
 
   const capitalizeFirstLetter = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1)
@@ -240,22 +238,20 @@ export default function Pool() {
                 {params.platform ? capitalizeFirstLetter(params.platform) : ''} Pools Overview
               </ThemedText.Body> */}
               <ButtonRow className="test" style={{ justifyContent: "space-between", width: "100%" }}>
-                {showV2Features && (
-                  <Menu
-                    menuItems={menuItems}
-                    flyoutAlignment={FlyoutAlignment.LEFT}
-                    selectedParam={params.platform}
-                    style={{ 'marginLeft': "0px"}}
-                    ToggleUI={(props: any) => (
-                      <MoreOptionsButton {...props} style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
-                        <ThemedText.Body style={{ alignItems: 'center', display: 'flex', color: "white" }}>
-                          {params.platform=='uniswap' ? 'Uniswap V2' : 'Trisolaris'}
-                          <ChevronDown size={15} />
-                        </ThemedText.Body>
-                      </MoreOptionsButton>
-                    )}
-                  />
-                )}
+                <Menu
+                  menuItems={menuItems}
+                  flyoutAlignment={FlyoutAlignment.LEFT}
+                  selectedParam={params.platform}
+                  style={{ 'marginLeft': "0px"}}
+                  ToggleUI={(props: any) => (
+                    <MoreOptionsButton {...props} style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
+                      <ThemedText.Body style={{ alignItems: 'center', display: 'flex', color: "white" }}>
+                        {params.platform=='uniswap' ? 'Uniswap V2' : 'Trisolaris'}
+                        <ChevronDown size={15} />
+                      </ThemedText.Body>
+                    </MoreOptionsButton>
+                  )}
+                />
                 <ThemedText.Body fontSize={'20px'} color={'white'}>
                   {params.platform ? capitalizeFirstLetter(params.platform) : ''} Pools Overview
                 </ThemedText.Body>
@@ -264,11 +260,11 @@ export default function Pool() {
                 </ResponsiveButtonPrimary>
               </ButtonRow>
             </TitleRow>
-            {!showLiquidityComponent ? <div className="main-warrap" style={{ background: showConnectAWallet ? "transparent" : "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
+            <div className="main-warrap" style={{ background: showConnectAWallet ? "transparent" : "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
               <MainContentWrapper className='pool-body-NoLiquidity' style={{ background: showConnectAWallet ? "#09080c" : "#1E1E1E", width: "584px", height: "584px" }} >
                 {positionsLoading ? (
                   <PositionsLoadingPlaceholder />
-                ) : filteredPositions && closedPositions && filteredPositions.length > 0 ? (
+                ) : (filteredPositions && filteredPositions.length > 0) ? (
                   <PositionList
                     positions={filteredPositions}
                     setUserHideClosedPositions={setUserHideClosedPositions}
@@ -302,11 +298,9 @@ export default function Pool() {
                         style={{ marginTop: '.5rem', color: "white", fontSize: "14px" }}
                         onClick={() => setUserHideClosedPositions(!userHideClosedPositions)}
                       >
-                        Your Active Position will appear here
+                        Show Closed Positions.
                       </ButtonText>
-                      <button onClick={() => setShowLiquidityComponent(true)}>
-                        show liquidity list component
-                      </button>
+                      Your Active Position will appear here
                     </>
                     )}
                     {showConnectAWallet && (
@@ -319,7 +313,7 @@ export default function Pool() {
 
                 )}
               </MainContentWrapper>
-            </div> : <LiquidityList />}
+            </div>
 
             {/* <HideSmall>
               <CTACards />
