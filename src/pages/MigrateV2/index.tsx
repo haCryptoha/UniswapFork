@@ -3,7 +3,6 @@
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client'
 import { ButtonGray, ButtonPrimary, ButtonText } from 'components/Button'
 import { AutoColumn } from 'components/Column'
-import Dropdown from 'components/Dropdown'
 import { FlyoutAlignment, NewMenu } from 'components/Menu'
 import { SwapPoolTabs } from 'components/NavigationTabs'
 import PositionList from 'components/PositionList'
@@ -229,7 +228,7 @@ export default function Pool() {
       external: false,
     },
   ]
-  const [isTrisolaris, setTrisolarisState] = useState(true)
+
   return (
     <>
       <PageWrapper>
@@ -241,9 +240,24 @@ export default function Pool() {
                 {params.platform ? capitalizeFirstLetter(params.platform) : ''} Pools Overview
               </ThemedText.Body> */}
               <ButtonRow className="test" style={{ justifyContent: "space-between", width: "100%" }}>
-                <Dropdown onUserClick={setTrisolarisState}/>
+                {showV2Features && (
+                  <Menu
+                    menuItems={menuItems}
+                    flyoutAlignment={FlyoutAlignment.LEFT}
+                    selectedParam={params.platform}
+                    style={{ 'marginLeft': "0px"}}
+                    ToggleUI={(props: any) => (
+                      <MoreOptionsButton {...props} style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
+                        <ThemedText.Body style={{ alignItems: 'center', display: 'flex', color: "white" }}>
+                          {params.platform=='uniswap' ? 'Uniswap V2' : 'Trisolaris'}
+                          <ChevronDown size={15} />
+                        </ThemedText.Body>
+                      </MoreOptionsButton>
+                    )}
+                  />
+                )}
                 <ThemedText.Body fontSize={'20px'} color={'white'}>
-                {isTrisolaris ? 'Trisolaris' : 'Uniswap V2'} Migration Overview
+                  {params.platform ? capitalizeFirstLetter(params.platform) : ''} Migration Overview
                 </ThemedText.Body>
                 <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/migrate_import" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
                   Import

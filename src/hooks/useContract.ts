@@ -22,6 +22,7 @@ import {
   MULTICALL_ADDRESS,
   NONFUNGIBLE_POSITION_MANAGER_ADDRESSES,
   QUOTER_ADDRESSES,
+  SUSHI_VAULT_ADDRESSES,
   TICK_LENS_ADDRESSES,
   V2_ROUTER_ADDRESS,
   V3_MIGRATOR_ADDRESSES,
@@ -32,6 +33,7 @@ import { useMemo } from 'react'
 import { NonfungiblePositionManager, Quoter, TickLens, UniswapInterfaceMulticall } from 'types/v3'
 import { V3Migrator } from 'types/v3/V3Migrator'
 
+import VaultMangerJson from '../abis/vault-manager.json'
 import { getContract } from '../utils'
 
 const { abi: IUniswapV2PairABI } = IUniswapV2PairJson
@@ -40,6 +42,7 @@ const { abi: QuoterABI } = QuoterJson
 const { abi: TickLensABI } = TickLensJson
 const { abi: MulticallABI } = UniswapInterfaceMulticallJson
 const { abi: NFTPositionManagerABI } = NonfungiblePositionManagerJson
+const { abi: VaultMangerABI } = VaultMangerJson
 const { abi: V2MigratorABI } = V3MigratorJson
 
 // returns null on errors
@@ -126,6 +129,14 @@ export function useV3NFTPositionManagerContract(withSignerIfPossible?: boolean):
   return useContract<NonfungiblePositionManager>(
     NONFUNGIBLE_POSITION_MANAGER_ADDRESSES,
     NFTPositionManagerABI,
+    withSignerIfPossible
+  )
+}
+
+export function useVaultManagerContract(withSignerIfPossible?: boolean): Contract | null {
+  return useContract<Contract>(
+    SUSHI_VAULT_ADDRESSES,
+    VaultMangerABI,
     withSignerIfPossible
   )
 }

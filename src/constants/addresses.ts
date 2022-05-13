@@ -91,6 +91,20 @@ export const NONFUNGIBLE_POSITION_MANAGER_ADDRESSES: AddressMap = constructSameA
     SupportedChainId.POLYGON,
   ]
 )
+
+export const SUSHI_VAULT_ADDRESSES: AddressMap = constructSameAddressMap(
+  '0x37CbD2Bd7Ee1C3d0Cb15f48628Cb346491B66D58',
+  [
+    SupportedChainId.OPTIMISM,
+    SupportedChainId.OPTIMISTIC_KOVAN,
+    SupportedChainId.ARBITRUM_ONE,
+    SupportedChainId.ARBITRUM_RINKEBY,
+    SupportedChainId.POLYGON_MUMBAI,
+    SupportedChainId.POLYGON,
+    SupportedChainId.ROPSTEN,
+  ]
+)
+
 export const ENS_REGISTRAR_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
   [SupportedChainId.ROPSTEN]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
