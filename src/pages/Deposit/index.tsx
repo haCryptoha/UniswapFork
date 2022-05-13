@@ -676,7 +676,6 @@ export default function Deposit({
                                   </div>
                   
                                   <CurrencyDropdown
-                                    black={true}
                                     value={formattedAmounts[Field.CURRENCY_B]}
                                     hideInput={true}
                                     onUserInput={onFieldBInput}
