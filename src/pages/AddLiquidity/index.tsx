@@ -554,37 +554,41 @@ export default function AddLiquidity({
                       <ThemedText.Label style={{ fontSize: "16px", color: "white" }}>
                         Capital Type
                       </ThemedText.Label>
-                      <CurrencyInputPanel
-                        value={formattedAmounts[Field.CURRENCY_A]}
-                        onUserInput={onFieldAInput}
-                        onMax={() => {
-                          onFieldAInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
-                        }}
-                        showMaxButton={!atMaxAmounts[Field.CURRENCY_A]}
-                        onCurrencySelect={handleCurrencyASelect}
-                        currency={currencies[Field.CURRENCY_A] ?? null}
-                        id="add-liquidity-input-tokena"
-                        fiatValue={usdcValues[Field.CURRENCY_A]}
-                        showCommonBases
-                        locked={depositADisabled}
-                      />
+                      <div className='fromToken' style={{ display: "flex", justifyContent: "space-between" }}>
+                        <CurrencyInputPanel
+                          value={formattedAmounts[Field.CURRENCY_A]}
+                          onUserInput={onFieldAInput}
+                          onMax={() => {
+                            onFieldAInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
+                          }}
+                          showMaxButton={!atMaxAmounts[Field.CURRENCY_A]}
+                          onCurrencySelect={handleCurrencyASelect}
+                          currency={currencies[Field.CURRENCY_A] ?? null}
+                          id="add-liquidity-input-tokena"
+                          fiatValue={usdcValues[Field.CURRENCY_A]}
+                          showCommonBases
+                          locked={depositADisabled}
+                        />
+                      </div>
                       <ThemedText.Label style={{ fontSize: "16px", color: "white" }}>
                         Token
                       </ThemedText.Label>
-                      <CurrencyInputPanel
-                        value={formattedAmounts[Field.CURRENCY_B]}
-                        onUserInput={onFieldBInput}
-                        onMax={() => {
-                          onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
-                        }}
-                        showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
-                        fiatValue={usdcValues[Field.CURRENCY_B]}
-                        currency={currencies[Field.CURRENCY_B] ?? null}
-                        onCurrencySelect={handleCurrencyBSelect}
-                        id="add-liquidity-input-tokenb"
-                        showCommonBases
-                        locked={depositBDisabled}
-                      />
+                      <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
+                        <CurrencyInputPanel
+                          value={formattedAmounts[Field.CURRENCY_B]}
+                          onUserInput={onFieldBInput}
+                          onMax={() => {
+                            onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
+                          }}
+                          showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
+                          fiatValue={usdcValues[Field.CURRENCY_B]}
+                          currency={currencies[Field.CURRENCY_B] ?? null}
+                          onCurrencySelect={handleCurrencyBSelect}
+                          id="add-liquidity-input-tokenb"
+                          showCommonBases
+                          locked={depositBDisabled}
+                        />
+                      </div>
                     </AutoColumn>
                   </DynamicSection>
                 </div>
