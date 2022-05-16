@@ -644,25 +644,52 @@ export default function Deposit({
                   >
                         <AutoColumn gap="md">
                          
-                         
-                                  <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
-                                    <CurrencyInputPanel
-                                      value={formattedAmounts[Field.CURRENCY_B]}
-                                      onUserInput={onFieldBInput}
-                                      onMax={() => {
-                                        onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
-                                      }}
-                                      showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
-                                      fiatValue={usdcValues[Field.CURRENCY_B]}
-                                      currency={currencies[Field.CURRENCY_B] ?? null}
-                                      onCurrencySelect={handleCurrencyBSelect}
-                                      id="add-liquidity-input-tokenb"
-                                      showCommonBases
-                                      locked={depositBDisabled}
-                                    />                 
+                          <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
+                                  {/*<CurrencyInputPanel
+                                              value={inputB}
+                                              onUserInput={onInputB}
+                                              onMax={() => {
+                                                onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
+                                              }}
+                                              showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
+                                              fiatValue={usdcValues[Field.CURRENCY_B]}
+                                              currency={currencies[Field.CURRENCY_B] ?? null}
+                                              id="add-liquidity-input-tokenb"
+                                              showCommonBases
+                                              locked={depositBDisabled}
+                                  />*/}
+                                  <div>
+                                    <input className = "inputStyle" 
+                                      inputMode="decimal"
+                                      autoComplete="off"
+                                      autoCorrect="off"
+                                      // text-specific options
+                                      type="text"
+                                      pattern="^[0-9]*[.]?[0-9]*$"
+                                      placeholder={'0.0'}
+                                      minLength={1}
+                                      maxLength={79}
+                                      spellCheck="false" 
+                                      value={inputB} onChange = {(e) =>e.target.validity.valid ? changeInputB(e.target.value):inputB} >
+                                    </input>
+                                    <label style={{display:'block',color:'#c4c3c5'}}>Available Assets:100000</label>
                                   </div>
+                  
+                                  <CurrencyDropdown
+                                    value={formattedAmounts[Field.CURRENCY_B]}
+                                    hideInput={true}
+                                    onUserInput={onFieldBInput}
+                                    onCurrencySelect={handleCurrencyBSelect}
+                                    onMax={() => {
+                                      onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
+                                    }}
+                                    showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
+                                    currency={currencies[Field.CURRENCY_B] ?? null}
+                                    id="add-liquidity-input-tokenb"
+                                    showCommonBases
+                                  />
                    
-                    
+                          </div>
                         </AutoColumn>
                     </DynamicSection>
                 </div>

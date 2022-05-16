@@ -156,6 +156,7 @@ export default function Pool() {
             ammType
             capitalAmount
             assetAmount
+            bundle
           }
         }
       `
@@ -177,6 +178,8 @@ export default function Pool() {
     return [];
   }
 
+  const [isTrisolaris, setTrisolarisState] = useState(false)
+
   useEffect(() => {
     async function fetchData() {
       // You can await here
@@ -184,7 +187,7 @@ export default function Pool() {
       setPositionsLoading(true);
       const closed = [], opened = [];
       //fetch pool
-      const pools = await loadPools(account, capitalizeFirstLetter(params.platform));
+      const pools = await loadPools(account, capitalizeFirstLetter(isTrisolaris ? "trisolaris" : "uniswap"));
       for (let i = 0; i < pools.length; i++) {
         if (pools[i].lpAmount == 0) {
           closed.push(pools[i]);
@@ -200,12 +203,11 @@ export default function Pool() {
       // ...
     }
     fetchData();
-  }, [params.platform, account, userHideClosedPositions])
+  }, [isTrisolaris, account, userHideClosedPositions])
 
   const capitalizeFirstLetter = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1)
   }
-  const [isTrisolaris, setTrisolarisState] = useState(true)
   
   return (
     <>

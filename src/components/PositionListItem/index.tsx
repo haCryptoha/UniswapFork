@@ -1,22 +1,19 @@
 // @ts-nocheck
 import { Percent, Price, Token } from '@uniswap/sdk-core'
 import { Position } from '@uniswap/v3-sdk'
-import Badge from 'components/Badge'
-import RangeBadge from 'components/Badge/RangeBadge'
+import CurrencyLogo from 'components/CurrencyLogo'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
-import HoverInlineText from 'components/HoverInlineText'
-import Loader from 'components/Loader'
 import { RowBetween } from 'components/Row'
+import TransactionConfirmationModal, { ConfirmationModalContent } from 'components/TransactionConfirmationModal'
 import { useToken } from 'hooks/Tokens'
-import useIsTickAtLimit from 'hooks/useIsTickAtLimit'
-import { usePool } from 'hooks/usePools'
-import { useMemo, useState } from 'react'
+import { useVaultManagerContract } from 'hooks/useContract'
+import { useCallback, useMemo, useState } from 'react'
+import ReactGA from 'react-ga4'
 import { Link } from 'react-router-dom'
 import { Bound } from 'state/mint/v3/actions'
 import styled from 'styled-components/macro'
 import { HideSmall, MEDIA_WIDTHS, SmallOnly } from 'theme'
 import { PositionDetails } from 'types/position'
-import { formatTickPrice } from 'utils/formatTickPrice'
 import { unwrappedToken } from 'utils/unwrappedToken'
 
 import { DAI, USDC_MAINNET, USDT, WBTC, WRAPPED_NATIVE_CURRENCY } from '../../constants/tokens'
@@ -192,15 +189,14 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
     lpAmount: liquidity,
     capitalAmount: token0Amount,
     assetAmount: token1Amount,
+    bundle: bundleID,
   } = positionDetails;
 
   const [collapse, setCollapse] = useState(true);
   const [removed, setRemoved] = useState(false);
   const [removeClicked, setRemoveClicked] = useState(false);
-  const confimrOnClick = () => {
-    setRemoved(true);
-    removeOnClick();
-  }
+  const vaultManager = useVaultManagerContract();
+  
   const removeOnClick = () => {
     if (removeClicked === false)
       setRemoveClicked(true);
@@ -219,8 +215,60 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
   const currency1 = token1 ? unwrappedToken(token1) : undefined
   const positionSummaryLink = '/pool/detail/' + positionDetails.tokenId
 
+  const [showConfirm, setShowConfirm] = useState<boolean>(false)
+  const [attemptingTxn, setAttemptingTxn] = useState<boolean>(false) // clicked confirm
+  const [txHash, setTxHash] = useState<string>('')
+  const handleDismissConfirmation = useCallback(() => {
+    setShowConfirm(false)
+    // if there was a tx hash, we want to clear the input
+    setTxHash('')
+  }, [txHash])
+
+  const confimrOnClick = async () => {
+    setRemoved(true);
+    if (vaultManager) {
+      try {
+        await vaultManager.removeLiquidity(token0Address, token1Address, bundleID, "1000000000000000");
+        ReactGA.event({
+          category: 'Liquidity',
+          action: 'Remove',
+          label: [currency0?.symbol, currency1?.symbol].join('/'),
+        })
+      }
+      catch (error) {
+        console.error('Failed to send transaction', error)
+        setAttemptingTxn(false)
+        // we only care if the error is something _other_ than the user rejected the tx
+        if (error?.code !== 4001) {
+          console.error(error)
+        }
+      }
+    }
+    removeOnClick();
+  }
+
   return (
     // <LinkRow to={positionSummaryLink}>
+    <>
+      <TransactionConfirmationModal
+          isOpen={showConfirm}
+          onDismiss={handleDismissConfirmation}
+          attemptingTxn={attemptingTxn}
+          hash={txHash}
+          content={() => (
+            <ConfirmationModalContent
+              title={""}
+              onDismiss={handleDismissConfirmation}
+              bottomContent={() => (
+                <button className='view-etherscan'>
+                  <p>
+                    View on Etherscan
+                  </p>
+                </button>
+              )}
+            />
+          )}
+        />
       <RowBetween>
         <>{!removeClicked ? <>{!removed ? <div className="single-liquidity">
             <a onClick={changeCollpase} style={{ cursor: "pointer" }}>
@@ -287,7 +335,7 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
                       <p>{token0Amount}</p>
                     </div>
                     <div className="eth-right">
-                      <img style={{ width: "32px", height: "32px" }} src="./images/eth.png" />
+                      <CurrencyLogo currency={currency0} size={'32px'} style={{ marginRight: '12px' }} />
                       <p>{currency0?.symbol}</p>
                     </div>
                   </div>
@@ -296,7 +344,7 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
                       <p>{token1Amount}</p>
                     </div>
                     <div className="eth-right">
-                      <img style={{ width: "32px", height: "32px", marginLeft: "8px" }} src="./images/aave.png" />
+                      <CurrencyLogo currency={currency1} size={'32px'} style={{ marginRight: '12px' }} />
                       <p>{currency1?.symbol}</p>
                     </div>
                   </div>
@@ -310,18 +358,17 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                       <div><p style={{ color: "#A6A0BB" }}>{currency1?.symbol} / {currency1?.symbol}</p></div>
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <p style={{ color: "white" }}>0.325646436</p>
-                        <img style={{ width: "32px", height: "32px", marginLeft: "8px" }} src="./images/eth.png" />
-                        <img style={{ width: "32px", height: "32px", marginLeft: "8px" }} src="./images/aave.png" />
+                        <p style={{ color: "white" }}>{liquidity}</p>
+                        <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={36} margin />
                       </div>
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                       <div><p style={{ color: "#A6A0BB" }}>{currency1?.symbol} / {currency1?.symbol}</p></div>
                       <div style={{ display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", justifyContent: "end" }}>
-                          <p style={{ color: "white" }}>1ETH=1084.40 AVVE</p>
+                          <p style={{ color: "white" }}>1 {currency0?.symbol}= {(token1Amount / token0Amount).toFixed(2)} {currency1?.symbol}</p>
                         </div>
-                        <p style={{ color: "white" }}>1AVVE=0.000922 AVVE</p>
+                        <p style={{ color: "white" }}>1 {currency1?.symbol}={(token0Amount / token1Amount).toFixed(2)} {currency0?.symbol}</p>
                       </div>
                     </div>
                     <div style={{ width: "380", height: "71px", display: "flex", justifyContent: "center" }}>
@@ -342,6 +389,6 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
         }
         </>
       </RowBetween>
-    // </LinkRow>
+    </>
   )
 }

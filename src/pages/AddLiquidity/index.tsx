@@ -11,11 +11,10 @@ import ReactGA from 'react-ga4'
 import { RouteComponentProps } from 'react-router-dom'
 import { Text } from 'rebass'
 import {
-  useRangeHopCallbacks,
-  useV3DerivedMintInfo,
-  useV3MintActionHandlers,
-  useV3MintState,
-} from 'state/mint/v3/hooks'
+  useDerivedMintInfo,
+  useMintActionHandlers,
+  useMintState
+} from 'state/mint/hooks'
 import { ThemeContext } from 'styled-components/macro'
 
 import { ButtonError, ButtonLight, ButtonPrimary, ButtonText, ButtonYellow } from '../../components/Button'
@@ -37,7 +36,6 @@ import { ZERO_PERCENT } from '../../constants/misc'
 import { WRAPPED_NATIVE_CURRENCY } from '../../constants/tokens'
 import { useCurrency } from '../../hooks/Tokens'
 import { ApprovalState, useApproveCallback } from '../../hooks/useApproveCallback'
-import { useArgentWalletContract } from '../../hooks/useArgentWalletContract'
 import { useV3NFTPositionManagerContract, useVaultManagerContract } from '../../hooks/useContract'
 import { useDerivedPositionInfo } from '../../hooks/useDerivedPositionInfo'
 import { useIsSwapUnsupported } from '../../hooks/useIsSwapUnsupported'
@@ -81,12 +79,6 @@ export default function AddLiquidity({
   history,
 }: RouteComponentProps<{ currencyIdA?: string; currencyIdB?: string; feeAmount?: string; tokenId?: string }>) {
   const { account, chainId, library } = useActiveWeb3React()
-  // @ts-ignore
-  const theme = useContext(ThemeContext)
-  const toggleWalletModal = useWalletModalToggle() // toggle wallet when disconnected
-  const expertMode = useIsExpertMode()
-  const addTransaction = useTransactionAdder()
-  const positionManager = useV3NFTPositionManagerContract()
   const vaultManager = useVaultManagerContract()
 
   // check for existing position if tokenId in url
@@ -109,39 +101,27 @@ export default function AddLiquidity({
     baseCurrency && currencyB && baseCurrency.wrapped.equals(currencyB.wrapped) ? undefined : currencyB
 
   // mint state
-  const { independentField, typedValue, startPriceTypedValue } = useV3MintState()
+  const { independentField, typedValue, startPriceTypedValue } = useMintState();
 
   const {
-    pool,
-    ticks,
     dependentField,
-    price,
-    pricesAtTicks,
-    parsedAmounts,
-    currencyBalances,
-    position,
-    noLiquidity,
     currencies,
-    errorMessage,
-    invalidPool,
-    invalidRange,
-    outOfRange,
-    depositADisabled,
-    depositBDisabled,
-    invertPrice,
-    ticksAtLimit,
-  } = useV3DerivedMintInfo(
-    baseCurrency ?? undefined,
-    quoteCurrency ?? undefined,
-    feeAmount,
-    baseCurrency ?? undefined,
-    existingPosition
-  )
+    pair,
+    pairState,
+    currencyBalances,
+    parsedAmounts,
+    price,
+    noLiquidity,
+    liquidityMinted,
+    poolTokenPercentage,
+    error,
+  } = useDerivedMintInfo(baseCurrency ?? undefined, currencyB ?? undefined)
 
-  const { onFieldAInput, onFieldBInput, onLeftRangeInput, onRightRangeInput, onStartPriceInput } =
-    useV3MintActionHandlers(noLiquidity)
 
-  const isValid = !errorMessage && !invalidRange
+  const { onFieldAInput, onFieldBInput } =
+  useMintActionHandlers(noLiquidity)
+
+  const isValid = !error
 
   // modal and loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
@@ -168,6 +148,9 @@ export default function AddLiquidity({
     [Field.CURRENCY_B]: useUSDCValue(parsedAmounts[Field.CURRENCY_B]),
   }
 
+  const [approvalA, approveACallback] = useApproveCallback(parsedAmounts[Field.CURRENCY_A], chainId ? SUSHI_VAULT_ADDRESSES[chainId] : undefined)
+  const [approvalB, approveBCallback] = useApproveCallback(parsedAmounts[Field.CURRENCY_B], chainId ? SUSHI_VAULT_ADDRESSES[chainId] : undefined)
+
   // get the max amounts user can add
   const maxAmounts: { [field in Field]?: CurrencyAmount<Currency> } = [Field.CURRENCY_A, Field.CURRENCY_B].reduce(
     (accumulator, field) => {
@@ -187,21 +170,6 @@ export default function AddLiquidity({
       }
     },
     {}
-  )
-
-  const argentWalletContract = useArgentWalletContract()
-  // check whether the user has approved the router on the tokens
-  const [approvalA, approveACallback] = useApproveCallback(
-    argentWalletContract ? undefined : parsedAmounts[Field.CURRENCY_A],
-    chainId ? SUSHI_VAULT_ADDRESSES[chainId] : undefined
-  )
-  const [approvalB, approveBCallback] = useApproveCallback(
-    argentWalletContract ? undefined : parsedAmounts[Field.CURRENCY_B],
-    chainId ? SUSHI_VAULT_ADDRESSES[chainId] : undefined
-  )
-
-  const allowedSlippage = useUserSlippageToleranceWithDefault(
-    outOfRange ? ZERO_PERCENT : DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE
   )
 
   async function onAdd() {
@@ -281,15 +249,6 @@ export default function AddLiquidity({
     [handleCurrencySelect, currencyIdA, history]
   )
 
-  const handleFeePoolSelect = useCallback(
-    (newFeeAmount: FeeAmount) => {
-      onLeftRangeInput('')
-      onRightRangeInput('')
-      history.push(`/add/${currencyIdA}/${currencyIdB}/${newFeeAmount}`)
-    },
-    [currencyIdA, currencyIdB, history, onLeftRangeInput, onRightRangeInput]
-  )
-
   const handleDismissConfirmation = useCallback(() => {
     setShowConfirm(false)
     // if there was a tx hash, we want to clear the input
@@ -304,112 +263,8 @@ export default function AddLiquidity({
   const addIsUnsupported = useIsSwapUnsupported(currencies?.CURRENCY_A, currencies?.CURRENCY_B)
   //add test
 
-
-
-  const clearAll = useCallback(() => {
-    onFieldAInput('')
-    onFieldBInput('')
-    onLeftRangeInput('')
-    onRightRangeInput('')
-    history.push(`/add`)
-  }, [history, onFieldAInput, onFieldBInput, onLeftRangeInput, onRightRangeInput])
-
-  // get value and prices at ticks
-  const { [Bound.LOWER]: tickLower, [Bound.UPPER]: tickUpper } = ticks
-  const { [Bound.LOWER]: priceLower, [Bound.UPPER]: priceUpper } = pricesAtTicks
-
-  const { getDecrementLower, getIncrementLower, getDecrementUpper, getIncrementUpper, getSetFullRange } =
-    useRangeHopCallbacks(baseCurrency ?? undefined, quoteCurrency ?? undefined, feeAmount, tickLower, tickUpper, pool)
-
-  // we need an existence check on parsed amounts for single-asset deposits
-  const showApprovalA =
-    !argentWalletContract && approvalA !== ApprovalState.APPROVED && !!parsedAmounts[Field.CURRENCY_A]
-  const showApprovalB =
-    !argentWalletContract && approvalB !== ApprovalState.APPROVED && !!parsedAmounts[Field.CURRENCY_B]
-
-  const pendingText = `Supplying ${!depositADisabled ? parsedAmounts[Field.CURRENCY_A]?.toSignificant(6) : ''} ${!depositADisabled ? currencies[Field.CURRENCY_A]?.symbol : ''
-    } ${!outOfRange ? 'and' : ''} ${!depositBDisabled ? parsedAmounts[Field.CURRENCY_B]?.toSignificant(6) : ''} ${!depositBDisabled ? currencies[Field.CURRENCY_B]?.symbol : ''
-    }`
-
-  const Buttons = () =>
-    addIsUnsupported ? (
-      <ButtonPrimary disabled={true} $borderRadius="12px" padding={'12px'}>
-        <ThemedText.Main mb="4px">
-          Unsupported Asset
-        </ThemedText.Main>
-      </ButtonPrimary>
-    ) : !account ? (
-      <ButtonLight onClick={toggleWalletModal} $borderRadius="12px" padding={'12px'}>
-        Connect Wallet
-      </ButtonLight>
-    ) : (
-      <AutoColumn gap={'md'}>
-        {(approvalA === ApprovalState.NOT_APPROVED ||
-          approvalA === ApprovalState.PENDING ||
-          approvalB === ApprovalState.NOT_APPROVED ||
-          approvalB === ApprovalState.PENDING) &&
-          isValid && (
-            <RowBetween>
-              {showApprovalA && (
-                <ButtonPrimary
-                  onClick={approveACallback}
-                  disabled={approvalA === ApprovalState.PENDING}
-                  width={showApprovalB ? '48%' : '100%'}
-                >
-                  {approvalA === ApprovalState.PENDING ? (
-                    <Dots>
-                      Approving {currencies[Field.CURRENCY_A]?.symbol}
-                    </Dots>
-                  ) : (
-                    <>Approve {currencies[Field.CURRENCY_A]?.symbol}</>
-                  )}
-                </ButtonPrimary>
-              )}
-              {showApprovalB && (
-                <ButtonPrimary
-                  onClick={approveBCallback}
-                  disabled={approvalB === ApprovalState.PENDING}
-                  width={showApprovalA ? '48%' : '100%'}
-                >
-                  {approvalB === ApprovalState.PENDING ? (
-                    <Dots>
-                      <>Approving {currencies[Field.CURRENCY_B]?.symbol}</>
-                    </Dots>
-                  ) : (
-                    <>Approve {currencies[Field.CURRENCY_B]?.symbol}</>
-                  )}
-                </ButtonPrimary>
-              )}
-            </RowBetween>
-          )}
-        <ButtonError
-          onClick={() => {
-            expertMode ? onAdd() : setShowConfirm(true)
-          }}
-          disabled={
-            !isValid ||
-            (!argentWalletContract && approvalA !== ApprovalState.APPROVED && !depositADisabled) ||
-            (!argentWalletContract && approvalB !== ApprovalState.APPROVED && !depositBDisabled)
-          }
-          error={!isValid && !!parsedAmounts[Field.CURRENCY_A] && !!parsedAmounts[Field.CURRENCY_B]}
-        >
-          <Text fontWeight={500}><>{errorMessage ? errorMessage : "Preview"}</></Text>
-        </ButtonError>
-      </AutoColumn>
-    )
-
-  const [inputA, setInputA] = useState('');
-  const [inputB, setInputB] = useState('');
-  const changeInputA = (value: string) => {
-    setInputA(value)
-    if (value == '') { return; }
-    setInputB((parseFloat(value) * 200).toString());
-  }
-  const changeInputB = (value: string) => {
-    setInputB(value)
-    if (value == '') { return; }
-    setInputA((parseFloat(value) / 200).toString());
-  }
+  const pendingText = (<>Supplying {parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)} {currencies[Field.CURRENCY_A]?.symbol} and{' '}
+  {parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)} {currencies[Field.CURRENCY_B]?.symbol}</>);
 
   return (
     <>
@@ -423,19 +278,8 @@ export default function AddLiquidity({
             <ConfirmationModalContent
               title={""}
               onDismiss={handleDismissConfirmation}
-              topContent={() => (
-                <Review
-                  parsedAmounts={parsedAmounts}
-                  position={position}
-                  existingPosition={existingPosition}
-                  priceLower={priceLower}
-                  priceUpper={priceUpper}
-                  outOfRange={outOfRange}
-                  ticksAtLimit={ticksAtLimit}
-                />
-              )}
               bottomContent={() => (
-                <button className='view-etherscan' onClick={onAdd}>
+                <button className='view-etherscan'>
                   <p>
                     View on Etherscan
                   </p>
@@ -456,139 +300,46 @@ export default function AddLiquidity({
               defaultSlippage={DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE}
               showBackLink={!hasExistingPosition}
             >
-              {!hasExistingPosition && (
-                <Row justifyContent="flex-end" style={{ width: 'fit-content', minWidth: 'fit-content' }}>
-                  <MediumOnly>
-                    <ButtonText onClick={clearAll} margin="0 15px 0 0">
-                      <ThemedText.Blue fontSize="12px">
-                        Clear All
-                      </ThemedText.Blue>
-                    </ButtonText>
-                  </MediumOnly>
-                  {baseCurrency && quoteCurrency ? (
-                    <RateToggle
-                      currencyA={baseCurrency}
-                      currencyB={quoteCurrency}
-                      handleRateToggle={() => {
-                        if (!ticksAtLimit[Bound.LOWER] && !ticksAtLimit[Bound.UPPER]) {
-                          onLeftRangeInput((invertPrice ? priceLower : priceUpper?.invert())?.toSignificant(6) ?? '')
-                          onRightRangeInput((invertPrice ? priceUpper : priceLower?.invert())?.toSignificant(6) ?? '')
-                          onFieldAInput(formattedAmounts[Field.CURRENCY_B] ?? '')
-                        }
-                        history.push(
-                          `/add/${currencyIdB as string}/${currencyIdA as string}${feeAmount ? '/' + feeAmount : ''}`
-                        )
-                      }}
-                    />
-                  ) : null}
-                </Row>
-              )}
             </AddRemoveTabs>
             <Wrapper className='remove-tab-content' style={{ minWidth: "400px" }}>
               <ResponsiveTwoColumns wide={!hasExistingPosition} style={{ display: "block" }} className="remove-tab-content-inner">
-                <AutoColumn gap="lg" className='select-pair-and-fee-tire' style={{ display: "none" }}>
-                  {!hasExistingPosition && (
-                    <>
-                      <AutoColumn gap="md" >
-                        <RowBetween paddingBottom="20px">
-                          <ThemedText.Label>
-                            Select Pair
-                          </ThemedText.Label>
-                        </RowBetween>
-                        <RowBetween>
-                          {/* <CurrencyDropdown
-                          value={formattedAmounts[Field.CURRENCY_A]}
-                          onUserInput={onFieldAInput}
-                          hideInput={true}
-                          onMax={() => {
-                            onFieldAInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
-                          }}
-                          onCurrencySelect={handleCurrencyASelect}
-                          showMaxButton={!atMaxAmounts[Field.CURRENCY_A]}
-                          currency={currencies[Field.CURRENCY_A] ?? null}
-                          id="add-liquidity-input-tokena"
-                          showCommonBases
-                        /> */}
-
-                          <div style={{ width: '12px' }} />
-
-                          {/* <CurrencyDropdown
-                          value={formattedAmounts[Field.CURRENCY_B]}
-                          hideInput={true}
-                          onUserInput={onFieldBInput}
-                          onCurrencySelect={handleCurrencyBSelect}
-                          onMax={() => {
-                            onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
-                          }}
-                          showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
-                          currency={currencies[Field.CURRENCY_B] ?? null}
-                          id="add-liquidity-input-tokenb"
-                          showCommonBases
-                        /> */}
-                        </RowBetween>
-
-                        <FeeSelector
-                          disabled={!quoteCurrency || !baseCurrency}
-                          feeAmount={feeAmount}
-                          handleFeePoolSelect={handleFeePoolSelect}
-                          currencyA={baseCurrency ?? undefined}
-                          currencyB={quoteCurrency ?? undefined}
-                        />
-                      </AutoColumn>{' '}
-                    </>
-                  )}
-                  {hasExistingPosition && existingPosition && (
-                    <PositionPreview
-                      position={existingPosition}
-                      title={"Selected Range"}
-                      inRange={!outOfRange}
-                      ticksAtLimit={ticksAtLimit}
-                    />
-                  )}
-                </AutoColumn>
                 <div>
                   <DynamicSection
-                    disabled={tickLower === undefined || tickUpper === undefined || invalidPool || invalidRange}
+                    disabled={false}
                   >
                     <AutoColumn gap="md">
                       <ThemedText.Label style={{ fontSize: "16px", color: "white" }}>
                         Capital Type
                       </ThemedText.Label>
-                      <div className='fromToken' style={{ display: "flex", justifyContent: "space-between" }}>
-                        <CurrencyInputPanel
-                          value={formattedAmounts[Field.CURRENCY_A]}
-                          onUserInput={onFieldAInput}
-                          onMax={() => {
-                            onFieldAInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
-                          }}
-                          showMaxButton={!atMaxAmounts[Field.CURRENCY_A]}
-                          onCurrencySelect={handleCurrencyASelect}
-                          currency={currencies[Field.CURRENCY_A] ?? null}
-                          id="add-liquidity-input-tokena"
-                          fiatValue={usdcValues[Field.CURRENCY_A]}
-                          showCommonBases
-                          locked={depositADisabled}
-                        />
-                      </div>
+                      <CurrencyInputPanel
+                        value={formattedAmounts[Field.CURRENCY_A]}
+                        onUserInput={onFieldAInput}
+                        onMax={() => {
+                          onFieldAInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
+                        }}
+                        showMaxButton={!atMaxAmounts[Field.CURRENCY_A]}
+                        onCurrencySelect={handleCurrencyASelect}
+                        currency={currencies[Field.CURRENCY_A] ?? null}
+                        id="add-liquidity-input-tokena"
+                        fiatValue={usdcValues[Field.CURRENCY_A]}
+                        showCommonBases
+                      />
                       <ThemedText.Label style={{ fontSize: "16px", color: "white" }}>
                         Token
                       </ThemedText.Label>
-                      <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
-                        <CurrencyInputPanel
-                          value={formattedAmounts[Field.CURRENCY_B]}
-                          onUserInput={onFieldBInput}
-                          onMax={() => {
-                            onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
-                          }}
-                          showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
-                          fiatValue={usdcValues[Field.CURRENCY_B]}
-                          currency={currencies[Field.CURRENCY_B] ?? null}
-                          onCurrencySelect={handleCurrencyBSelect}
-                          id="add-liquidity-input-tokenb"
-                          showCommonBases
-                          locked={depositBDisabled}
-                        />
-                      </div>
+                      <CurrencyInputPanel
+                        value={formattedAmounts[Field.CURRENCY_B]}
+                        onUserInput={onFieldBInput}
+                        onMax={() => {
+                          onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
+                        }}
+                        showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
+                        fiatValue={usdcValues[Field.CURRENCY_B]}
+                        currency={currencies[Field.CURRENCY_B] ?? null}
+                        onCurrencySelect={handleCurrencyBSelect}
+                        id="add-liquidity-input-tokenb"
+                        showCommonBases
+                      />
                     </AutoColumn>
                   </DynamicSection>
                 </div>
