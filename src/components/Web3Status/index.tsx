@@ -125,7 +125,7 @@ function Web3StatusInner() {
   const { ENSName } = useENSName(account ?? undefined)
 
   const allTransactions = useAllTransactions()
-
+  
   const sortedRecentTransactions = useMemo(() => {
     const txs = Object.values(allTransactions)
     return txs.filter(isTransactionRecent).sort(newTransactionsFirst)
@@ -167,7 +167,7 @@ function Web3StatusInner() {
     return (
       <Web3StatusConnect className='connect-wallet' id="connect-wallet" onClick={toggleWalletModal} faded={!account}>
         <Text className='text'>
-          Connect to Wallet
+          Connect Wallet
         </Text>
       </Web3StatusConnect>
 

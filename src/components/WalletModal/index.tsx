@@ -382,7 +382,7 @@ export default function WalletModal({
         ) : (
           <HeaderRow className="modal-header" style={{ justifyContent: "center", height: "76px" }} >
             <HoverText className="modal-header-text">
-              Connect a wallet
+              Connect Wallet
             </HoverText>
           </HeaderRow>
         )}

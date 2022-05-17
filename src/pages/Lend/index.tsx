@@ -296,7 +296,7 @@ export default function Lend() {
                     {showConnectAWallet && (
 
                       <ButtonPrimary style={{ marginTop: '2em', padding: '8px 16px', width: "384px", height: "48px" }} className="pool-body-connect" onClick={toggleWalletModal}>
-                        Connect a wallet
+                        Connect Wallet
                       </ButtonPrimary>
                     )}
                   </NoLiquidity>
