@@ -117,7 +117,6 @@ export default function AddLiquidity({
     error,
   } = useDerivedMintInfo(baseCurrency ?? undefined, currencyB ?? undefined)
 
-
   const { onFieldAInput, onFieldBInput } =
   useMintActionHandlers(noLiquidity)
 

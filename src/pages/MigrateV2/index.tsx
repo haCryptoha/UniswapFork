@@ -290,9 +290,7 @@ export default function Pool() {
                       >
                         Your Active Position will appear here
                       </ButtonText>
-                      <button onClick={() => setShowLiquidityComponent(true)}>
-                        show liquidity list component
-                      </button>
+                    
                    
                     {showConnectAWallet && (
 

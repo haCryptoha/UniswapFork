@@ -24,9 +24,11 @@ import { FiatValue } from './FiatValue'
 
 const InputPanel = styled.div<{ hideInput?: boolean }>`
   ${({ theme }) => theme.flexColumnNoWrap}
+  width: 100%;
   position: relative;
+  border:none;
   border-radius: ${({ hideInput }) => (hideInput ? '16px' : '20px')};
-  background-color: ${({ theme, hideInput }) => (hideInput ? 'transparent' : theme.bg2)};
+  background-color: ${({ theme, hideInput }) => (hideInput ? 'transparent' : 'transparent')};
   z-index: 1;
   width: ${({ hideInput }) => (hideInput ? '100%' : 'initial')};
   transition: height 1s ease;
@@ -47,13 +49,11 @@ const FixedContainer = styled.div`
 
 const Container = styled.div<{ hideInput: boolean }>`
   border-radius: ${({ hideInput }) => (hideInput ? '16px' : '20px')};
-  border: 1px solid ${({ theme }) => theme.bg0};
   background-color: ${({ theme }) => theme.bg1};
   width: ${({ hideInput }) => (hideInput ? '100%' : 'initial')};
   :focus,
   :hover {
-    border: 1px solid ${({ theme, hideInput }) => (hideInput ? ' transparent' : theme.bg3)};
-  }
+     }
 `
 
 const CurrencySelect = styled(ButtonGray)<{ visible: boolean; selected: boolean; hideInput?: boolean }>`
@@ -71,7 +71,7 @@ const CurrencySelect = styled(ButtonGray)<{ visible: boolean; selected: boolean;
   font-weight: 500;
   height: ${({ hideInput }) => (hideInput ? '2.8rem' : '2.4rem')};
   width: ${({ hideInput }) => (hideInput ? '100%' : 'initial')};
-  padding: 0 8px;
+  padding: 1px;
   justify-content: space-between;
   margin-left: ${({ hideInput }) => (hideInput ? '0' : '12px')};
   :focus,
@@ -110,6 +110,10 @@ const Aligner = styled.span`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  background: black;
+  height: 100%;
+  border-radius: 15px;
+  color:white;
 `
 
 const StyledDropDown = styled(DropDown)<{ selected: boolean }>`
@@ -210,7 +214,7 @@ export default function CurrencyInputPanel({
   }, [setModalOpen])
 
   return (
-    <InputPanel id={id} hideInput={hideInput} {...rest}>
+    <InputPanel id={id} hideInput={hideInput} {...rest} style={{width:'100%'}}>
       {locked && (
         <FixedContainer>
           <AutoColumn gap="sm" justify="center">
@@ -272,12 +276,12 @@ export default function CurrencyInputPanel({
         </InputRow>
         {!hideInput && !hideBalance && currency && (
           <FiatRow>
-            <RowBetween>
+            <RowBetween style={{marginTop:'-30px'}}>
               <LoadingOpacityContainer $loading={loading}>
                 <FiatValue fiatValue={fiatValue} priceImpact={priceImpact} />
               </LoadingOpacityContainer>
               {account ? (
-                <RowFixed style={{ height: '17px' }}>
+                <RowFixed style={{ height: '17px', width:'100%' }}>
                   <ThemedText.Body
                     onClick={onMax}
                     color={theme.text3}
@@ -289,7 +293,7 @@ export default function CurrencyInputPanel({
                       renderBalance ? (
                         renderBalance(selectedCurrencyBalance)
                       ) : (
-                        <>Balance: {formatCurrencyAmount(selectedCurrencyBalance, 4)}</>
+                        <>Available Assets: {formatCurrencyAmount(selectedCurrencyBalance, 4)}</>
                       )
                     ) : null}
                   </ThemedText.Body>
