@@ -27,7 +27,6 @@ require('./style.css');
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 870px;
-  width: 100%;
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
     max-width: 800px;
@@ -100,6 +99,8 @@ const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   padding: 6px 8px;
   width: fit-content;
   border: none;
+  height:30px;
+  padding: 0 10px !important;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     flex: 1 1 auto;
     width: 100%;
@@ -236,16 +237,16 @@ export default function Pool() {
         <SwapPoolTabs active={'pool'} />
         <AutoColumn gap="lg" justify="center">
           <AutoColumn gap="lg" style={{ width: '100%', justifyContent: "center" }}>
-            <TitleRow style={{ marginTop: '1rem', display:  "flex" }} padding={'0'}>
+            <TitleRow style={{ marginBottom: '1rem', display:  "flex" }} padding={'0'}>
               {/* <ThemedText.Body fontSize={'20px'}>
                 {params.platform ? capitalizeFirstLetter(params.platform) : ''} Pools Overview
               </ThemedText.Body> */}
               <ButtonRow className="test" style={{ justifyContent: "space-between", width: "100%" }}>
                 <Dropdown onUserClick={setTrisolarisState}/>
-                <ThemedText.Body fontSize={'20px'} color={'white'}>
+                <ThemedText.Body fontSize={'20px'} color={'white'} style={{width:'283px'}}>
                 {isTrisolaris ? 'Trisolaris' : 'Uniswap V2'} Migration Overview
                 </ThemedText.Body>
-                <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/migrate_import" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
+                <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/migrate_import" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)",marginRight: "15px" }}>
                   Import
                 </ResponsiveButtonPrimary>
               </ButtonRow>
@@ -295,7 +296,7 @@ export default function Pool() {
                     {showConnectAWallet && (
 
                       <ButtonPrimary style={{ marginTop: '2em', padding: '8px 16px', width: "384px", height: "48px" }} className="pool-body-connect" onClick={toggleWalletModal}>
-                        Connect a wallet
+                        Connect Wallet
                       </ButtonPrimary>
                     )}
                   </NoLiquidity>

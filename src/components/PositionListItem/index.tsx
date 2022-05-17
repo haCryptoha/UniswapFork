@@ -7,6 +7,7 @@ import { RowBetween } from 'components/Row'
 import TransactionConfirmationModal, { ConfirmationModalContent } from 'components/TransactionConfirmationModal'
 import { useToken } from 'hooks/Tokens'
 import { useVaultManagerContract } from 'hooks/useContract'
+import { utils } from "ethers"
 import { useCallback, useMemo, useState } from 'react'
 import ReactGA from 'react-ga4'
 import { Link } from 'react-router-dom'
@@ -186,11 +187,12 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
   const {
     capital: token0Address,
     asset: token1Address,
-    lpAmount: liquidity,
-    capitalAmount: token0Amount,
-    assetAmount: token1Amount,
+    lpAmount: liquidityRaw,
+    capitalAmount: token0AmountRaw,
+    assetAmount: token1AmountRaw,
     bundle: bundleID,
   } = positionDetails;
+
 
   const [collapse, setCollapse] = useState(true);
   const [removed, setRemoved] = useState(false);
@@ -213,8 +215,12 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
 
   const currency0 = token0 ? unwrappedToken(token0) : undefined
   const currency1 = token1 ? unwrappedToken(token1) : undefined
-  const positionSummaryLink = '/pool/detail/' + positionDetails.tokenId
 
+  const token0Amount = utils.formatUnits(token0AmountRaw, currency0?.decimals);
+  const token1Amount = utils.formatUnits(token1AmountRaw, currency1?.decimals);
+  const liquidity = utils.formatUnits(liquidityRaw, 18);
+
+  const positionSummaryLink = '/pool/detail/' + positionDetails.tokenId
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
   const [attemptingTxn, setAttemptingTxn] = useState<boolean>(false) // clicked confirm
   const [txHash, setTxHash] = useState<string>('')
@@ -225,10 +231,9 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
   }, [txHash])
 
   const confimrOnClick = async () => {
-    setRemoved(true);
     if (vaultManager) {
       try {
-        await vaultManager.removeLiquidity(token0Address, token1Address, bundleID, "1000000000000000");
+        await vaultManager.removeLiquidity(token0Address, token1Address, bundleID, token1AmountRaw);
         ReactGA.event({
           category: 'Liquidity',
           action: 'Remove',
@@ -270,7 +275,9 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
           )}
         />
       <RowBetween>
-        <>{!removeClicked ? <>{!removed ? <div className="single-liquidity">
+        <>{!removeClicked ? 
+        <>
+         <div className="single-liquidity">
             <a onClick={changeCollpase} style={{ cursor: "pointer" }}>
               <div className="single-liquidity-header">
                 <div className="single-liquidity-header-left">
@@ -291,15 +298,15 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
             <div className="single-liquidity-content" style={{ height: collapse ? "0px" : "296px", overflow: 'hidden' }}>
               <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
                 <p className="single-token-left">Your total pool tokens</p>
-                <p className="single-token-right">{liquidity}</p>
+                <p className="single-token-right">{(+liquidity).toFixed(2)}</p>
               </div>
               <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
                 <p className="single-token-left">Pooled {currency0?.symbol}</p>
-                <p className="single-token-right">{token0Amount} {currency0?.symbol}</p>
+                <p className="single-token-right">{(+token0Amount).toFixed(2)} {currency0?.symbol}</p>
               </div>
               <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
                 <p className="single-token-left">Pooled {currency1?.symbol}</p>
-                <p className="single-token-right">{token1Amount} {currency1?.symbol}</p>
+                <p className="single-token-right">{(+token1Amount).toFixed(2)} {currency1?.symbol}</p>
               </div>
               <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
                 <p className="single-token-left">Your pool share</p>
@@ -312,7 +319,7 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
                 <button onClick={() => setRemoveClicked(true)}><p>Remove</p></button>
               </div>
             </div>
-          </div> : <></>}
+          </div> 
         </>
           :
           <div className="remove-liquidity-warrap">
@@ -332,7 +339,7 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
                 <div className="description2">
                   <div className="eth">
                     <div className="eth-left">
-                      <p>{token0Amount}</p>
+                      <p>{(+token0Amount).toFixed(2)}</p>
                     </div>
                     <div className="eth-right">
                       <CurrencyLogo currency={currency0} size={'32px'} style={{ marginRight: '12px' }} />
@@ -341,7 +348,7 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
                   </div>
                   <div className="eth">
                     <div className="eth-left">
-                      <p>{token1Amount}</p>
+                      <p>{(+token1Amount).toFixed(2)}</p>
                     </div>
                     <div className="eth-right">
                       <CurrencyLogo currency={currency1} size={'32px'} style={{ marginRight: '12px' }} />
@@ -358,7 +365,7 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                       <div><p style={{ color: "#A6A0BB" }}>{currency1?.symbol} / {currency1?.symbol}</p></div>
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <p style={{ color: "white" }}>{liquidity}</p>
+                        <p style={{ color: "white" }}>{(+liquidity).toFixed(2)}</p>
                         <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={36} margin />
                       </div>
                     </div>

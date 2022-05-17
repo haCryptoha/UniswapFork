@@ -84,7 +84,7 @@ export default function App() {
           <HeaderWrapper>
             <Header />
           </HeaderWrapper>
-          <BodyWrapper style={{ backgroundColor: "#09080C" }}>
+          <BodyWrapper style={{ backgroundColor: "#09080C", overflow:"auto" }}>
             <Popups />
             <Polling />
             <TopLevelModals />
@@ -97,6 +97,7 @@ export default function App() {
                 {/* <Route exact strict path="/send" component={RedirectPathToSwapOnly} /> */}
                 {/* <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} /> */}
                 <Route exact strict path="/lend" component={Lend} />
+                <Route exact strict path="/pool" component={Pool} />
                 <Route exact strict path="/join" component={Lend} />
                 <Route exact strict path="/claim" component={Lend} />
 				<Route exact strict path="/lend/deposit" component={Deposit} />

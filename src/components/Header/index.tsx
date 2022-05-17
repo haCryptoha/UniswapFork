@@ -348,25 +348,16 @@ export default function Header() {
               <CardNoise />
             </UNIWrapper>
           )}
-          <a style={{ alignItems: "center", display: "flex", justifyContent: "center", cursor: "pointer" }} className="sqa-balance">
-            <Text className='text' style={{ fontSize: "14px" }}>
-              0 SQA
-            </Text>
-          </a>
+         
           <AccountElement active={!!account} style={{ backgroundColor: "#2F2A3C", width: "auto", marginRight: "30px" }}>
 
 
 
-            {account && userEthBalance ? (
-              <BalanceText style={{ flexShrink: 0, userSelect: 'none', color: "white" }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
-
-                {userEthBalance?.toSignificant(3)} {nativeCurrencySymbol}
-
-              </BalanceText>
-            ) : null}
+        
             <Web3Status />
           </AccountElement>
         </HeaderElement>
+        
       </HeaderControls>
     </HeaderFrame>
   )

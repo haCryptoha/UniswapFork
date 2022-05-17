@@ -143,8 +143,7 @@ export function AddRemoveTabs({
             <StyledArrowLeft stroke={theme.text2} />
           </StyledHistoryLink>
         </div>
-		<div className='go-back-arrow-import' style={{backgroundImage:'url(./images/left.png)'}} as={HistoryLink} to="/migrate_import"></div>
-        <ThemedText.MediumHeader
+	     <ThemedText.MediumHeader
           fontWeight={500}
           fontSize={20}
           style={{ flex: '1', margin: 'auto', textAlign: children ? 'center' : 'center', color: "white" }}

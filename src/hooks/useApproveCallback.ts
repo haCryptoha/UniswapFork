@@ -16,7 +16,7 @@ function useGetAndTrackApproval(getApproval: ReturnType<typeof useApproval>[1]) 
     return getApproval().then((pending) => {
       if (pending) {
         const { response, tokenAddress, spenderAddress: spender } = pending
-        addTransaction(response, { type: TransactionType.APPROVAL, tokenAddress, spender })
+        //addTransaction(response, { type: TransactionType.APPROVAL, tokenAddress, spender })
       }
     })
   }, [addTransaction, getApproval])

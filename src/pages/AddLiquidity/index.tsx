@@ -170,8 +170,9 @@ export default function AddLiquidity({
     },
     {}
   )
-
+  const addTransaction = useTransactionAdder()
   async function onAdd() {
+
     if (!chainId || !library || !account) return
 
     if (!baseCurrency || !quoteCurrency) {
@@ -179,7 +180,19 @@ export default function AddLiquidity({
     }
     if (vaultManager && account) {
       try {
-        await vaultManager.addLiquidity(currencyId(baseCurrency), (parsedAmounts[Field.CURRENCY_A])?.quotient.toString(), currencyId(quoteCurrency));
+        
+        await vaultManager.addLiquidity(currencyId(baseCurrency), (parsedAmounts[Field.CURRENCY_A])?.quotient.toString(), currencyId(quoteCurrency)).then((response: TransactionResponse) => {
+          setAttemptingTxn(false)
+          addTransaction(response, {
+            type: TransactionType.ADD_LIQUIDITY_V3_POOL,
+            baseCurrencyId: currencyId(baseCurrency),
+            quoteCurrencyId: currencyId(quoteCurrency),
+            createPool: Boolean(noLiquidity),
+            expectedAmountBaseRaw: parsedAmounts[Field.CURRENCY_A]?.quotient?.toString() ?? '0',
+            expectedAmountQuoteRaw: parsedAmounts[Field.CURRENCY_B]?.quotient?.toString() ?? '0',
+            feeAmount: 3000,
+          })
+        })
         ReactGA.event({
           category: 'Liquidity',
           action: 'Add',
@@ -196,6 +209,7 @@ export default function AddLiquidity({
       }
     }
   }
+
 
   const handleCurrencySelect = useCallback(
     (currencyNew: Currency, currencyIdOther?: string): (string | undefined)[] => {
@@ -310,35 +324,39 @@ export default function AddLiquidity({
                       <ThemedText.Label style={{ fontSize: "16px", color: "white" }}>
                         Capital Type
                       </ThemedText.Label>
-                      <CurrencyInputPanel
-                        value={formattedAmounts[Field.CURRENCY_A]}
-                        onUserInput={onFieldAInput}
-                        onMax={() => {
-                          onFieldAInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
-                        }}
-                        showMaxButton={!atMaxAmounts[Field.CURRENCY_A]}
-                        onCurrencySelect={handleCurrencyASelect}
-                        currency={currencies[Field.CURRENCY_A] ?? null}
-                        id="add-liquidity-input-tokena"
-                        fiatValue={usdcValues[Field.CURRENCY_A]}
-                        showCommonBases
-                      />
-                      <ThemedText.Label style={{ fontSize: "16px", color: "white" }}>
+                      <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
+                          <CurrencyInputPanel
+                            value={formattedAmounts[Field.CURRENCY_A]}
+                            onUserInput={onFieldAInput}
+                            onMax={() => {
+                              onFieldAInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
+                            }}
+                            showMaxButton={!atMaxAmounts[Field.CURRENCY_A]}
+                            onCurrencySelect={handleCurrencyASelect}
+                            currency={currencies[Field.CURRENCY_A] ?? null}
+                            id="add-liquidity-input-tokena"
+                            fiatValue={usdcValues[Field.CURRENCY_A]}
+                            showCommonBases
+                          />
+                      </div>
+                      <ThemedText.Label style={{ fontSize: "16px", color: "white", marginTop:'40px' }}>
                         Token
                       </ThemedText.Label>
-                      <CurrencyInputPanel
-                        value={formattedAmounts[Field.CURRENCY_B]}
-                        onUserInput={onFieldBInput}
-                        onMax={() => {
-                          onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
-                        }}
-                        showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
-                        fiatValue={usdcValues[Field.CURRENCY_B]}
-                        currency={currencies[Field.CURRENCY_B] ?? null}
-                        onCurrencySelect={handleCurrencyBSelect}
-                        id="add-liquidity-input-tokenb"
-                        showCommonBases
-                      />
+                      <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
+                          <CurrencyInputPanel
+                            value={formattedAmounts[Field.CURRENCY_B]}
+                            onUserInput={onFieldBInput}
+                            onMax={() => {
+                              onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
+                            }}
+                            showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
+                            fiatValue={usdcValues[Field.CURRENCY_B]}
+                            currency={currencies[Field.CURRENCY_B] ?? null}
+                            onCurrencySelect={handleCurrencyBSelect}
+                            id="add-liquidity-input-tokenb"
+                            showCommonBases
+                          />
+                     </div> 
                     </AutoColumn>
                   </DynamicSection>
                 </div>

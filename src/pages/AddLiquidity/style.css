@@ -14,9 +14,6 @@
     border-radius: 8px;
 }
 
-.arrow-left-warrap {
-    display: none;
-}
 
 .settingTab-warrap {
     display: none;
@@ -32,7 +29,7 @@
 }
 
 .fromToken .open-currency-select-button {
-    margin-top: 16px;
+  
     background-color: rgb(42 42 42);
     color: white;
     box-shadow: none;
@@ -43,7 +40,7 @@
 }
 
 .toToken .open-currency-select-button {
-    margin-top: 16px;
+
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     color: white;
     box-shadow: none;

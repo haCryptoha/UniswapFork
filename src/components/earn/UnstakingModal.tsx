@@ -72,7 +72,7 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
 
   let error: ReactNode | undefined
   if (!account) {
-    error = "Connect a wallet"
+    error = "Connect Wallet"
   }
   if (!stakingInfo?.stakedAmount) {
     error = error ?? "Enter an amount"

@@ -122,7 +122,8 @@ const SelectorControls = styled.div<{ interactive: boolean }>`
   display: flex;
   font-weight: 500;
   justify-content: space-between;
-  padding: 6px 8px;
+  height: 30px;
+  padding: 0 10px !important;
 `
 const SelectorLogo = styled(Logo) <{ interactive?: boolean }>`
   margin-right: ${({ interactive }) => (interactive ? 8 : 0)}px;

@@ -33,6 +33,7 @@ const InputPanel = styled.div<{ hideInput?: boolean }>`
   width: ${({ hideInput }) => (hideInput ? '100%' : 'initial')};
   transition: height 1s ease;
   will-change: height;
+  
 `
 
 const FixedContainer = styled.div`
@@ -86,6 +87,8 @@ const InputRow = styled.div<{ selected: boolean }>`
   align-items: center;
   justify-content: space-between;
   padding: ${({ selected }) => (selected ? ' 1rem 1rem 0.75rem 1rem' : '1rem 1rem 1rem 1rem')};
+  padding-left:0px;
+  padding-top:0px;
 `
 
 const LabelRow = styled.div`
@@ -95,6 +98,7 @@ const LabelRow = styled.div`
   font-size: 0.75rem;
   line-height: 1rem;
   padding: 0 1rem 1rem;
+  padding-left:0px;
   span:hover {
     cursor: pointer;
     color: ${({ theme }) => darken(0.2, theme.text2)};
@@ -114,6 +118,7 @@ const Aligner = styled.span`
   height: 100%;
   border-radius: 15px;
   color:white;
+  padding:5px;
 `
 
 const StyledDropDown = styled(DropDown)<{ selected: boolean }>`
@@ -276,7 +281,7 @@ export default function CurrencyInputPanel({
         </InputRow>
         {!hideInput && !hideBalance && currency && (
           <FiatRow>
-            <RowBetween style={{marginTop:'-30px'}}>
+            <RowBetween style={{marginTop:'-15px'}}>
               <LoadingOpacityContainer $loading={loading}>
                 <FiatValue fiatValue={fiatValue} priceImpact={priceImpact} />
               </LoadingOpacityContainer>
