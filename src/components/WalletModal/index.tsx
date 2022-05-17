@@ -412,17 +412,7 @@ export default function WalletModal({
               <OptionGrid>{getOptions()}</OptionGrid>
             )}
             {/* <LinkCard padding=".5rem" $borderRadius=".75rem" onClick={() => setWalletView(WALLET_VIEWS.LEGAL)}> */}
-            <LinkCard padding=".5rem" $borderRadius=".75rem">
-              <RowBetween>
-                <AutoRow gap="4px">
-                  <Info size={20} />
-                  <ThemedText.Label fontSize={14} style={{ color: "white" }}>
-                    New to Ethereum? <a style={{ textDecoration: "underline" }}>Learn more about wallets</a>
-                  </ThemedText.Label>
-                </AutoRow>
-                <ArrowRight size={16} />
-              </RowBetween>
-            </LinkCard>
+           
           </AutoColumn>
         </ContentWrapper>
       </UpperSection>

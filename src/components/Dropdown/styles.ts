@@ -11,20 +11,50 @@ export const Wrapper = styled.div`
   margin-left:0px;
   padding:0px;
   border: none;
+  height: 30px;
+  padding: 0 10px !important;
   `;
 
 export const ActivatorButton = styled.button`
   align-items: center;
   background: linear-gradient(73.6deg, rgb(133, 255, 196) 2.11%, rgb(92, 198, 255) 42.39%, rgb(188, 133, 255) 85.72%);
-  border-radius: 12px;
-  font-weight:500;
-  height: 38px;
+
+  font-weight: 500;
+  text-align: center;
+  border-radius: 20px;
+  outline: none;
+  border: 1px solid transparent;
   color: white;
+  text-decoration: none;
   display: flex;
-  font-size: inherit;
-  max-width: 160px;
-  padding: 1em;
+  justify-content: center;
+  flex-wrap: nowrap;
+  align-items: center;
   cursor: pointer;
+  position: relative;
+  z-index: 1;
+  border:none;
+  font-weight:500;
+  font-size: 16px;
+  &:disabled {
+    opacity: 50%;
+    cursor: auto;
+    pointer-events: none;
+  }
+
+  will-change: transform;
+  transition: transform 450ms ease;
+  transform: perspective(1px) translateZ(0);
+
+  > * {
+    user-select: none;
+  }
+
+  > a {
+    text-decoration: none;
+  }
+  height: 30px;
+  padding: 0 10px !important;
   &:after {
     content: "";
     border-bottom: 1px solid #fff;
@@ -59,7 +89,7 @@ export const DropdownList = styled.ul<{ active: boolean }>`
       height: 37px;
       font-size: 16px;
       :hover {
-        color: black;
+        color: white;
         cursor: pointer;
         text-decoration: none;
     }

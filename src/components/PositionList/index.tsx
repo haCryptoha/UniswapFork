@@ -52,7 +52,7 @@ export default function PositionList({
           {positions && ' (' + positions.length + ')'}
         </div>
         <ButtonText style={{ opacity: 0.6 }} onClick={() => setUserHideClosedPositions(!userHideClosedPositions)}>
-          {!userHideClosedPositions ? "Hide" : "Show"} closed positions
+          Hide closed positions
         </ButtonText>
       </DesktopHeader>
       <MobileHeader>

@@ -109,3 +109,7 @@
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
 }
+.gradientButton{
+    height: 30px;
+    padding: 0 10px !important;
+}

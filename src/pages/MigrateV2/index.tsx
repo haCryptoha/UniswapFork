@@ -27,7 +27,6 @@ require('./style.css');
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 870px;
-  width: 100%;
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
     max-width: 800px;
@@ -236,7 +235,7 @@ export default function Pool() {
         <SwapPoolTabs active={'pool'} />
         <AutoColumn gap="lg" justify="center">
           <AutoColumn gap="lg" style={{ width: '100%', justifyContent: "center" }}>
-            <TitleRow style={{ marginTop: '1rem', display:  "flex" }} padding={'0'}>
+            <TitleRow style={{ marginBottom: '1rem', display:  "flex" }} padding={'0'}>
               {/* <ThemedText.Body fontSize={'20px'}>
                 {params.platform ? capitalizeFirstLetter(params.platform) : ''} Pools Overview
               </ThemedText.Body> */}
@@ -245,7 +244,7 @@ export default function Pool() {
                 <ThemedText.Body fontSize={'20px'} color={'white'}>
                 {isTrisolaris ? 'Trisolaris' : 'Uniswap V2'} Migration Overview
                 </ThemedText.Body>
-                <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/migrate_import" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
+                <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/migrate_import" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)",marginRight: "6px" }}>
                   Import
                 </ResponsiveButtonPrimary>
               </ButtonRow>
@@ -290,9 +289,7 @@ export default function Pool() {
                       >
                         Your Active Position will appear here
                       </ButtonText>
-                      <button onClick={() => setShowLiquidityComponent(true)}>
-                        show liquidity list component
-                      </button>
+                    
                    
                     {showConnectAWallet && (
 
