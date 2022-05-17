@@ -99,6 +99,8 @@ const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   padding: 6px 8px;
   width: fit-content;
   border: none;
+  height:30px;
+  padding: 0 10px !important;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     flex: 1 1 auto;
     width: 100%;
@@ -241,10 +243,10 @@ export default function Pool() {
               </ThemedText.Body> */}
               <ButtonRow className="test" style={{ justifyContent: "space-between", width: "100%" }}>
                 <Dropdown onUserClick={setTrisolarisState}/>
-                <ThemedText.Body fontSize={'20px'} color={'white'}>
+                <ThemedText.Body fontSize={'20px'} color={'white'} style={{width:'283px'}}>
                 {isTrisolaris ? 'Trisolaris' : 'Uniswap V2'} Migration Overview
                 </ThemedText.Body>
-                <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/migrate_import" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)",marginRight: "6px" }}>
+                <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/migrate_import" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)",marginRight: "15px" }}>
                   Import
                 </ResponsiveButtonPrimary>
               </ButtonRow>

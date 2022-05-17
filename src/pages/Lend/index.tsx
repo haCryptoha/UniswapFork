@@ -103,6 +103,8 @@ const ResponsiveButtonPrimary = styled(ButtonPrimary)`
     flex: 1 1 auto;
     width: 100%;
   `};
+  height: 30px;
+  padding: 0 10px !important;
 `
 
 const MainContentWrapper = styled.main`
@@ -241,10 +243,10 @@ export default function Lend() {
               </ThemedText.Body> */}
               <ButtonRow className="test" style={{ justifyContent: "space-between", width: "100%" }}>
                 
-                <ThemedText.Body fontSize={'20px'} color={'white'}>
+                <ThemedText.Body fontSize={'20px'} color={'white'} style={{width:'283px'}}>
                   {params.platform ? capitalizeFirstLetter(params.platform) : ''} Lending Overview
                 </ThemedText.Body>
-                <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/lend/deposit" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)",marginRight: "6px" }}>
+                <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/lend/deposit" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)",marginRight: "15px" }}>
                   Deposit
                 </ResponsiveButtonPrimary>
               </ButtonRow>
