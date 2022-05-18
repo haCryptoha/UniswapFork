@@ -99,15 +99,13 @@
     width: 538px;
     height: 48px;
     border-radius: 100px;
-    background-color: #1C1924;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     border: 0px;
     cursor: pointer;
 }
 
 .single-liquidity-content button p {
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
+    color:white
 }
 .gradientButton{
     height: 30px;

@@ -75,7 +75,7 @@ export function TokenSelectDialog({ value, onSelect }: TokenSelectDialogProps) {
   return (
     <>
       <Header title={<>Select a token</>} />
-      <Column gap={0.75}>
+      <Column gap={1}>
         <Row pad={0.75} grow>
           <ThemedText.Body1>
             <SearchInput
@@ -89,7 +89,7 @@ export function TokenSelectDialog({ value, onSelect }: TokenSelectDialogProps) {
           </ThemedText.Body1>
         </Row>
         {Boolean(baseTokens.length) && (
-          <Row pad={0.75} gap={0.25} justify="flex-start" flex>
+          <Row pad={0.75} gap={0.25} justify="flex-start" flex >
             {baseTokens.map((token) => (
               <TokenBase value={token} onClick={onSelect} key={currencyId(token)} />
             ))}

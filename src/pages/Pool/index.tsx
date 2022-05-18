@@ -215,7 +215,7 @@ export default function Pool() {
         <SwapPoolTabs active={'pool'} />
         <AutoColumn gap="lg" justify="center">
           <AutoColumn gap="lg" style={{ width: '100%', justifyContent: "center" }}>
-            <TitleRow style={{ marginBottom: '1rem', display: showConnectAWallet ? "none" : "flex" }} padding={'0'}>
+            <TitleRow style={{ marginBottom: '1rem', display: "flex" }} padding={'0'}>
               {/* <ThemedText.Body fontSize={'20px'}>
                 {params.platform ? capitalizeFirstLetter(params.platform) : ''} Pools Overview
               </ThemedText.Body> */}
@@ -229,8 +229,8 @@ export default function Pool() {
                 </ResponsiveButtonPrimary>
               </ButtonRow>
             </TitleRow>
-            <div className="main-warrap" style={{ background: showConnectAWallet ? "transparent" : "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
-              <MainContentWrapper className='pool-body-NoLiquidity' style={{ background: showConnectAWallet ? "#09080c" : "#1E1E1E", width: "584px", height: "584px",overflow: "auto" }} >
+            <div className="main-warrap" style={{ background:  "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
+              <MainContentWrapper className='pool-body-NoLiquidity' style={{ background:  "#1E1E1E", width: "584px", height: "584px",overflow: "auto" }} >
                 {positionsLoading ? (
                   <PositionsLoadingPlaceholder />
                 ) : (filteredPositions && filteredPositions.length > 0) ? (
@@ -243,7 +243,7 @@ export default function Pool() {
                 ) : (
                   <NoLiquidity >
                     <ThemedText.Body color={theme.text3} textAlign="center">
-                      <svg width="75" height="75" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: !showConnectAWallet ? "flex" : "none" }}>
+                      <svg width="75" height="75" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display:"flex" }}>
                         <path d="M68.75 37.5H50L43.75 46.875H31.25L25 37.5H6.25" stroke="url(#paint0_linear_3832_13200)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M17.0313 15.9688L6.25 37.5V56.25C6.25 57.9076 6.90848 59.4973 8.08058 60.6694C9.25269 61.8415 10.8424 62.5 12.5 62.5H62.5C64.1576 62.5 65.7473 61.8415 66.9194 60.6694C68.0915 59.4973 68.75 57.9076 68.75 56.25V37.5L57.9688 15.9688C57.4513 14.9275 56.6537 14.0512 55.6655 13.4384C54.6773 12.8256 53.5378 12.5006 52.375 12.5H22.625C21.4622 12.5006 20.3227 12.8256 19.3345 13.4384C18.3463 14.0512 17.5487 14.9275 17.0313 15.9688V15.9688Z" stroke="url(#paint1_linear_3832_13200)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         <defs>
@@ -260,23 +260,18 @@ export default function Pool() {
                         </defs>
                       </svg>
 
-                      <img style={{ width: "250px", height: "175px", display: showConnectAWallet ? "flex" : "none" }} src="images/1.svg" />
                     </ThemedText.Body>
-                    {!showConnectAWallet && (<>
-                      <ButtonText
+                    <ButtonText
                         style={{ marginTop: '.5rem', color: "white", fontSize: "14px" }}
                         onClick={() => setUserHideClosedPositions(!userHideClosedPositions)}
                       >
-                        Show Closed Positions.
-                      </ButtonText>
-                      Your Active Position will appear here
-                    </>
-                    )}
+                        Your Active Position will appear here
+                    </ButtonText>
                     {showConnectAWallet && (
 
-                      <ButtonPrimary style={{  marginTop: '2em', padding: '8px 16px', width: "384px", height: "48px"}} className="pool-body-connect" onClick={toggleWalletModal}>
-                        Connect Wallet
-                      </ButtonPrimary>
+                        <ButtonPrimary style={{ marginTop: '2em', padding: '8px 16px', width: "384px", height: "48px" }} className="pool-body-connect" onClick={toggleWalletModal}>
+                          Connect Wallet
+                        </ButtonPrimary>
                     )}
                   </NoLiquidity>
 

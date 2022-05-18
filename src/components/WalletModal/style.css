@@ -19,9 +19,12 @@
     height: 70px;
 }
 
+.modal-option-card-warrap{
+    width: fit-content;
+    padding: 1px;
+}
 .modal-option-card-warrap:hover,
 .modal-option-card-warrap:focus {
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
-    padding: 1px;
     border-radius: 8px;
 }

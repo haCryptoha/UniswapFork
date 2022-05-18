@@ -88,7 +88,7 @@ const HeaderElement = styled.div`
 
 const HeaderLinks = styled(Row)`
   justify-self: center;
-  background-color: ${({ theme }) => theme.bg0};
+ 
   width: fit-content;
   padding: 2px;
   border-radius: 16px;
@@ -97,6 +97,11 @@ const HeaderLinks = styled(Row)`
   grid-gap: 10px;
   overflow: auto;
   align-items: center;
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+    justify-self: start;  
+    margin-left: 125px;
+    grid-gap: 3px;
+    `};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     justify-self: center;
   `};
@@ -109,7 +114,7 @@ const HeaderLinks = styled(Row)`
     bottom: 0; right: 50%;
     transform: translate(50%,-50%);
     margin: 0 auto;
-    background-color: ${({ theme }) => theme.bg0};
+
     border: 1px solid ${({ theme }) => theme.bg2};
     box-shadow: 0px 6px 10px rgb(0 0 0 / 2%);
   `};
@@ -194,7 +199,7 @@ const StyledNavLink = styled(NavLink).attrs({
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
-  padding: 8px 12px;
+  padding: 8px 3px;
   word-break: break-word;
   overflow: hidden;
   white-space: nowrap;
@@ -277,16 +282,18 @@ export default function Header() {
   return (
     <HeaderFrame showBackground={scrollY > 45} style={{ backgroundColor: "#09080C" }}>
       <ClaimModal />
-      <Title href="." style={{ marginLeft: '20px' }}>
+      <Title href=".">
         <UniIcon >
-		  <div style={{display:'flex'}}>
-			<img style={{width:"32px", height:"32px", marginLeft:"8px" }} src="./images/favicon.svg"></img>
-			<span style={{color:'#9bbscfb', margin:'-4px'}}><font style={{'font-size':"32px",'font-weight':'bold','color':'#9bbcfb'}}>DOUBLE</font></span>
-		  </div>          
+          <div style={{display:'flex'}}>
+          <img style={{width:"32px", height:"32px", marginLeft:"8px" }} src="./images/favicon.svg"></img>
+          <span style={{color:'#9bbscfb', margin:'-4px'}}><font style={{'font-size':"32px",'font-weight':'bold','color':'#9bbcfb'}}>DOUBLE</font></span>
+          </div>          
           <HolidayOrnament />
         </UniIcon>
       </Title>
-      <div className='header-nav'>
+    
+     
+      <HeaderLinks>
         {/* <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
           Swap
         </StyledNavLink> */}
@@ -325,7 +332,7 @@ export default function Header() {
           Charts
           <sup>↗</sup>
         </StyledExternalLink> */}
-      </div>
+      </HeaderLinks>
 
       <HeaderControls>
         <HeaderElement>

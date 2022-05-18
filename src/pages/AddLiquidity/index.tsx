@@ -125,6 +125,8 @@ export default function AddLiquidity({
   // modal and loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
   const [attemptingTxn, setAttemptingTxn] = useState<boolean>(false) // clicked confirm
+  const [waiting, setWaiting] = useState<boolean>(false)
+  const [clickable, setClickable] = useState<boolean>(true)
 
   // capital efficiency warning
   const [showCapitalEfficiencyWarning, setShowCapitalEfficiencyWarning] = useState(false)
@@ -172,7 +174,8 @@ export default function AddLiquidity({
   )
   const addTransaction = useTransactionAdder()
   async function onAdd() {
-
+    if(!clickable) return
+    setClickable(false)
     if (!chainId || !library || !account) return
 
     if (!baseCurrency || !quoteCurrency) {
@@ -180,7 +183,7 @@ export default function AddLiquidity({
     }
     if (vaultManager && account) {
       try {
-        
+        setWaiting(true);
         await vaultManager.addLiquidity(currencyId(baseCurrency), (parsedAmounts[Field.CURRENCY_A])?.quotient.toString(), currencyId(quoteCurrency)).then((response: TransactionResponse) => {
           setAttemptingTxn(false)
           addTransaction(response, {
@@ -192,7 +195,9 @@ export default function AddLiquidity({
             expectedAmountQuoteRaw: parsedAmounts[Field.CURRENCY_B]?.quotient?.toString() ?? '0',
             feeAmount: 3000,
           })
+          setWaiting(false);
         })
+        
         ReactGA.event({
           category: 'Liquidity',
           action: 'Add',
@@ -200,6 +205,8 @@ export default function AddLiquidity({
         })
       }
       catch (error) {
+        
+        setWaiting(false);
         console.error('Failed to send transaction', error)
         setAttemptingTxn(false)
         // we only care if the error is something _other_ than the user rejected the tx
@@ -368,7 +375,7 @@ export default function AddLiquidity({
                   <button className='Approve-success' style={{ border: "0px" }}><p style={{ color: "white" }}>Transaction in progress-Please wait</p></button>
                 </div>
                   : <div className='add-liquidity-warrap'>
-                    <button className='add-liquidity' style={{ border: "0px" }} onClick={onAdd}><p>Add Liquidity</p></button>
+                    <button className='add-liquidity' style={clickable?{ border: "0px" }:{border:'0px',cursor: 'not-allowed'}} onClick={onAdd}><p>{waiting?'Transaction in progress-Please wait':'Add Liquidity'}</p></button>
                   </div>
               }
 
