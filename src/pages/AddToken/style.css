@@ -7,13 +7,6 @@
 	height:492px;
 }
 
-.remove-tab-warrap {
-    width: 464px;
-    height: 494px;
-    padding: 1px;
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
-    border-radius: 8px;
-}
 
 
 .settingTab-warrap {
@@ -87,16 +80,10 @@
     margin: 0px;
 }
 
-.add-liquidity-warrap {
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
-    width: 423px;
-    height: 48px;
-    border-radius: 100px;
-    padding: 1px;
-}
+
 
 .add-liquidity {
-    width: 421px;
+    width: 100%;
     height: 46px;
     border-radius: 100px;
     background-color: #131118;
@@ -189,13 +176,7 @@
     margin: 0px;
 }
 
-.cancel-button-warrap {
-    width: 201px;
-    height: 48px;
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
-    border-radius: 100px;
-    padding: 1px;
-}
+
 
 .cancel-button {
     background-color: #131118;

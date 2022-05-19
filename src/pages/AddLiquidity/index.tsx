@@ -321,7 +321,7 @@ export default function AddLiquidity({
               showBackLink={!hasExistingPosition}
             >
             </AddRemoveTabs>
-            <Wrapper className='remove-tab-content' style={{ minWidth: "400px" }}>
+            <Wrapper className='remove-tab-content' >
               <ResponsiveTwoColumns wide={!hasExistingPosition} style={{ display: "block" }} className="remove-tab-content-inner">
                 <div>
                   <DynamicSection

@@ -71,7 +71,7 @@ const ContentWrapper = styled.div`
 
 const UpperSection = styled.div`
   position: relative;
-
+  height:240px;
   h5 {
     margin: 0;
     margin-bottom: 0.5rem;
@@ -330,7 +330,7 @@ export default function WalletModal({
     }
     if (walletView === WALLET_VIEWS.LEGAL) {
       return (
-        <UpperSection>
+        <UpperSection >
           <HeaderRow>
             <HoverText
               onClick={() => {
@@ -420,7 +420,7 @@ export default function WalletModal({
   }
 
   return (
-    <Modal isOpen={walletModalOpen} onDismiss={toggleWalletModal} minHeight={false} maxHeight={40}>
+    <Modal isOpen={walletModalOpen} onDismiss={toggleWalletModal} minHeight={false} maxHeight={100}>
       <Wrapper className='wallet-modal' style={{ backgroundColor: "#131118" }} >{getModalContent()}</Wrapper>
     </Modal>
   )
