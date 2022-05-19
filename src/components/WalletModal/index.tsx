@@ -71,7 +71,7 @@ const ContentWrapper = styled.div`
 
 const UpperSection = styled.div`
   position: relative;
-  height:240px;
+ 
   h5 {
     margin: 0;
     margin-bottom: 0.5rem;

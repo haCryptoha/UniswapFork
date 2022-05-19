@@ -70,7 +70,7 @@ const HeaderText = styled.div`
 `
 
 const SubHeader = styled.div`
-  color: ${({ theme }) => theme.text1};
+  color: ${({ theme }) => theme.text2};
   margin-top: 10px;
   font-size: 12px;
 `
@@ -113,7 +113,7 @@ export default function Option({
   id: string
 }) {
   const content = (<div className='modal-option-card-warrap'>
-    <OptionCardClickable className="modal-option-card" style={{ width: "416px", borderRadius: "8px", backgroundColor: "#1C1924" }} id={id} onClick={onClick} clickable={clickable && !active} active={active}>
+    <OptionCardClickable className="modal-option-card" style={{ width: "100%", borderRadius: "8px", backgroundColor: "#1C1924" }} id={id} onClick={onClick} clickable={clickable && !active} active={active}>
       <OptionCardLeft >
         <HeaderText color={color} >
           {active ? (
