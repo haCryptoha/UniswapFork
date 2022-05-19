@@ -2,16 +2,17 @@ import styled from "styled-components/macro";
 
 export const Wrapper = styled.div`
   position: relative;
-  background: linear-gradient(73.6deg, rgb(133, 255, 196) 2.11%, rgb(92, 198, 255) 42.39%, rgb(188, 133, 255) 85.72%)
+  background: linear-gradient(73.6deg, rgb(133, 255, 196) 2.11%, rgb(92, 198, 255) 42.39%, rgb(188, 133, 255) 85.72%);
+  padding:1px;
   border-radius: 12px;
-  padding: 6px 8px;
+  
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  margin-right:3px;
-  padding:0px;
+  margin-right:4px;
+
   border: none;
-  height: 30px;
+  
   ${({ theme }) => theme.mediaWidth.upToSmall`
    
   `};
@@ -19,8 +20,7 @@ export const Wrapper = styled.div`
 
 export const ActivatorButton = styled.button`
   align-items: center;
-  background: linear-gradient(73.6deg, rgb(133, 255, 196) 2.11%, rgb(92, 198, 255) 42.39%, rgb(188, 133, 255) 85.72%);
-
+  background: black;
   font-weight: 500;
   text-align: center;
   border-radius: 12px;

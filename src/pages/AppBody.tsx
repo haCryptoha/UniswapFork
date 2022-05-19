@@ -7,6 +7,9 @@ export const BodyWrapper = styled.main<{ margin?: string; maxWidth?: string }>`
   margin-top: ${({ margin }) => margin ?? '0px'};
   max-width: ${({ maxWidth }) => maxWidth ?? '480px'};
   width: 100%;
+  background: #131118;
+  color:white;
+  border-radius:8px;
   
   
   z-index: ${Z_INDEX.deprecated_content};

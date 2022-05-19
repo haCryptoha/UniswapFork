@@ -55,7 +55,7 @@ export default function PositionList({
           {!userHideClosedPositions ? "Hide" : "Show"} closed positions
         </ButtonText>
       </DesktopHeader>
-      <MobileHeader>
+      <MobileHeader style={{color:'white'}}>
         Your positions
       </MobileHeader>
       {positions.map((p) => {

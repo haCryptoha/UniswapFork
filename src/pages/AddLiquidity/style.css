@@ -141,22 +141,22 @@
 .remove-header {
     display: flex;
     justify-content: center;
-    height: 80px;
+    
     align-items: center;
 }
 
 .remove-header p {
-    font-size: 34px;
+    font-size: 30px;
     font-weight: 700;
     color: white;
-    height: 54px;
+    text-align: center;
     margin: 0px;
 }
 
 .remove-content {
     display: flex;
     align-items: center;
-    width: 464px;
+    width: 100%;
     height: 510px;
     padding-left: 20px;
     padding-right: 20px;
@@ -178,7 +178,7 @@
 }
 
 .remove-liquidity-warrap {
-    width: 586px;
+    width: 100%;
     height: 660px;
     padding: 1px;
 }
@@ -187,13 +187,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 549px;
+    width: 100%;
     height: 658px;
     background: #131118;
 }
 
 .description2 {
-    width: 420px
+    width: 100%
 }
 
 .description2 .eth {
@@ -218,6 +218,7 @@
 }
 
 .change-description {
+    max-width: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -238,7 +239,7 @@
 }
 
 .earned-table {
-    width: 416px;
+    width: 100%;
     height: 240px;
     background-color: #1C1924;
     border-radius: 16px;

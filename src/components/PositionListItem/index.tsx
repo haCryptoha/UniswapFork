@@ -385,9 +385,9 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
                   </div>
                   <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
                     <div className="cancel-button-warrap">
-                      <button className="cancel-button" style={{ width: "199px", height: "46px", border: "0px" }} onClick={removeOnClick}><p>cancel</p></button>
+                      <button className="cancel-button" style={{ width: "100%", height: "46px", border: "0px" }} onClick={removeOnClick}><p>cancel</p></button>
                     </div>
-                    <button className="confirm" style={{ width: "201px", height: "48px", border: "0px" }} onClick={confimrOnClick}><p>confirm</p></button>
+                    <button className="confirm" style={{ width: "40%", height: "48px", margin:'1px',border: "0px" }} onClick={confimrOnClick}><p>confirm</p></button>
                   </div>
                 </div>
               </div>
