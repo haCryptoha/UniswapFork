@@ -102,8 +102,7 @@ const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   width: fit-content;
   border: none;
   ${({ theme }) => theme.mediaWidth.upToSmall`
-    flex: 1 1 auto;
-    width: 100%;
+        width: 48%;
   `};
 `
 
@@ -215,22 +214,31 @@ export default function Pool() {
         <SwapPoolTabs active={'pool'} />
         <AutoColumn gap="lg" justify="center">
           <AutoColumn gap="lg" style={{ width: '100%', justifyContent: "center" }}>
-            <TitleRow style={{ marginBottom: '1rem', display: "flex" }} padding={'0'}>
-              {/* <ThemedText.Body fontSize={'20px'}>
-                {params.platform ? capitalizeFirstLetter(params.platform) : ''} Pools Overview
-              </ThemedText.Body> */}
+           {/* <TitleRow style={{ marginBottom: '1rem', display: "flex" }} padding={'0'}>
+              
               <ButtonRow className="test" style={{ justifyContent: "space-between", width: "100%" }}>
-                <Dropdown  onUserClick={setTrisolarisState}/>
+                
+                
+                
+              </ButtonRow>
+            </TitleRow>
+            */}
+            <TitleRow style={{ marginBottom: '1rem' }} padding={'0'}>
+                
                 <ThemedText.Body fontSize={'20px'} color={'white'} style={{width:'283px'}}>
                   {isTrisolaris ? 'Trisolaris' : 'Uniswap V2'} Pools Overview
                 </ThemedText.Body>
-                <ResponsiveButtonPrimary className = "gradientButton" id="join-pool-button" as={Link} to="/add/ETH" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)",marginRight: "15px" }}>
-                  New Position
-                </ResponsiveButtonPrimary>
-              </ButtonRow>
+              
+                <ButtonRow>  
+                  <Dropdown  onUserClick={setTrisolarisState}/>             
+                  <ResponsiveButtonPrimary className = "gradientButton" id="join-pool-button" as={Link} to="/add/ETH" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
+                    New Position
+                  </ResponsiveButtonPrimary>
+                </ButtonRow>
             </TitleRow>
-            <div className="main-warrap" style={{ background:  "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
-              <MainContentWrapper className='pool-body-NoLiquidity' style={{ background:  "#1E1E1E", width: "584px", height: "584px",overflow: "auto" }} >
+
+            <div style={{ background:  "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", padding:'1px' }}>
+              <MainContentWrapper  style={{ background:  "#1E1E1E", height: "584px",overflow: "auto" }} >
                 {positionsLoading ? (
                   <PositionsLoadingPlaceholder />
                 ) : (filteredPositions && filteredPositions.length > 0) ? (
@@ -269,7 +277,7 @@ export default function Pool() {
                     </ButtonText>
                     {showConnectAWallet && (
 
-                        <ButtonPrimary style={{ marginTop: '2em', padding: '8px 16px', width: "384px", height: "48px" }} className="pool-body-connect" onClick={toggleWalletModal}>
+                        <ButtonPrimary style={{ marginTop: '2em', padding: '8px 16px', width: "140%", height: "48px" }} className="pool-body-connect" onClick={toggleWalletModal}>
                           Connect Wallet
                         </ButtonPrimary>
                     )}

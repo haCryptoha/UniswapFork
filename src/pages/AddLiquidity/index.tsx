@@ -331,7 +331,7 @@ export default function AddLiquidity({
                       <ThemedText.Label style={{ fontSize: "16px", color: "white" }}>
                         Capital Type
                       </ThemedText.Label>
-                      <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
+                      <div className='fromToken' style={{ display: "flex", justifyContent: "space-between" }}>
                           <CurrencyInputPanel
                             value={formattedAmounts[Field.CURRENCY_A]}
                             onUserInput={onFieldAInput}

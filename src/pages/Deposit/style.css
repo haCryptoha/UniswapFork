@@ -30,12 +30,7 @@
     border-bottom: solid 1px grey;
 }
 
-.fromToken .open-currency-select-button {
-    margin-top: 16px;
-    background-color: rgb(42 42 42);
-    color: white;
-    box-shadow: none;
-}
+
 
 .fromToken .open-currency-select-button path {
     stroke: white;

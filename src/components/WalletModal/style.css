@@ -1,4 +1,7 @@
-.wallet-modal {}
+.wallet-modal {
+    height: 240px;
+    overflow: hidden;
+}
 
 .modal-header-text {
     font-size: 20px;
@@ -22,6 +25,7 @@
 .modal-option-card-warrap{
     width: fit-content;
     padding: 1px;
+    margin: auto;
 }
 .modal-option-card-warrap:hover,
 .modal-option-card-warrap:focus {

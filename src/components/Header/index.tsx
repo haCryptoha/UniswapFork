@@ -14,7 +14,7 @@ import { useDarkModeManager } from 'state/user/hooks'
 import { useNativeCurrencyBalances } from 'state/wallet/hooks'
 import styled from 'styled-components/macro'
 
-// import { ReactComponent as Logo } from '../../assets/svg/logo.svg'
+import { ReactComponent as Logo } from '../../assets/svg/logo.svg'
 import { ExternalLink, ThemedText } from '../../theme'
 import ClaimModal from '../claim/ClaimModal'
 import { CardNoise } from '../earn/styled'
@@ -99,7 +99,7 @@ const HeaderLinks = styled(Row)`
   align-items: center;
   ${({ theme }) => theme.mediaWidth.upToLarge`
     justify-self: start;  
-    margin-left: 125px;
+    margin-left: 60px;
     grid-gap: 3px;
     `};
   ${({ theme }) => theme.mediaWidth.upToMedium`
@@ -171,8 +171,11 @@ const Title = styled.a`
   justify-self: flex-start;
   margin-right: 12px;
   text-decoration: none;
+  width:100px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     justify-self: center;
+    width: 50px;
+    margin-left:5px;
   `};
   :hover {
     cursor: pointer;
@@ -211,23 +214,7 @@ const StyledNavLink = styled(NavLink).attrs({
 
 `
 
-const Logo = styled.a`
-  display: contents;
-  align-items: center;
-  pointer-events: auto;
-  justify-self: flex-start;
-  font-size: 30px;
-  font-weight: bold;
-  margin-left: 30px;
-  margin-right: 30px;
-  text-decoration: none !importnat;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    justify-self: center;
-  `};
-  :hover {
-    cursor: pointer;
-  }
-`
+
 
 const StyledExternalLink = styled(ExternalLink).attrs({
   activeClassName,
@@ -283,11 +270,8 @@ export default function Header() {
     <HeaderFrame showBackground={scrollY > 45} style={{ backgroundColor: "#09080C" }}>
       <ClaimModal />
       <Title href=".">
-        <UniIcon >
-          <div style={{display:'flex'}}>
-          <img style={{width:"32px", height:"32px", marginLeft:"8px" }} src="./images/favicon.svg"></img>
-          <span style={{color:'#9bbscfb', margin:'-4px'}}><font style={{'font-size':"32px",'font-weight':'bold','color':'#9bbcfb'}}>DOUBLE</font></span>
-          </div>          
+        <UniIcon>
+          <Logo fill={!darkMode ? white : black} width="100%" height="100%" title="logo" />
           <HolidayOrnament />
         </UniIcon>
       </Title>

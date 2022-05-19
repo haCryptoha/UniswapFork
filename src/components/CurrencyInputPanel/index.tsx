@@ -114,7 +114,7 @@ const Aligner = styled.span`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  background: black;
+  background: #131118;
   height: 100%;
   border-radius: 15px;
   color:white;
@@ -245,7 +245,7 @@ export default function CurrencyInputPanel({
             visible={currency !== undefined}
             selected={!!currency}
             hideInput={hideInput}
-            className="open-currency-select-button"
+            className={"open-currency-select-button"}
             onClick={() => {
               if (onCurrencySelect) {
                 setModalOpen(true)

@@ -8,11 +8,13 @@ export const Wrapper = styled.div`
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  margin-left:0px;
+  margin-right:3px;
   padding:0px;
   border: none;
   height: 30px;
-  padding: 0 10px !important;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+   
+  `};
   `;
 
 export const ActivatorButton = styled.button`
@@ -21,7 +23,7 @@ export const ActivatorButton = styled.button`
 
   font-weight: 500;
   text-align: center;
-  border-radius: 20px;
+  border-radius: 12px;
   outline: none;
   border: 1px solid transparent;
   color: white;
@@ -36,6 +38,11 @@ export const ActivatorButton = styled.button`
   border:none;
   font-weight:500;
   font-size: 16px;
+  width:100%;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+
+  `};
+
   &:disabled {
     opacity: 50%;
     cursor: auto;
@@ -54,7 +61,6 @@ export const ActivatorButton = styled.button`
     text-decoration: none;
   }
   height: 30px;
-  padding: 0 10px !important;
   &:after {
     content: "";
     border-bottom: 1px solid #fff;

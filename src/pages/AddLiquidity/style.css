@@ -30,10 +30,11 @@
 
 .fromToken .open-currency-select-button {
   
-    background-color: rgb(42 42 42);
+    background-color: #131118;
     color: white;
     box-shadow: none;
 }
+
 
 .fromToken .open-currency-select-button path {
     stroke: white;
