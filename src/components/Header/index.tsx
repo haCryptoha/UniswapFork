@@ -213,6 +213,7 @@ const StyledNavLink = styled(NavLink).attrs({
   white-space: nowrap;
   &.${activeClassName} {
     font-weight: 600;
+    text-decoration: underline;
     justify-content: center;
   }
 
@@ -345,7 +346,7 @@ export default function Header() {
             </UNIWrapper>
           )}
          
-          <AccountElement active={!!account} style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", color:"white" ,width: "auto",  height:"30px",marginRight: "30px" }}>
+          <AccountElement active={!!account} style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", color:"white" ,width: "",  height:"30px",marginRight: "30px" }}>
 
 
 

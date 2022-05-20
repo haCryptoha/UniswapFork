@@ -12,7 +12,7 @@
     color: white;
 }
 
-.header-nav .ACTIVE {
+.header-nav-link .ACTIVE {
     border-bottom: solid;
     background-color: transparent;
     color: white;

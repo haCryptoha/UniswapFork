@@ -239,7 +239,7 @@ function AddLiquidityV3PoolSummary({
     </>
   ) : (
     <>
-      Add {baseCurrency?.symbol}/{quoteCurrency?.symbol} V3 liquidity
+      Add {baseCurrency?.symbol}/{quoteCurrency?.symbol}  liquidity
     </>
   )
 }
