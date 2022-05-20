@@ -8,7 +8,7 @@ interface IDropdownItem {
 }
 
 interface IProps {
-  onUserClick: (value: boolean) => void
+  onUserClick: (value: string) => void
   activatorText?: string;
   items?: IDropdownItem[];
   
@@ -23,6 +23,7 @@ const dropdownItems = [
     id: 2,
     text: "Uniswap V2"
   }
+  
 ];
 
 
@@ -105,12 +106,12 @@ export default function Dropdown({
       <DropdownList id="dropdown1" ref={listRef} active={isOpen} role="list">
        
           <li key={1}>
-            <button onClick = {() =>{ setTrisolaris(true); onUserClick(true);setIsOpen(false)}}>
+            <button onClick = {() =>{ setTrisolaris(true); onUserClick("Trisolaris");setIsOpen(false)}}>
              {"Trisolaris"}
             </button>
           </li>
           <li key={2}>
-            <button onClick = {() => {setTrisolaris(false); onUserClick(false);setIsOpen(false)}}>
+            <button onClick = {() => {setTrisolaris(false); onUserClick("Uniswap V2");setIsOpen(false)}}>
               {"Uniswap V2"}
             </button>
           </li>

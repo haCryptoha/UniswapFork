@@ -110,9 +110,10 @@ const ResponsiveTitle = styled.div`
    fontSize : 20px;
    color: white;
    margin-bottom: -52px;
-   margin-left:3px;
    ${({ theme }) => theme.mediaWidth.upToSmall`
        margin-bottom:0px;
+
+
   `};
 
 `
@@ -181,7 +182,7 @@ export default function Pool() {
     return [];
   }
 
-  const [isTrisolaris, setTrisolarisState] = useState(false)
+  const [textContent, setContent] = useState('Uniswap V2')
 
   useEffect(() => {
     async function fetchData() {
@@ -190,7 +191,7 @@ export default function Pool() {
       setPositionsLoading(true);
       const closed = [], opened = [];
       //fetch pool
-      const pools = await loadPools(account, capitalizeFirstLetter(isTrisolaris ? "trisolaris" : "uniswap"));
+      const pools = await loadPools(account, capitalizeFirstLetter(textContent));
       for (let i = 0; i < pools.length; i++) {
         if (pools[i].lpAmount == 0) {
           closed.push(pools[i]);
@@ -206,7 +207,7 @@ export default function Pool() {
       // ...
     }
     fetchData();
-  }, [isTrisolaris, account, userHideClosedPositions])
+  }, [textContent, account, userHideClosedPositions])
 
   const capitalizeFirstLetter = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1)
@@ -229,11 +230,11 @@ export default function Pool() {
             */}
             <TitleRow style={{ marginBottom: '1rem', justifyContent: 'center' }} padding={'0'}>
                 <ResponsiveTitle  >
-                  {isTrisolaris ? 'Trisolaris' : 'Uniswap V2'} Pools Overview
+                  {textContent} Pools Overview
                 </ResponsiveTitle>
               
                 <ButtonRow>  
-                  <Dropdown  onUserClick={setTrisolarisState}/>             
+                  <Dropdown  onUserClick={setContent}/>             
                   <ResponsiveButtonPrimary className = "gradientButton" id="join-pool-button" as={Link} to="/add/ETH" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
                     New Position
                   </ResponsiveButtonPrimary>
