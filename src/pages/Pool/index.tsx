@@ -106,6 +106,16 @@ const MainContentWrapper = styled.main`
   display: flex;
   flex-direction: column;
 `
+const ResponsiveTitle = styled.div`
+   fontSize : 20px;
+   color: white;
+   margin-bottom: -52px;
+   margin-left:3px;
+   ${({ theme }) => theme.mediaWidth.upToSmall`
+       margin-bottom:0px;
+  `};
+
+`
 
 function PositionsLoadingPlaceholder() {
   return (
@@ -218,9 +228,9 @@ export default function Pool() {
             </TitleRow>
             */}
             <TitleRow style={{ marginBottom: '1rem', justifyContent: 'center' }} padding={'0'}>
-                <ThemedText.Body fontSize={'20px'} color={'white'} style={{width:'283px'}}>
+                <ResponsiveTitle  >
                   {isTrisolaris ? 'Trisolaris' : 'Uniswap V2'} Pools Overview
-                </ThemedText.Body>
+                </ResponsiveTitle>
               
                 <ButtonRow>  
                   <Dropdown  onUserClick={setTrisolarisState}/>             
@@ -230,8 +240,8 @@ export default function Pool() {
                 </ButtonRow>
             </TitleRow>
 
-            <div style={{ background:  "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", padding:'1px' }}>
-              <MainContentWrapper  style={{ background:  "#1E1E1E", minHeight: "540px" }} >
+            <div style={(filteredPositions && filteredPositions.length > 0) ?{padding:'0px'}:{ background:  "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", padding:'1px' }}>
+              <MainContentWrapper  style={(filteredPositions && filteredPositions.length > 0) ?{background:"rgb(9, 8, 12)",minHeight: "540px"}:{ background:  "#1E1E1E", minHeight: "540px" }} >
                 {positionsLoading ? (
                   <PositionsLoadingPlaceholder />
                 ) : (filteredPositions && filteredPositions.length > 0) ? (

@@ -38,29 +38,8 @@
 
 }
 
-.single-liquidity-header {
-    display: flex;
-    justify-content: space-between;
-    height: 80px;
 
-}
 
-.single-liquidity-header p {
-    margin-left: 16px;
-    font-size: 18px;
-    font-weight: 500;
-    margin-top: 15px;
-    color: white;
-}
-
-.single-liquidity-content {
-    transition: 0.5s;
-}
-
-.single-liquidity-header-left {
-    display: flex;
-    align-items: center;
-}
 
 .single-liquidity-header-right {
     display: flex;

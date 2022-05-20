@@ -44,6 +44,7 @@ export default function PositionList({
   setUserHideClosedPositions,
   userHideClosedPositions,
 }: PositionListProps) {
+ 
   return (
     <>
       <DesktopHeader>

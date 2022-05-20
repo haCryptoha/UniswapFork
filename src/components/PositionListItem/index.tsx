@@ -1,23 +1,26 @@
 // @ts-nocheck
-import { Percent, Price, Token } from '@uniswap/sdk-core'
+import { ArrowLeft, HelpCircle } from 'react-feather'
+
+import { Price, Token } from '@uniswap/sdk-core'
 import { Position } from '@uniswap/v3-sdk'
 import CurrencyLogo from 'components/CurrencyLogo'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
+import Modal from 'components/Modal'
 import { RowBetween } from 'components/Row'
+import { AddRemoveTabs } from '../../components/NavigationTabs'
 import TransactionConfirmationModal, { ConfirmationModalContent } from 'components/TransactionConfirmationModal'
+import { utils } from "ethers"
 import { useToken } from 'hooks/Tokens'
 import { useVaultManagerContract } from 'hooks/useContract'
-import { utils } from "ethers"
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
 import ReactGA from 'react-ga4'
 import { Link } from 'react-router-dom'
-import { Bound } from 'state/mint/v3/actions'
 import styled from 'styled-components/macro'
-import { HideSmall, MEDIA_WIDTHS, SmallOnly } from 'theme'
+import { MEDIA_WIDTHS } from 'theme'
 import { PositionDetails } from 'types/position'
 import { unwrappedToken } from 'utils/unwrappedToken'
-
 import { DAI, USDC_MAINNET, USDT, WBTC, WRAPPED_NATIVE_CURRENCY } from '../../constants/tokens'
+
 
 const LinkRow = styled(Link)`
   align-items: center;
@@ -119,6 +122,7 @@ const PrimaryPositionIdData = styled.div`
 const DataText = styled.div`
   font-weight: 600;
   font-size: 18px;
+  color:white;
 
   ${({ theme }) => theme.mediaWidth.upToSmall`
     font-size: 14px;
@@ -193,16 +197,18 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
     bundle: bundleID,
   } = positionDetails;
 
-
   const [collapse, setCollapse] = useState(true);
   const [removed, setRemoved] = useState(false);
   const [removeClicked, setRemoveClicked] = useState(false);
   const vaultManager = useVaultManagerContract();
   
+
+ 
   const removeOnClick = () => {
     if (removeClicked === false)
       setRemoveClicked(true);
     else setRemoveClicked(false);
+   
   }
   const changeCollpase = () => {
     if (collapse === true)
@@ -251,10 +257,94 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
     }
     removeOnClick();
   }
+  const StyledArrowLeft = styled(ArrowLeft)`
 
+  color:white;
+` 
+  const StyledHelpCircle = styled(HelpCircle)`
+    color:white;
+  `
   return (
     // <LinkRow to={positionSummaryLink}>
     <>
+     <Modal isOpen={removeClicked}  minHeight={false} maxHeight={100}>
+          <div className="remove-liquidity-warrap">
+            <div className="remove-liquidity">
+              <RowBetween style={{    padding: "0px 28px"}}>
+                <button onClick = {removeOnClick} style={{ width: "0", height: "100%",background:'transparent', border: "0px" }} >
+                  <StyledArrowLeft  />
+                </button>
+                <div className="remove-header-top" style={{ display: "flex", justifyContent: "center" }}>
+                    <p>Remove Liquidity</p>
+                </div>
+                <StyledHelpCircle />
+              </RowBetween>
+             
+              <div className="remove-header">
+                <p >
+                  Confirm to close your position
+                </p>
+              </div>
+              <div className="remove-content">
+                <div className="content-header">
+                  <p>You will receive</p>
+                </div>
+                <div className="description2">
+                  <div className="eth">
+                    <div className="eth-left">
+                      <p>{(+token0Amount).toFixed(2)}</p>
+                    </div>
+                    <div className="eth-right">
+                      <CurrencyLogo currency={currency0} size={'32px'} style={{ marginRight: '12px' }} />
+                      <p>{currency0?.symbol}</p>
+                    </div>
+                  </div>
+                  <div className="eth">
+                    <div className="eth-left">
+                      <p>{(+token1Amount).toFixed(2)}</p>
+                    </div>
+                    <div className="eth-right">
+                      <CurrencyLogo currency={currency1} size={'32px'} style={{ marginRight: '12px' }} />
+                      <p>{currency1?.symbol}</p>
+                    </div>
+                  </div>
+                  <div className="change-description">
+                    <p>Output is estimated. If the price changes by more than 0.5% your transaction will revert.</p>
+                  </div>
+                  <div className="earned-table-header">
+                    <p>{currency0?.symbol}&nbsp;/&nbsp;{currency1?.symbol}</p>
+                  </div>
+                  <div className="earned-table">
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                      <div><p style={{ color: "#A6A0BB" }}>{currency1?.symbol} / {currency1?.symbol}</p></div>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <p style={{ color: "white" }}>{(+liquidity).toFixed(2)}</p>
+                        <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={36} margin />
+                      </div>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                      <div><p style={{ color: "#A6A0BB" }}>{currency1?.symbol} / {currency1?.symbol}</p></div>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <div style={{ display: "flex", justifyContent: "end" }}>
+                          <p style={{ color: "white" }}>1 {currency0?.symbol}= {(token1Amount / token0Amount).toFixed(2)} {currency1?.symbol}</p>
+                        </div>
+                        <p style={{ color: "white" }}>1 {currency1?.symbol}={(token0Amount / token1Amount).toFixed(2)} {currency0?.symbol}</p>
+                      </div>
+                    </div>
+                    <div style={{ width: "380", height: "71px", display: "flex", justifyContent: "center" }}>
+                      <p style={{ color: "white", fontSize: "20px", fontWeight: "700" }}>You earned 15% APY with Double</p>
+                    </div>
+
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
+                    
+                    <button className="confirm" style={{ width: "100%", height: "48px", margin:'1px',border: "0px" }} onClick={confimrOnClick}><p>confirm</p></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+     </Modal>
       <TransactionConfirmationModal
           isOpen={showConfirm}
           onDismiss={handleDismissConfirmation}
@@ -322,76 +412,8 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
           </div> 
         </>
           :
-          <div className="remove-liquidity-warrap">
-            <div className="remove-liquidity">
-              {/* <div className="remove-header-top" style={{ display: "flex", justifyContent: "center" }}>
-                                <p>Remove Liquidity</p>
-                            </div> */}
-              <div className="remove-header">
-                <p >
-                  Confirm to close your position
-                </p>
-              </div>
-              <div className="remove-content">
-                <div className="content-header">
-                  <p>You will receive</p>
-                </div>
-                <div className="description2">
-                  <div className="eth">
-                    <div className="eth-left">
-                      <p>{(+token0Amount).toFixed(2)}</p>
-                    </div>
-                    <div className="eth-right">
-                      <CurrencyLogo currency={currency0} size={'32px'} style={{ marginRight: '12px' }} />
-                      <p>{currency0?.symbol}</p>
-                    </div>
-                  </div>
-                  <div className="eth">
-                    <div className="eth-left">
-                      <p>{(+token1Amount).toFixed(2)}</p>
-                    </div>
-                    <div className="eth-right">
-                      <CurrencyLogo currency={currency1} size={'32px'} style={{ marginRight: '12px' }} />
-                      <p>{currency1?.symbol}</p>
-                    </div>
-                  </div>
-                  <div className="change-description">
-                    <p>Output is estimated. If the price changes by more than 0.5% your transaction will revert.</p>
-                  </div>
-                  <div className="earned-table-header">
-                    <p>{currency0?.symbol}&nbsp;/&nbsp;{currency1?.symbol}</p>
-                  </div>
-                  <div className="earned-table">
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                      <div><p style={{ color: "#A6A0BB" }}>{currency1?.symbol} / {currency1?.symbol}</p></div>
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <p style={{ color: "white" }}>{(+liquidity).toFixed(2)}</p>
-                        <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={36} margin />
-                      </div>
-                    </div>
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                      <div><p style={{ color: "#A6A0BB" }}>{currency1?.symbol} / {currency1?.symbol}</p></div>
-                      <div style={{ display: "flex", flexDirection: "column" }}>
-                        <div style={{ display: "flex", justifyContent: "end" }}>
-                          <p style={{ color: "white" }}>1 {currency0?.symbol}= {(token1Amount / token0Amount).toFixed(2)} {currency1?.symbol}</p>
-                        </div>
-                        <p style={{ color: "white" }}>1 {currency1?.symbol}={(token0Amount / token1Amount).toFixed(2)} {currency0?.symbol}</p>
-                      </div>
-                    </div>
-                    <div style={{ width: "380", height: "71px", display: "flex", justifyContent: "center" }}>
-                      <p style={{ color: "white", fontSize: "20px", fontWeight: "700" }}>You earned 15% APY with Double</p>
-                    </div>
-
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
-                    <div className="cancel-button-warrap">
-                      <button className="cancel-button" style={{ width: "100%", height: "46px", border: "0px" }} onClick={removeOnClick}><p>cancel</p></button>
-                    </div>
-                    <button className="confirm" style={{ width: "40%", height: "48px", margin:'1px',border: "0px" }} onClick={confimrOnClick}><p>confirm</p></button>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div >
+           
           </div>
         }
         </>

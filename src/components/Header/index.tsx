@@ -200,20 +200,19 @@ const StyledNavLink = styled(NavLink).attrs({
   activeClassName,
 })`
   ${({ theme }) => theme.flexRowNoWrap}
-  align-items: left;
-  border-radius: 3rem;
+  align-items: center;
   outline: none;
   cursor: pointer;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
-  padding: 8px 3px;
+  padding: 4px 11px;
   word-break: break-word;
   overflow: hidden;
   white-space: nowrap;
   &.${activeClassName} {
     font-weight: 600;
-    text-decoration: underline;
+    border-bottom: 1px solid #ffffff;
     justify-content: center;
   }
 
