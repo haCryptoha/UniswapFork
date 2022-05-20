@@ -40,23 +40,17 @@ const PageWrapper = styled(AutoColumn)`
 `
 const TitleRow = styled(RowBetween)`
   color: ${({ theme }) => theme.text2};
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    flex-wrap: wrap;
-    gap: 12px;
-    width: 100%;
-  `};
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
 `
 const ButtonRow = styled(RowFixed)`
   & > *:not(:last-child) {
     margin-left: 8px;
   }
-
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-direction: row-reverse;
-  `};
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
 `
 const Menu = styled(NewMenu)`
   
@@ -223,8 +217,7 @@ export default function Pool() {
               </ButtonRow>
             </TitleRow>
             */}
-            <TitleRow style={{ marginBottom: '1rem' }} padding={'0'}>
-                
+            <TitleRow style={{ marginBottom: '1rem', justifyContent: 'center' }} padding={'0'}>
                 <ThemedText.Body fontSize={'20px'} color={'white'} style={{width:'283px'}}>
                   {isTrisolaris ? 'Trisolaris' : 'Uniswap V2'} Pools Overview
                 </ThemedText.Body>
