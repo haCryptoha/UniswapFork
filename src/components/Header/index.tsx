@@ -292,7 +292,7 @@ export default function Header() {
           to={'/pool/all'}
           isActive={(match, { pathname }) =>
             Boolean(match) ||
-            pathname.startsWith('/add') ||
+            pathname.startsWith('/pool') ||
             pathname.startsWith('/remove') ||
             pathname.startsWith('/increase') ||
             pathname.startsWith('/find')
