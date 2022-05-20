@@ -94,13 +94,13 @@ const HeaderLinks = styled(Row)`
   border-radius: 16px;
   display: grid;
   grid-auto-flow: column;
-  grid-gap: 10px;
+  grid-gap: 20px;
   overflow: auto;
   align-items: center;
   ${({ theme }) => theme.mediaWidth.upToLarge`
     justify-self: start;  
-    margin-left: 60px;
-    grid-gap: 3px;
+    margin-left: 17%;
+    grid-gap: 25px;
     `};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     justify-self: center;
@@ -169,13 +169,18 @@ const Title = styled.a`
   align-items: center;
   pointer-events: auto;
   justify-self: flex-start;
-  margin-right: 12px;
+  margin-left: 20%;
   text-decoration: none;
   width:100px;
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+    justify-self: start;  
+    margin-left: 40%;
+    
+    `};
   ${({ theme }) => theme.mediaWidth.upToSmall`
     justify-self: center;
-    width: 50px;
-    margin-left:5px;
+    width:50px;
+    margin-left:10%;
   `};
   :hover {
     cursor: pointer;
@@ -340,7 +345,7 @@ export default function Header() {
             </UNIWrapper>
           )}
          
-          <AccountElement active={!!account} style={{ backgroundColor: "#2F2A3C", width: "auto", marginRight: "30px" }}>
+          <AccountElement active={!!account} style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", color:"white" ,width: "auto",  height:"30px",marginRight: "30px" }}>
 
 
 

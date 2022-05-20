@@ -25,7 +25,7 @@
 }
 
 .fromToken {
-    border-bottom: solid 1px grey;
+    border-bottom: solid 1px #1C1924;
 }
 
 .fromToken .open-currency-select-button {

@@ -84,6 +84,7 @@ export const DropdownList = styled.ul<{ active: boolean }>`
   position: absolute;
   border:1px;
   border-color:#888d9b;
+  z-index: 99;
   li {
     list-style: none;
     margin: 0;
