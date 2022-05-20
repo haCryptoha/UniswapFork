@@ -238,7 +238,7 @@ export default function Pool() {
             </TitleRow>
 
             <div style={{ background:  "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", padding:'1px' }}>
-              <MainContentWrapper  style={{ background:  "#1E1E1E", height: "584px",overflow: "auto" }} >
+              <MainContentWrapper  style={{ background:  "#1E1E1E", minHeight: "540px" }} >
                 {positionsLoading ? (
                   <PositionsLoadingPlaceholder />
                 ) : (filteredPositions && filteredPositions.length > 0) ? (

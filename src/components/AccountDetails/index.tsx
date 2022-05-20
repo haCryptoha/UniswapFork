@@ -377,26 +377,7 @@ export default function AccountDetails({
           </YourAccount>
         </AccountSection>
       </UpperSection>
-      {!!pendingTransactions.length || !!confirmedTransactions.length ? (
-        <LowerSection>
-          <AutoRow mb={'1rem'} style={{ justifyContent: 'space-between' }}>
-            <ThemedText.White>
-              Recent Transactions
-            </ThemedText.White>
-            <LinkStyledButton onClick={clearAllTransactionsCallback}>
-              (clear all)
-            </LinkStyledButton>
-          </AutoRow>
-          {renderTransactions(pendingTransactions)}
-          {renderTransactions(confirmedTransactions)}
-        </LowerSection>
-      ) : (
-        <LowerSection>
-          <ThemedText.White color={theme.text1}>
-            Your transactions will appear here...
-          </ThemedText.White>
-        </LowerSection>
-      )}
+      
     </>
   )
 }
