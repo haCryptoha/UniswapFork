@@ -46,7 +46,7 @@ const TitleRow = styled(RowBetween)`
 `
 const ButtonRow = styled(RowFixed)`
   & > *:not(:last-child) {
-    margin-left: 8px;
+    margin-left: 0px;
   }
   width: 100%;
   flex-direction: row;
@@ -102,14 +102,17 @@ const ResponsiveButtonPrimary = styled(ButtonPrimary)`
 
 const MainContentWrapper = styled.main`
   background-color: ${({ theme }) => theme.bg0};
-  padding: 8px;
+
   display: flex;
   flex-direction: column;
 `
 const ResponsiveTitle = styled.div`
-   fontSize : 20px;
+   font-size : 20px;
    color: white;
    margin-bottom: -52px;
+   text-align: center;
+    width: 320px;
+    margin-left: 5px;
    ${({ theme }) => theme.mediaWidth.upToSmall`
        margin-bottom:0px;
 
@@ -242,7 +245,7 @@ export default function Pool() {
             </TitleRow>
 
             <div style={(filteredPositions && filteredPositions.length > 0) ?{padding:'0px'}:{ background:  "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", padding:'1px' }}>
-              <MainContentWrapper  style={(filteredPositions && filteredPositions.length > 0) ?{background:"rgb(9, 8, 12)",minHeight: "540px"}:{ background:  "#1E1E1E", minHeight: "540px" }} >
+              <MainContentWrapper  style={(filteredPositions && filteredPositions.length > 0) ?{background:"rgb(9, 8, 12)",minHeight: "586px"}:{ background:  "#1E1E1E", minHeight: "586px" }} >
                 {positionsLoading ? (
                   <PositionsLoadingPlaceholder />
                 ) : (filteredPositions && filteredPositions.length > 0) ? (

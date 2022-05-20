@@ -19,6 +19,7 @@ export const Wrapper = styled.div`
   `;
 
 export const ActivatorButton = styled.button`
+  min-width: 125px;
   align-items: center;
   background: black;
   font-weight: 500;
@@ -79,7 +80,7 @@ export const DropdownList = styled.ul<{ active: boolean }>`
   margin: 0;
   margin-top:5px;
   border-radius:5px;
-  min-width: 147px;
+  width:100%;
   padding: 0;
   position: absolute;
   border:1px;
@@ -88,7 +89,7 @@ export const DropdownList = styled.ul<{ active: boolean }>`
   li {
     list-style: none;
     margin: 0;
-    width:147px;
+    width:100%;
     button{
       background:transparent;
       color:#565A69;
