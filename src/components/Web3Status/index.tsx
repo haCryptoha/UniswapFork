@@ -39,8 +39,8 @@ const Web3StatusGeneric = styled(ButtonSecondary)`
   cursor: pointer;
   user-select: none;
   height: 36px;
-  margin-right: 2px;
-  margin-left: 1px;
+  margin-right: 0px;
+  margin-left: 0px;
   :focus {
     outline: none;
   }

@@ -61,7 +61,7 @@ const HeaderRow = styled.div`
 `
 
 const ContentWrapper = styled.div`
-  background-color: ${({ theme }) => theme.bg0};
+  background-color: ${({ theme }) => theme.bg1};
   padding: 0 1rem 1rem 1rem;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;

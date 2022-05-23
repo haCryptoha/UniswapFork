@@ -19,13 +19,13 @@
 }
 
 .main-warrap {
-    width: 586px;
+    width: 100%;
     height: 586px;
     padding: 1px;
 }
 
 .LiquidityList {
-    width: 588px;
+    width: 100%;
     height: 588px;
 }
 

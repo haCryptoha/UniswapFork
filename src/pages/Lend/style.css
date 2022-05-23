@@ -132,7 +132,7 @@
     font-weight: 600;
 }
 .lend-confirm-withdraw-warrap {
-    width: 586px;
+    width: 100%;
     height: 334px;
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     padding: 1px;
@@ -143,12 +143,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 584px;
+    width: 100%;
     height:332px;
     background: #131118;
 }
 .lend-confirm-claim-warrap {
-    width: 586px;
+    width: 100%;
     height: 378px;
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     padding: 1px;
@@ -159,7 +159,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 584px;
+    width: 100%;
     height:376px;
     background: #131118;
 }
