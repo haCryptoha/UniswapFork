@@ -4,12 +4,12 @@
 }
 
 .header-nav-link {
-    color: #545774;
+    color: #343040;
     margin-right: 7px;
 }
 
 .header-nav-link:hover {
-    color: white;
+    color: rgb(29, 27, 27);
 }
 
 .header-nav-link .ACTIVE {

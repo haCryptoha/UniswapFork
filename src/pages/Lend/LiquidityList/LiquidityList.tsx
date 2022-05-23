@@ -68,8 +68,8 @@ const LiquidityBox = () =>{
 								 	<p >10000</p>
 								</div>
 								<div className="single-liquidity-header-right">
-									<img src="./images/up1.png" style={{ width: "20px", height: "20px", display: collapse ? "none" : "block" }} />
-									<img src="./images/down1.png" style={{ width: "20px", height: "20px", display: collapse ? "block" : "none" }} />
+									<img src="./images/up.png" style={{ width: "20px", height: "20px", display: collapse ? "none" : "block" }} />
+									<img src="./images/down.png" style={{ width: "20px", height: "20px", display: collapse ? "block" : "none" }} />
 								</div>
 							</div>
 						</a>
@@ -94,9 +94,9 @@ const LiquidityBox = () =>{
                             <p>View Accured Fees and Analytics</p>
                         </div>
                         <div style={{ display: collapse ? "none" : "flex", justifyContent: "center", transition: "1s" }}>
-                            <button onClick={onWithdraw}><p className="font-bold">Withdraw</p></button>
+                            <button style={{background:"#1C1924",borderRadius:'100px'}} onClick={onWithdraw}><p className="font-bold">Withdraw</p></button>
 							<div style={{width:"20px"}}></div>
-							<button onClick={onClaim}><p className="font-bold">Claim</p></button>
+							<button style={{background:"#1C1924",borderRadius:'100px'}} onClick={onClaim}><p className="font-bold">Claim</p></button>
                         </div>
                     </div>
 		    </div>:<></>}
@@ -109,12 +109,12 @@ const LiquidityBox = () =>{
                                 <p>Withdraw Tokens</p>
                                 <div className='help-button' style={{backgroundImage:'url(./images/help.png)'}}></div>
                             </div> 
-                            <div className="remove-header">
-                                <p >
+                            <div className="remove-header" >
+                                <p style={{fontSize: "36px"}}>
                                     Confirm to close your position
                                 </p>
                             </div>
-                            <div className="remove-content">                               
+                            <div className="remove-content" style={{    padding:" 0px 70px"}}>                               
                                 <div className="description2">
                                     <div className="eth">
                                         <div className="lend-confirm-text">

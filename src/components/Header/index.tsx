@@ -90,17 +90,17 @@ const HeaderLinks = styled(Row)`
   justify-self: center;
  
   width: fit-content;
-  border-radius: 16px;
+  border-radius: 100px;
   display: grid;
   grid-auto-flow: column;
-  grid-gap: 20px;
+  grid-gap: 3px;
   overflow: auto;
   align-items: center;
-  background: #2a2c42;
+  background: #262231;
   ${({ theme }) => theme.mediaWidth.upToLarge`
     justify-self: start;  
     margin-left: 17%;
-    grid-gap: 25px;
+    grid-gap: 3px;
     `};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     justify-self: center;
@@ -210,8 +210,9 @@ const StyledNavLink = styled(NavLink).attrs({
   word-break: break-word;
   overflow: hidden;
   white-space: nowrap;
-  background-color: #292932;
-  border-radius: 16px;
+  background-color: #1C1924;
+  border-radius: 100px;
+  height:40px;
   &.${activeClassName} {
     font-weight: 600;
     justify-content: center;
@@ -264,10 +265,10 @@ const StyledExternalLink = styled(ExternalLink).attrs({
 const NavLinkOutLine = styled(NavLink).attrs({
   activeClassName,
 })`
-  background:transparent;
+  background:#1C1924;
   text-decoration: none;
   padding:1px;
-  border-radius:16px;
+  border-radius:100px;
   &.${activeClassName} {
     padding:1px;
     background: linear-gradient(73.6deg,#85FFC4 2.11%,#5CC6FF 42.39%,#BC85FF 85.72%);
@@ -279,8 +280,8 @@ const NavLinkOutLine = styled(NavLink).attrs({
   }
 `
 const NavLinkOutBack = styled.div`
-  background: #292932;
-  border-radius:16px;
+  background: #1C1924;
+  border-radius:100px;
 `
 export default function Header() {
   const { account, chainId } = useActiveWeb3React()

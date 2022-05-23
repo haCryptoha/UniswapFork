@@ -6,8 +6,8 @@ import styled from 'styled-components/macro'
 
 export const PageWrapper = styled(BodyWrapper) <{ wide: boolean }>`
  
-  width: 462px ;
-
+  width: 100% ;
+ 
 
   padding: ${({ wide }) => (wide ? '10px' : '0')};
 
@@ -47,7 +47,6 @@ opacity: 1 ;
 
 export const CurrencyDropdown = styled(CurrencyInputPanel)`
   width: fit-content;
- 
 `
 
 export const StyledInput = styled(Input)`
