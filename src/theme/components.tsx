@@ -93,18 +93,7 @@ const StyledLink = styled.a`
   color: ${({ theme }) => theme.primary1};
   font-weight: 500;
 
-  :hover {
-    text-decoration: underline;
-  }
-
-  :focus {
-    outline: none;
-    text-decoration: underline;
-  }
-
-  :active {
-    text-decoration: none;
-  }
+ 
 `
 
 const LinkIconWrapper = styled.a`
