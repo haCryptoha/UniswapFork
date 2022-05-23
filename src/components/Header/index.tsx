@@ -90,13 +90,13 @@ const HeaderLinks = styled(Row)`
   justify-self: center;
  
   width: fit-content;
-  padding: 2px;
   border-radius: 16px;
   display: grid;
   grid-auto-flow: column;
   grid-gap: 20px;
   overflow: auto;
   align-items: center;
+  background: #2a2c42;
   ${({ theme }) => theme.mediaWidth.upToLarge`
     justify-self: start;  
     margin-left: 17%;
@@ -114,8 +114,8 @@ const HeaderLinks = styled(Row)`
     bottom: 0; right: 50%;
     transform: translate(50%,-50%);
     margin: 0 auto;
-
-    border: 1px solid ${({ theme }) => theme.bg2};
+    grid-gap: 0px;
+   
     box-shadow: 0px 6px 10px rgb(0 0 0 / 2%);
   `};
 `
@@ -210,10 +210,23 @@ const StyledNavLink = styled(NavLink).attrs({
   word-break: break-word;
   overflow: hidden;
   white-space: nowrap;
+  background-color: #292932;
+  border-radius: 16px;
   &.${activeClassName} {
     font-weight: 600;
-    border-bottom: 1px solid #ffffff;
     justify-content: center;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    
+  }
+  :hover,
+  :focus {
+    font-weight: 600;
+    justify-content: center;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
   }
 
 
@@ -248,7 +261,27 @@ const StyledExternalLink = styled(ExternalLink).attrs({
     text-decoration: none;
   }
 `
-
+const NavLinkOutLine = styled(NavLink).attrs({
+  activeClassName,
+})`
+  background:transparent;
+  text-decoration: none;
+  padding:1px;
+  border-radius:16px;
+  &.${activeClassName} {
+    padding:1px;
+    background: linear-gradient(73.6deg,#85FFC4 2.11%,#5CC6FF 42.39%,#BC85FF 85.72%);
+  }
+  :hover,
+  :focus {
+    padding:1px;
+    background: linear-gradient(73.6deg,#85FFC4 2.11%,#5CC6FF 42.39%,#BC85FF 85.72%);
+  }
+`
+const NavLinkOutBack = styled.div`
+  background: #292932;
+  border-radius:16px;
+`
 export default function Header() {
   const { account, chainId } = useActiveWeb3React()
 
@@ -286,32 +319,68 @@ export default function Header() {
         {/* <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
           Swap
         </StyledNavLink> */}
-        <StyledNavLink
-          className="header-nav-link"
-          id={`pool-nav-link`}
-          to={'/pool/all'}
-          isActive={(match, { pathname }) =>
-            Boolean(match) ||
-            pathname.startsWith('/pool') ||
-            pathname.startsWith('/remove') ||
-            pathname.startsWith('/increase') ||
-            pathname.startsWith('/find')
-          }
-        >
-          Pool
-        </StyledNavLink>
-        <StyledNavLink className="header-nav-link" id={`migrate-nav-link`} to={'/migrate/v2'}>
-          Migrate
-        </StyledNavLink>
-        <StyledNavLink className="header-nav-link" id={`lend-nav-link`} to={'/lend'}>
-          Lend
-        </StyledNavLink>
-        <StyledNavLink className="header-nav-link" id={`join-nav-link`} to={'/join'}>
-          Join
-        </StyledNavLink>
-        <StyledNavLink className="header-nav-link" id={`claim-nav-link`} to={'/claim'}>
-          Claim
-        </StyledNavLink>
+        <NavLinkOutLine 
+            to={'/pool/all'} 
+            id={`pool-nav-link-out`}
+            isActive={(match, { pathname }) =>
+                Boolean(match) ||
+                pathname.startsWith('/pool') ||
+                pathname.startsWith('/remove') ||
+                pathname.startsWith('/increase') ||
+                pathname.startsWith('/find') ||
+                pathname.startsWith('/add')
+              } >
+         <NavLinkOutBack>
+            <StyledNavLink
+              className="header-nav-link"
+              id={`pool-nav-link`}
+              to={'/pool/all'}
+              isActive={(match, { pathname }) =>
+                Boolean(match) ||
+                pathname.startsWith('/pool') ||
+                pathname.startsWith('/remove') ||
+                pathname.startsWith('/increase') ||
+                pathname.startsWith('/find') ||
+                pathname.startsWith('/add')
+              }
+            >
+              Pool
+            </StyledNavLink>
+         </NavLinkOutBack>
+        </NavLinkOutLine>
+        <NavLinkOutLine to={'/migrate/v2'} id={`pool-nav-link-out`}>
+         <NavLinkOutBack>
+          <StyledNavLink className="header-nav-link" id={`migrate-nav-link`} to={'/migrate/v2'}>
+            Migrate
+          </StyledNavLink>
+         </NavLinkOutBack>
+        </NavLinkOutLine>
+        <NavLinkOutLine to={'/lend'} id={`pool-nav-link-out`}>
+         <NavLinkOutBack>
+          <StyledNavLink className="header-nav-link" id={`lend-nav-link`} to={'/lend'}>
+            Lend
+          </StyledNavLink>
+         </NavLinkOutBack>
+        </NavLinkOutLine>
+        <NavLinkOutLine to={'/join'} id={`pool-nav-link-out`}>
+         <NavLinkOutBack>
+          <StyledNavLink className="header-nav-link" id={`join-nav-link`} to={'/join'}>
+            Join
+          </StyledNavLink>
+         </NavLinkOutBack>
+        </NavLinkOutLine>
+        <NavLinkOutLine to={'/claim'} id={`pool-nav-link-out`}>
+         <NavLinkOutBack>
+          <StyledNavLink className="header-nav-link" id={`claim-nav-link`} to={'/claim'}>
+            Claim
+          </StyledNavLink>
+         </NavLinkOutBack>
+        </NavLinkOutLine>
+        
+        
+        
+        
+        
         {/* {(!chainId || chainId === SupportedChainId.MAINNET) && (
           <StyledNavLink id={`vote-nav-link`} to={'/vote'}>
             Vote
