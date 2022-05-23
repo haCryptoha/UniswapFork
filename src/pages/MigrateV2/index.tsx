@@ -264,6 +264,7 @@ export default function Pool() {
                 </ResponsiveButtonPrimary>
               </ButtonRow>
             </TitleRow>
+			
             {!showLiquidityComponent ? <div className="main-warrap" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
               <MainContentWrapper className='pool-body-NoLiquidity' style={{ background: "#1E1E1E", width: "584px", height: "584px" }} >
                 {positionsLoading ? (
@@ -319,7 +320,7 @@ export default function Pool() {
                 )}
               </MainContentWrapper>
             </div> : <LiquidityList />}
-
+			{console.log("refresh here also")}
             {/* <HideSmall>
               <CTACards />
             </HideSmall> */}
