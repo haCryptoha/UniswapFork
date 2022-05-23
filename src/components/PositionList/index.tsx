@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { ButtonText } from 'components/Button'
 import PositionListItem from 'components/PositionListItem'
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components/macro'
 import { MEDIA_WIDTHS } from 'theme'
 import { PositionDetails } from 'types/position'
@@ -38,12 +38,15 @@ type PositionListProps = React.PropsWithChildren<{
   setUserHideClosedPositions: any
   userHideClosedPositions: boolean
 }>
-
+ 
+ 
 export default function PositionList({
   positions,
   setUserHideClosedPositions,
   userHideClosedPositions,
 }: PositionListProps) {
+ 
+ const [activeKey, setActiveKey] = useState<bundleID>("");
  
   return (
     <>
@@ -60,7 +63,7 @@ export default function PositionList({
         Your positions
       </MobileHeader>
       {positions.map((p) => {
-        return <PositionListItem key={p.id.toString()} positionDetails={p} />
+        return <PositionListItem setActiveKey={setActiveKey} activeKey = {activeKey} key={p.id.toString()} positionDetails={p} />
       })}
     </>
   )

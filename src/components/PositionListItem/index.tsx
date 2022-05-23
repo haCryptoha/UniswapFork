@@ -12,7 +12,7 @@ import TransactionConfirmationModal, { ConfirmationModalContent } from 'componen
 import { utils } from "ethers"
 import { useToken } from 'hooks/Tokens'
 import { useVaultManagerContract } from 'hooks/useContract'
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import ReactGA from 'react-ga4'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
@@ -130,8 +130,11 @@ const DataText = styled.div`
 `
 
 interface PositionListItemProps {
-  positionDetails: PositionDetails
-}
+  setActiveKey:(value: bundleID) => void;
+  activeKey: bundleID;
+  key: string;
+  positionDetails: PositionDetails;
+ }
 
 export function getPriceOrderingFromPositionForUI(position?: Position): {
   priceLower?: Price<Token, Token>
@@ -187,7 +190,7 @@ export function getPriceOrderingFromPositionForUI(position?: Position): {
   }
 }
 
-export default function PositionListItem({ positionDetails }: PositionListItemProps) {
+export default function PositionListItem({ setActiveKey, activeKey, key, positionDetails }: PositionListItemProps) {
   const {
     capital: token0Address,
     asset: token1Address,
@@ -196,12 +199,22 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
     assetAmount: token1AmountRaw,
     bundle: bundleID,
   } = positionDetails;
-
+  
+  console.log("bundle:",bundleID);
   const [collapse, setCollapse] = useState(true);
   const [removed, setRemoved] = useState(false);
   const [removeClicked, setRemoveClicked] = useState(false);
   const vaultManager = useVaultManagerContract();
   
+  useEffect(()=>{
+	  console.log("bundle:",bundleID, "activeKey:",activeKey);
+	  if(bundleID===activeKey){
+		  setCollapse(false)
+	  }else{
+		  setCollapse(true)
+	  }
+	  
+  },[activeKey])
 
  
   const removeOnClick = () => {
@@ -211,9 +224,17 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
    
   }
   const changeCollpase = () => {
-    if (collapse === true)
-      setCollapse(false);
-    else setCollapse(true);
+    if (collapse === true){
+		
+		setActiveKey(bundleID);
+	}
+	else{
+		
+		setActiveKey("");
+	}
+      
+	  
+   
   }
 
   const token0 = useToken(token0Address)
