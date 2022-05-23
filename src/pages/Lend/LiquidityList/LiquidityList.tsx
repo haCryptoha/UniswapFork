@@ -1,14 +1,64 @@
+
+import { ArrowLeft, HelpCircle } from 'react-feather'
+import { RowBetween } from 'components/Row'
 import TransactionConfirmationModal, { ConfirmationModalContent } from "components/TransactionConfirmationModal";
 import { Review } from "pages/Deposit/Review";
-import React, { useState} from "react";
+import React, { useCallback, useState} from "react";
+import Input from "components/NumericalInput"
+import { Bound, Field } from   '../../../state/mint/v3/actions'
+import styled, { ThemeContext } from 'styled-components/macro'
+import {
+    useDerivedMintInfo,
+    useMintActionHandlers,
+    useMintState
+  } from 'state/mint/hooks'
+
+const StyledNumericalInput = styled(Input)`
+ 
+  text-align: left;
+`
+const StyledArrowLeft = styled(ArrowLeft)`
+
+color:white;
+` 
+const StyledHelpCircle = styled(HelpCircle)`
+  color:white;
+`
 
 const LiquidityBox = () =>{
+    const { independentField, typedValue, startPriceTypedValue } = useMintState();
+const {
+    dependentField,
+    currencies,
+    pair,
+    pairState,
+    currencyBalances,
+    parsedAmounts,
+    price,
+    noLiquidity,
+    liquidityMinted,
+    poolTokenPercentage,
+    error,
+  } = useDerivedMintInfo(undefined, undefined)
+
+const formattedAmounts = {
+    [independentField]: typedValue,
+    [dependentField]: parsedAmounts[dependentField]?.toSignificant(6) ?? '',
+  }
+  const [showConfirm, setShowConfirm] = useState(false);
+   const { onFieldAInput, onFieldBInput } =
+  useMintActionHandlers(noLiquidity)
+  const handleDismissConfirmation = useCallback(() => {
+    setShowConfirm(false)
+   
+  },[showConfirm])
 	const [collapse, setCollapse] = useState(true);
 	const [removeClicked, setRemoveClicked] = useState(false)
 	const [removed, setRemoved] = useState(false);
 	const [withdraw, setWithdraw] = useState(false);
 	const [claim, setClaim] = useState(false);
-	const [showConfirm, setShowConfirm] = useState(false);
+	
+    const [withdrawV, setWithdrawValue] = useState(500);
 	const confimrOnClick = () => {
 		setRemoved(true);
 		removeOnClick();
@@ -32,21 +82,21 @@ const LiquidityBox = () =>{
 		setWithdraw(false);
 	}
     const tickAtLimit = {LOWER:false, UPPER:false};
+    const onChangeWithdrawAmont = ()=> {
+
+        return;
+    }
 	return (
 	<>
 	<TransactionConfirmationModal
           isOpen={showConfirm}
-          onDismiss={()=>setShowConfirm(false)}
+          onDismiss={handleDismissConfirmation}
+          attemptingTxn={false}
+          hash={"0x4698e1e048d920e0551c927363ba9a4746dc72394484d9974b8a37eb075ba2e3"}
           content={() => (
             <ConfirmationModalContent
               title={""}
-              onDismiss={()=>setShowConfirm(false)}
-              topContent={() => (
-                <Review 
-                  outOfRange = {false}                
-                  ticksAtLimit={tickAtLimit}
-                />
-              )}
+              onDismiss={handleDismissConfirmation}
               bottomContent={() => (
                 <button className='view-etherscan'>
                   <p>
@@ -56,7 +106,7 @@ const LiquidityBox = () =>{
               )}
             />
           )}
-          pendingText={"pending"}
+          
         />
 	{!removeClicked?(<>{!removed?<div className="single-liquidity-lend">
 						<a onClick={changeCollpase} style={{ cursor: "pointer" }}>
@@ -68,8 +118,8 @@ const LiquidityBox = () =>{
 								 	<p >10000</p>
 								</div>
 								<div className="single-liquidity-header-right">
-									<img src="./images/up1.png" style={{ width: "20px", height: "20px", display: collapse ? "none" : "block" }} />
-									<img src="./images/down1.png" style={{ width: "20px", height: "20px", display: collapse ? "block" : "none" }} />
+									<img src="./images/up.png" style={{ width: "20px", height: "20px", display: collapse ? "none" : "block" }} />
+									<img src="./images/down.png" style={{ width: "20px", height: "20px", display: collapse ? "block" : "none" }} />
 								</div>
 							</div>
 						</a>
@@ -94,9 +144,9 @@ const LiquidityBox = () =>{
                             <p>View Accured Fees and Analytics</p>
                         </div>
                         <div style={{ display: collapse ? "none" : "flex", justifyContent: "center", transition: "1s" }}>
-                            <button onClick={onWithdraw}><p className="font-bold">Withdraw</p></button>
+                            <button style={{background:"#1C1924",borderRadius:'100px'}} onClick={onWithdraw}><p className="font-bold">Withdraw</p></button>
 							<div style={{width:"20px"}}></div>
-							<button onClick={onClaim}><p className="font-bold">Claim</p></button>
+							<button style={{background:"#1C1924",borderRadius:'100px'}} onClick={onClaim}><p className="font-bold">Claim</p></button>
                         </div>
                     </div>
 		    </div>:<></>}
@@ -104,22 +154,28 @@ const LiquidityBox = () =>{
 		    :withdraw?
 				(<div className="lend-confirm-withdraw-warrap">
                         <div className="lend-confirm-withdraw">
-                            <div className="remove-header-top" style={{ display: "flex", justifyContent: "center" }}>
-                                <div className='go-back-arrow' style={{backgroundImage:'url(./images/left.png)'}} onClick={removeOnClick}></div>
-                                <p>Withdraw Tokens</p>
-                                <div className='help-button' style={{backgroundImage:'url(./images/help.png)'}}></div>
-                            </div> 
-                            <div className="remove-header">
-                                <p >
+                            <RowBetween style={{    padding: "0px 28px"}}>
+                                        <button onClick = {removeOnClick} style={{ width: "0", height: "100%",background:'transparent', border: "0px" }} >
+                                        <StyledArrowLeft  />
+                                        </button>
+                                        <div className="remove-header-top" style={{ display: "flex", justifyContent: "center" }}>
+                                            <p>Withdraw Tokens</p>
+                                        </div>
+                                        <StyledHelpCircle />
+                            </RowBetween>
+                            <div className="remove-header" >
+                                <p style={{fontSize: "36px"}}>
                                     Confirm to close your position
                                 </p>
                             </div>
-                            <div className="remove-content">                               
+                            <div className="remove-content" style={{    padding:" 0px 5rem"}}>                               
                                 <div className="description2">
                                     <div className="eth">
-                                        <div className="lend-confirm-text">
-                                            <p>50,000</p>
-                                        </div>
+                                        
+                                            <StyledNumericalInput 
+                                            value={formattedAmounts[Field.CURRENCY_A]}
+                                            onUserInput={onFieldAInput}/>
+                                        
                                         <div className="lend-confirm-text">
                                             <p>WETH</p>
                                         </div>
@@ -134,17 +190,21 @@ const LiquidityBox = () =>{
 				</div>)
 				:(<div className="lend-confirm-claim-warrap">
                         <div className="lend-confirm-claim">
-                            <div className="remove-header-top" style={{ display: "flex", justifyContent: "center" }}>
-                                <div className='go-back-arrow' style={{backgroundImage:'url(./images/left.png)'}} onClick={removeOnClick}></div>
-                                <p>Claim Reward</p>
-                                <div className='help-button' style={{backgroundImage:'url(./images/help.png)'}}></div>
-                            </div> 
+                            <RowBetween style={{    padding: "0px 28px"}}>
+                                        <button onClick = {removeOnClick} style={{ width: "0", height: "100%",background:'transparent', border: "0px" }} >
+                                        <StyledArrowLeft  />
+                                        </button>
+                                        <div className="remove-header-top" style={{ display: "flex", justifyContent: "center" }}>
+                                            <p>Claim Reward</p>
+                                        </div>
+                                        <StyledHelpCircle />
+                            </RowBetween>
                             <div className="remove-header">
                                 <p >
                                     Update your Reward
                                 </p>
                             </div>
-                            <div className="remove-content">                               
+                            <div className="remove-content" style={{    padding:" 0px 5rem"}}>                               
                                 <div className="description2">
                                     <div className="content-header">
 										<p>Your Reward will mint</p>
@@ -174,6 +234,7 @@ const LiquidityBox = () =>{
 	</>)
 	
 }
+
 const LiquidityList = () => {
     const [collapse, setCollapse] = useState(false);
 	const [removeClicked, setRemoveClicked] = useState(false);

@@ -6,7 +6,7 @@ import { L2_CHAIN_IDS, SupportedL2ChainId } from 'constants/chains'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import useAddTokenToMetamask from 'hooks/useAddTokenToMetamask'
 import { ReactNode, useContext } from 'react'
-import { AlertCircle, AlertTriangle, ArrowUpCircle, CheckCircle } from 'react-feather'
+import { AlertCircle, AlertTriangle, ArrowUpRight, CheckCircle } from 'react-feather'
 import { Text } from 'rebass'
 import { useIsTransactionConfirmed, useTransaction } from 'state/transactions/hooks'
 import styled, { ThemeContext } from 'styled-components/macro'
@@ -112,16 +112,20 @@ function TransactionSubmittedContent({
           </RowBetween>
         )}
         <ConfirmedIcon inline={inline}>
-          <ArrowUpCircle strokeWidth={0.5} size={inline ? '40px' : '90px'} color={theme.primary1} />
+          <img style={{'margin':'0px'}} src="images/transaction.png" ></img>
         </ConfirmedIcon>
         <AutoColumn gap="12px" justify={'center'}>
           <Text fontWeight={500} fontSize={20} textAlign="center">
             Transaction Submitted
           </Text>
+          <Text fontWeight={500} fontSize={17.5} textAlign="center" color="#A6A0BB"  margin="15px 0 30px 0">
+            Liquidity Position Created
+          </Text>
+          	
           {chainId && hash && (
             <ExternalLink href={getExplorerLink(chainId, hash, ExplorerDataType.TRANSACTION)}>
-              <Text fontWeight={500} fontSize={14} color={theme.primary1}>
-                View on Explorer
+              <Text fontWeight={500} fontSize={14}  textAlign="center" className='view-etherscan'>
+                <p>View on Etherscan</p>
               </Text>
             </ExternalLink>
           )}
@@ -141,11 +145,11 @@ function TransactionSubmittedContent({
               )}
             </ButtonLight>
           )}
-          <ButtonPrimary onClick={onDismiss} style={{ margin: '20px 0 0 0' }}>
+          {/*<ButtonPrimary onClick={onDismiss} style={{ margin: '20px 0 0 0' }}>
             <Text fontWeight={500} fontSize={20}>
-              {inline ? Return : Close}
+              {inline ? 'Return' : 'Close'}
             </Text>
-          </ButtonPrimary>
+              </ButtonPrimary>*/}
         </AutoColumn>
       </Section>
     </Wrapper>
@@ -172,7 +176,7 @@ export function ConfirmationModalContent({
           </Text>
           <CloseIcon onClick={onDismiss} />
         </RowBetween>
-        {topContent()}
+        {topContent && topContent()}
       </Section>
       {bottomContent && <BottomSection gap="12px">{bottomContent()}</BottomSection>}
     </Wrapper>

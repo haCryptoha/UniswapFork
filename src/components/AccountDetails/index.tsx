@@ -94,14 +94,14 @@ const LowerSection = styled.div`
   padding: 1.5rem;
   flex-grow: 1;
   overflow: auto;
-  background-color: ${({ theme }) => theme.bg2};
+  background-color: ${({ theme }) => theme.bg1};
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 
   h5 {
     margin: 0;
     font-weight: 400;
-    color: ${({ theme }) => theme.text3};
+    color: ${({ theme }) => theme.text2};
   }
 `
 
@@ -124,6 +124,7 @@ const AccountControl = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color:white;
   }
 `
 
@@ -379,9 +380,9 @@ export default function AccountDetails({
       {!!pendingTransactions.length || !!confirmedTransactions.length ? (
         <LowerSection>
           <AutoRow mb={'1rem'} style={{ justifyContent: 'space-between' }}>
-            <ThemedText.Body>
+            <ThemedText.White>
               Recent Transactions
-            </ThemedText.Body>
+            </ThemedText.White>
             <LinkStyledButton onClick={clearAllTransactionsCallback}>
               (clear all)
             </LinkStyledButton>
@@ -391,9 +392,9 @@ export default function AccountDetails({
         </LowerSection>
       ) : (
         <LowerSection>
-          <ThemedText.Body color={theme.text1}>
+          <ThemedText.White color={theme.text1}>
             Your transactions will appear here...
-          </ThemedText.Body>
+          </ThemedText.White>
         </LowerSection>
       )}
     </>

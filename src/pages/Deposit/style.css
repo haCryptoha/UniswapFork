@@ -8,16 +8,14 @@
 }
 
 .remove-tab-warrap-deposit {
-    width: 464px;
+    width: 100%;
     height: 364px;
     padding: 1px;
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     border-radius: 8px;
 }
 
-.arrow-left-warrap {
-    display: none;
-}
+
 
 .settingTab-warrap {
     display: none;
@@ -28,16 +26,8 @@
     display: block;
 }
 
-.fromToken {
-    border-bottom: solid 1px grey;
-}
 
-.fromToken .open-currency-select-button {
-    margin-top: 16px;
-    background-color: rgb(42 42 42);
-    color: white;
-    box-shadow: none;
-}
+
 
 .fromToken .open-currency-select-button path {
     stroke: white;
@@ -61,13 +51,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-	margin-top: 77px;
+	margin-top: 10px;
 }
 
 .add-liquidity-footer button {}
 
 .Approve-pair {
-    width: 423px;
+    width:100%;
     height: 48px;
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     border-radius: 100px;
@@ -84,6 +74,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border:none;
 }
 
 .add-liquidity p {
@@ -95,24 +86,10 @@
     margin: 0px;
 }
 
-.add-liquidity-warrap {
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
-    width: 423px;
-    height: 48px;
-    border-radius: 100px;
-    padding: 1px;
-}
 
-.add-liquidity {
-    width: 421px;
-    height: 46px;
-    border-radius: 100px;
-    background-color: #131118;
-    cursor: pointer;
-}
 
 .Approve-success {
-    width: 421px;
+    width: 100%;
     height: 46px;
     border-radius: 100px;
     background-color: rgba(32, 29, 41, 1);
@@ -122,7 +99,7 @@
 
 .Approve-success-warrap {
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
-    width: 423px;
+    width: 100%;
     height: 48px;
     border-radius: 100px;
     padding: 1px;
@@ -145,64 +122,9 @@
     color: white;
 }
 
-.remove-header {
-    display: flex;
-    justify-content: center;
-    height: 80px;
-    align-items: center;
-}
 
-.remove-header p {
-    font-size: 34px;
-    font-weight: 700;
-    color: white;
-    height: 54px;
-    margin: 0px;
-}
 
-.remove-content {
-    display: flex;
-    align-items: center;
-    width: 464px;
-    height: 510px;
-    padding-left: 20px;
-    padding-right: 20px;
-    flex-direction: column;
-}
 
-.content-header p {
-    font-size: 20px;
-    font-weight: 700;
-    color: white;
-    margin: 0px;
-}
-
-.content-header {
-    height: 28px;
-    display: flex;
-    justify-content: center;
-    justify-content: center;
-}
-
-.remove-liquidity-warrap {
-    width: 586px;
-    height: 718px;
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
-    padding: 1px;
-}
-
-.remove-liquidity {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 584px;
-    height:716px;
-    background: #131118;
-}
-
-.description2 {
-    width: 420px
-}
 
 .description2 .eth {
     display: flex;
@@ -246,7 +168,7 @@
 }
 
 .earned-table {
-    width: 416px;
+    width: 100%;
     height: 240px;
     background-color: #1C1924;
     border-radius: 16px;
@@ -266,13 +188,7 @@
     margin: 0px;
 }
 
-.cancel-button-warrap {
-    width: 201px;
-    height: 48px;
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
-    border-radius: 100px;
-    padding: 1px;
-}
+
 
 .cancel-button {
     background-color: #131118;
@@ -291,7 +207,7 @@
 	justify-content: center;
 	align-items: center;
 	padding: 12px 16px;
-	width: 384px;
+	width: 100%;
 	height: 48px;
 	/* Gray/22 */
 	background: #1C1924;
@@ -302,7 +218,7 @@
 }
 .view-etherscan p{
 	position: static;
-	width: 151px;
+	width: 100%;
 	height: 24px;
 	left: 116.5px;
 	top: 12px;

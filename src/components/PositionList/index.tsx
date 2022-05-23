@@ -44,18 +44,19 @@ export default function PositionList({
   setUserHideClosedPositions,
   userHideClosedPositions,
 }: PositionListProps) {
+ 
   return (
     <>
       <DesktopHeader>
-        <div>
+        <div style={{color:'white'}}>
           Your positions
           {positions && ' (' + positions.length + ')'}
         </div>
-        <ButtonText style={{ opacity: 0.6 }} onClick={() => setUserHideClosedPositions(!userHideClosedPositions)}>
-          Hide closed positions
+        <ButtonText style={{ opacity: 1, color:'white' }} onClick={() => setUserHideClosedPositions(!userHideClosedPositions)}>
+          {!userHideClosedPositions ? "Hide" : "Show"} closed positions
         </ButtonText>
       </DesktopHeader>
-      <MobileHeader>
+      <MobileHeader style={{color:'white'}}>
         Your positions
       </MobileHeader>
       {positions.map((p) => {

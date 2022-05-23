@@ -54,7 +54,7 @@ const LiquidityBox = () =>{
                             <p>View Accure Fees and Analytics</p>
                         </div>
                         <div style={{ display: collapse ? "none" : "flex", justifyContent: "center", transition: "1s" }}>
-                            <button onClick={()=>setRemoveClicked(true)}><p>Remove</p></button>
+                            <button  onClick={()=>setRemoveClicked(true)}><p>Remove</p></button>
                         </div>
                     </div>
 		    </div>:<></>}

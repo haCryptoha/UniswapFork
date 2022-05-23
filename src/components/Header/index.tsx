@@ -14,7 +14,7 @@ import { useDarkModeManager } from 'state/user/hooks'
 import { useNativeCurrencyBalances } from 'state/wallet/hooks'
 import styled from 'styled-components/macro'
 
-// import { ReactComponent as Logo } from '../../assets/svg/logo.svg'
+import { ReactComponent as Logo } from '../../assets/svg/logo.svg'
 import { ExternalLink, ThemedText } from '../../theme'
 import ClaimModal from '../claim/ClaimModal'
 import { CardNoise } from '../earn/styled'
@@ -88,15 +88,20 @@ const HeaderElement = styled.div`
 
 const HeaderLinks = styled(Row)`
   justify-self: center;
-  background-color: ${({ theme }) => theme.bg0};
+ 
   width: fit-content;
-  padding: 2px;
-  border-radius: 16px;
+  border-radius: 100px;
   display: grid;
   grid-auto-flow: column;
-  grid-gap: 10px;
+  grid-gap: 3px;
   overflow: auto;
   align-items: center;
+  background: #262231;
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+    justify-self: start;  
+    margin-left: 17%;
+    grid-gap: 3px;
+    `};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     justify-self: center;
   `};
@@ -109,8 +114,8 @@ const HeaderLinks = styled(Row)`
     bottom: 0; right: 50%;
     transform: translate(50%,-50%);
     margin: 0 auto;
-    background-color: ${({ theme }) => theme.bg0};
-    border: 1px solid ${({ theme }) => theme.bg2};
+    grid-gap: 0px;
+   
     box-shadow: 0px 6px 10px rgb(0 0 0 / 2%);
   `};
 `
@@ -164,10 +169,18 @@ const Title = styled.a`
   align-items: center;
   pointer-events: auto;
   justify-self: flex-start;
-  margin-right: 12px;
+  margin-left: 20%;
   text-decoration: none;
+  width:100px;
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+    justify-self: start;  
+    margin-left: 40%;
+    
+    `};
   ${({ theme }) => theme.mediaWidth.upToSmall`
     justify-self: center;
+    width:50px;
+    margin-left:10%;
   `};
   :hover {
     cursor: pointer;
@@ -187,42 +200,40 @@ const StyledNavLink = styled(NavLink).attrs({
   activeClassName,
 })`
   ${({ theme }) => theme.flexRowNoWrap}
-  align-items: left;
-  border-radius: 3rem;
+  align-items: center;
   outline: none;
   cursor: pointer;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
-  padding: 8px 12px;
+  padding: 4px 11px;
   word-break: break-word;
   overflow: hidden;
   white-space: nowrap;
+  background-color: #1C1924;
+  border-radius: 100px;
+  height:40px;
   &.${activeClassName} {
     font-weight: 600;
     justify-content: center;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    
+  }
+  :hover,
+  :focus {
+    font-weight: 600;
+    justify-content: center;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
   }
 
 
 `
 
-const Logo = styled.a`
-  display: contents;
-  align-items: center;
-  pointer-events: auto;
-  justify-self: flex-start;
-  font-size: 30px;
-  font-weight: bold;
-  margin-left: 30px;
-  margin-right: 30px;
-  text-decoration: none !importnat;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    justify-self: center;
-  `};
-  :hover {
-    cursor: pointer;
-  }
-`
+
 
 const StyledExternalLink = styled(ExternalLink).attrs({
   activeClassName,
@@ -251,7 +262,27 @@ const StyledExternalLink = styled(ExternalLink).attrs({
     text-decoration: none;
   }
 `
-
+const NavLinkOutLine = styled(NavLink).attrs({
+  activeClassName,
+})`
+  background:#1C1924;
+  text-decoration: none;
+  padding:1px;
+  border-radius:100px;
+  &.${activeClassName} {
+    padding:1px;
+    background: linear-gradient(73.6deg,#85FFC4 2.11%,#5CC6FF 42.39%,#BC85FF 85.72%);
+  }
+  :hover,
+  :focus {
+    padding:1px;
+    background: linear-gradient(73.6deg,#85FFC4 2.11%,#5CC6FF 42.39%,#BC85FF 85.72%);
+  }
+`
+const NavLinkOutBack = styled.div`
+  background: #1C1924;
+  border-radius:100px;
+`
 export default function Header() {
   const { account, chainId } = useActiveWeb3React()
 
@@ -277,45 +308,80 @@ export default function Header() {
   return (
     <HeaderFrame showBackground={scrollY > 45} style={{ backgroundColor: "#09080C" }}>
       <ClaimModal />
-      <Title href="." style={{ marginLeft: '20px' }}>
-        <UniIcon >
-		  <div style={{display:'flex'}}>
-			<img style={{width:"32px", height:"32px", marginLeft:"8px" }} src="./images/favicon.svg"></img>
-			<span style={{color:'#9bbscfb', margin:'-4px'}}><font style={{'font-size':"32px",'font-weight':'bold','color':'#9bbcfb'}}>DOUBLE</font></span>
-		  </div>          
+      <Title href=".">
+        <UniIcon>
+          <Logo fill={!darkMode ? white : black} width="100%" height="100%" title="logo" />
           <HolidayOrnament />
         </UniIcon>
       </Title>
-      <div className='header-nav'>
+    
+     
+      <HeaderLinks>
         {/* <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
           Swap
         </StyledNavLink> */}
-        <StyledNavLink
-          className="header-nav-link"
-          id={`pool-nav-link`}
-          to={'/pool/all'}
-          isActive={(match, { pathname }) =>
-            Boolean(match) ||
-            pathname.startsWith('/add') ||
-            pathname.startsWith('/remove') ||
-            pathname.startsWith('/increase') ||
-            pathname.startsWith('/find')
-          }
-        >
-          Pool
-        </StyledNavLink>
-        <StyledNavLink className="header-nav-link" id={`migrate-nav-link`} to={'/migrate/v2'}>
-          Migrate
-        </StyledNavLink>
-        <StyledNavLink className="header-nav-link" id={`lend-nav-link`} to={'/lend'}>
-          Lend
-        </StyledNavLink>
-        <StyledNavLink className="header-nav-link" id={`join-nav-link`} to={'/join'}>
-          Join
-        </StyledNavLink>
-        <StyledNavLink className="header-nav-link" id={`claim-nav-link`} to={'/claim'}>
-          Claim
-        </StyledNavLink>
+        <NavLinkOutLine 
+            to={'/pool/all'} 
+            id={`pool-nav-link-out`}
+            isActive={(match, { pathname }) =>
+                Boolean(match) ||
+                pathname.startsWith('/pool') ||
+                pathname.startsWith('/remove') ||
+                pathname.startsWith('/increase') ||
+                pathname.startsWith('/find') ||
+                pathname.startsWith('/add')
+              } >
+         <NavLinkOutBack>
+            <StyledNavLink
+              className="header-nav-link"
+              id={`pool-nav-link`}
+              to={'/pool/all'}
+              isActive={(match, { pathname }) =>
+                Boolean(match) ||
+                pathname.startsWith('/pool') ||
+                pathname.startsWith('/remove') ||
+                pathname.startsWith('/increase') ||
+                pathname.startsWith('/find') ||
+                pathname.startsWith('/add')
+              }
+            >
+              Pool
+            </StyledNavLink>
+         </NavLinkOutBack>
+        </NavLinkOutLine>
+        <NavLinkOutLine to={'/migrate/v2'} id={`pool-nav-link-out`}>
+         <NavLinkOutBack>
+          <StyledNavLink className="header-nav-link" id={`migrate-nav-link`} to={'/migrate/v2'}>
+            Migrate
+          </StyledNavLink>
+         </NavLinkOutBack>
+        </NavLinkOutLine>
+        <NavLinkOutLine to={'/lend'} id={`pool-nav-link-out`}>
+         <NavLinkOutBack>
+          <StyledNavLink className="header-nav-link" id={`lend-nav-link`} to={'/lend'}>
+            Lend
+          </StyledNavLink>
+         </NavLinkOutBack>
+        </NavLinkOutLine>
+        <NavLinkOutLine to={'/join'} id={`pool-nav-link-out`}>
+         <NavLinkOutBack>
+          <StyledNavLink className="header-nav-link" id={`join-nav-link`} to={'/join'}>
+            Join
+          </StyledNavLink>
+         </NavLinkOutBack>
+        </NavLinkOutLine>
+        <NavLinkOutLine to={'/claim'} id={`pool-nav-link-out`}>
+         <NavLinkOutBack>
+          <StyledNavLink className="header-nav-link" id={`claim-nav-link`} to={'/claim'}>
+            Claim
+          </StyledNavLink>
+         </NavLinkOutBack>
+        </NavLinkOutLine>
+        
+        
+        
+        
+        
         {/* {(!chainId || chainId === SupportedChainId.MAINNET) && (
           <StyledNavLink id={`vote-nav-link`} to={'/vote'}>
             Vote
@@ -325,7 +391,7 @@ export default function Header() {
           Charts
           <sup>↗</sup>
         </StyledExternalLink> */}
-      </div>
+      </HeaderLinks>
 
       <HeaderControls>
         <HeaderElement>
@@ -348,25 +414,16 @@ export default function Header() {
               <CardNoise />
             </UNIWrapper>
           )}
-          <a style={{ alignItems: "center", display: "flex", justifyContent: "center", cursor: "pointer" }} className="sqa-balance">
-            <Text className='text' style={{ fontSize: "14px" }}>
-              0 SQA
-            </Text>
-          </a>
-          <AccountElement active={!!account} style={{ backgroundColor: "#2F2A3C", width: "auto", marginRight: "30px" }}>
+         
+          <AccountElement active={!!account} style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", color:"white" ,width: "",  height:"30px",marginRight: "30px" }}>
 
 
 
-            {account && userEthBalance ? (
-              <BalanceText style={{ flexShrink: 0, userSelect: 'none', color: "white" }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
-
-                {userEthBalance?.toSignificant(3)} {nativeCurrencySymbol}
-
-              </BalanceText>
-            ) : null}
+        
             <Web3Status />
           </AccountElement>
         </HeaderElement>
+        
       </HeaderControls>
     </HeaderFrame>
   )

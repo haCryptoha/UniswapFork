@@ -1,18 +1,18 @@
 .header-nav {
     display: flex;
-    margin-left: 120px;
+    margin: auto;
 }
 
 .header-nav-link {
-    color: #A6A0BB;
+    color: #343040;
     margin-right: 7px;
 }
 
 .header-nav-link:hover {
-    color: white;
+    color: rgb(29, 27, 27);
 }
 
-.header-nav .ACTIVE {
+.header-nav-link .ACTIVE {
     border-bottom: solid;
     background-color: transparent;
     color: white;
@@ -39,5 +39,5 @@
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     border: none;
     height: 40px;
-    margin-right: 100px;
+
 }

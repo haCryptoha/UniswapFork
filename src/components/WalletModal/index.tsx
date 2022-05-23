@@ -61,7 +61,7 @@ const HeaderRow = styled.div`
 `
 
 const ContentWrapper = styled.div`
-  background-color: ${({ theme }) => theme.bg0};
+  background-color: ${({ theme }) => theme.bg1};
   padding: 0 1rem 1rem 1rem;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -71,7 +71,7 @@ const ContentWrapper = styled.div`
 
 const UpperSection = styled.div`
   position: relative;
-
+ 
   h5 {
     margin: 0;
     margin-bottom: 0.5rem;
@@ -330,7 +330,7 @@ export default function WalletModal({
     }
     if (walletView === WALLET_VIEWS.LEGAL) {
       return (
-        <UpperSection>
+        <UpperSection >
           <HeaderRow>
             <HoverText
               onClick={() => {
@@ -382,7 +382,7 @@ export default function WalletModal({
         ) : (
           <HeaderRow className="modal-header" style={{ justifyContent: "center", height: "76px" }} >
             <HoverText className="modal-header-text">
-              Connect a wallet
+              Connect Wallet
             </HoverText>
           </HeaderRow>
         )}
@@ -412,17 +412,7 @@ export default function WalletModal({
               <OptionGrid>{getOptions()}</OptionGrid>
             )}
             {/* <LinkCard padding=".5rem" $borderRadius=".75rem" onClick={() => setWalletView(WALLET_VIEWS.LEGAL)}> */}
-            <LinkCard padding=".5rem" $borderRadius=".75rem">
-              <RowBetween>
-                <AutoRow gap="4px">
-                  <Info size={20} />
-                  <ThemedText.Label fontSize={14} style={{ color: "white" }}>
-                    New to Ethereum? <a style={{ textDecoration: "underline" }}>Learn more about wallets</a>
-                  </ThemedText.Label>
-                </AutoRow>
-                <ArrowRight size={16} />
-              </RowBetween>
-            </LinkCard>
+           
           </AutoColumn>
         </ContentWrapper>
       </UpperSection>

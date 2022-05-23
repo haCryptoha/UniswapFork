@@ -66,6 +66,7 @@ const ActiveText = styled.div`
 
 const StyledArrowLeft = styled(ArrowLeft)`
   color: ${({ theme }) => theme.text1};
+  color:white;
 `
 
 export function SwapPoolTabs({ active }: { active: 'swap' | 'pool' }) {
@@ -120,9 +121,11 @@ export function AddRemoveTabs({
   const location = useLocation()
 
   // detect if back should redirect to v3 or v2 pool page
-  const poolLink = location.pathname.includes('add/v2')
+  let poolLink = location.pathname.includes('add/v2')
     ? '/pool/v2'
     : '/pool' + (!!positionID ? `/${positionID.toString()}` : '')
+  poolLink = location.pathname.includes('lend')
+    ? '/lend' : ''  
 
   return (
     <Tabs>
@@ -143,8 +146,7 @@ export function AddRemoveTabs({
             <StyledArrowLeft stroke={theme.text2} />
           </StyledHistoryLink>
         </div>
-		<div className='go-back-arrow-import' style={{backgroundImage:'url(./images/left.png)'}} as={HistoryLink} to="/migrate_import"></div>
-        <ThemedText.MediumHeader
+	     <ThemedText.MediumHeader
           fontWeight={500}
           fontSize={20}
           style={{ flex: '1', margin: 'auto', textAlign: children ? 'center' : 'center', color: "white" }}

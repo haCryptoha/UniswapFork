@@ -22,7 +22,6 @@ export const BaseButton = styled(RebassButton) <
   text-align: center;
   border-radius: ${({ $borderRadius }) => $borderRadius ?? '20px'};
   outline: none;
-  border: 1px solid transparent;
   color: ${({ theme }) => theme.text1};
   text-decoration: none;
   display: flex;
@@ -62,6 +61,7 @@ export const ButtonPrimary = styled(BaseButton)`
     box-shadow: none;
     border: 1px solid transparent;
     outline: none;
+    border:none;
   }
 `
 
@@ -131,7 +131,7 @@ export const ButtonSecondary = styled(BaseButton)`
 export const ButtonOutlined = styled(BaseButton)`
   border: 1px solid ${({ theme }) => theme.bg2};
   background-color: transparent;
-  color: ${({ theme }) => theme.text1};
+  color: ${({ theme }) => theme.text2};
   &:focus {
     box-shadow: 0 0 0 1px ${({ theme }) => theme.bg4};
   }

@@ -47,17 +47,17 @@ const ActiveRowWrapper = styled.div`
   width: 100%;
 `
 const FlyoutHeader = styled.div`
-  color: ${({ theme }) => theme.text2};
+  color: ${({ theme }) => theme.text1};
   font-weight: 400;
 `
 const FlyoutMenu = styled.div`
   position: absolute;
-  top: 54px;
+ 
   width: 272px;
   z-index: 99;
   padding-top: 10px;
   @media screen and (min-width: ${MEDIA_WIDTHS.upToSmall}px) {
-    top: 40px;
+  
   }
 `
 const FlyoutMenuContents = styled.div`
@@ -122,7 +122,8 @@ const SelectorControls = styled.div<{ interactive: boolean }>`
   display: flex;
   font-weight: 500;
   justify-content: space-between;
-  padding: 6px 8px;
+  height: 30px;
+  padding: 0 10px !important;
 `
 const SelectorLogo = styled(Logo) <{ interactive?: boolean }>`
   margin-right: ${({ interactive }) => (interactive ? 8 : 0)}px;

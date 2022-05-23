@@ -26,14 +26,16 @@ require('./style.css');
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 870px;
-  width: 100%;
+  width:588px;
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
     max-width: 800px;
+    width:100%;
   `};
 
   ${({ theme }) => theme.mediaWidth.upToSmall`
     max-width: 500px;
+    width:100%;
   `};
 `
 const TitleRow = styled(RowBetween)`
@@ -103,6 +105,8 @@ const ResponsiveButtonPrimary = styled(ButtonPrimary)`
     flex: 1 1 auto;
     width: 100%;
   `};
+  height: 30px;
+  padding: 0 10px !important;
 `
 
 const MainContentWrapper = styled.main`
@@ -235,22 +239,20 @@ export default function Lend() {
         <SwapPoolTabs active={'pool'} />
         <AutoColumn gap="lg" justify="center">
           <AutoColumn gap="lg" style={{ width: '100%', justifyContent: "center" }}>
-            <TitleRow style={{ marginTop: '1rem', display:  "flex" }} padding={'0'}>
-              {/* <ThemedText.Body fontSize={'20px'}>
-                {params.platform ? capitalizeFirstLetter(params.platform) : ''} Pools Overview
-              </ThemedText.Body> */}
-              <ButtonRow className="test" style={{ justifyContent: "space-between", width: "100%" }}>
+            <TitleRow style={{ marginBottom: '1rem', display:  "flex" }} padding={'0'}>
+              <ThemedText.Body fontSize={'20px'} color={'white'} style={{width:'283px'}}>
+                   Lending Overview
+              </ThemedText.Body>
+              <ButtonRow >
                 
-                <ThemedText.Body fontSize={'20px'} color={'white'}>
-                  {params.platform ? capitalizeFirstLetter(params.platform) : ''} Lending Overview
-                </ThemedText.Body>
+                
                 <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/lend/deposit" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
                   Deposit
                 </ResponsiveButtonPrimary>
               </ButtonRow>
             </TitleRow>
             {!showLiquidityComponent ? <div className="main-warrap" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
-              <MainContentWrapper className='pool-body-NoLiquidity' style={{ background: "#1E1E1E", width: "584px", height: "584px" }} >
+              <MainContentWrapper className='pool-body-NoLiquidity' style={{ background: "#1E1E1E", height: "584px" }} >
                 {positionsLoading ? (
                   <PositionsLoadingPlaceholder />
                 ) : filteredPositions && closedPositions && filteredPositions.length > 0 ? (
@@ -295,8 +297,8 @@ export default function Lend() {
                    
                     {showConnectAWallet && (
 
-                      <ButtonPrimary style={{ marginTop: '2em', padding: '8px 16px', width: "384px", height: "48px" }} className="pool-body-connect" onClick={toggleWalletModal}>
-                        Connect a wallet
+                      <ButtonPrimary style={{ marginTop: '2em', padding: '8px 16px', width: "100%", height: "48px" }} className="pool-body-connect" onClick={toggleWalletModal}>
+                        Connect Wallet
                       </ButtonPrimary>
                     )}
                   </NoLiquidity>

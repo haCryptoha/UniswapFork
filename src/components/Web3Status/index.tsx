@@ -39,8 +39,8 @@ const Web3StatusGeneric = styled(ButtonSecondary)`
   cursor: pointer;
   user-select: none;
   height: 36px;
-  margin-right: 2px;
-  margin-left: 1px;
+  margin-right: 0px;
+  margin-left: 0px;
   :focus {
     outline: none;
   }
@@ -58,22 +58,24 @@ const Web3StatusError = styled(Web3StatusGeneric)`
 const Web3StatusConnect = styled(Web3StatusGeneric) <{ faded?: boolean }>`
 
   font-weight: 500;
-  background-color: #1C1924;
+  color:white;
     height: 40px ;
     border: none;
     margin-right: 0px;
     margin-left:0px;
-    width: 200px ;
+   
+    
 
 `
 
 const Web3StatusConnected = styled(Web3StatusGeneric) <{ pending?: boolean }>`
-  background-color: #1C1924;
+  color:white;
     height: 40px ;
     border: none;
     margin-right: 0px;
-    width: 200px ;
+   
   font-weight: 500;
+ 
  
 `
 
@@ -86,9 +88,7 @@ const Text = styled.p`
   font-size: 1rem;
   width: fit-content;
   font-weight: 500;
-  background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
+  
 `
 
 const NetworkIcon = styled(Activity)`
@@ -125,7 +125,7 @@ function Web3StatusInner() {
   const { ENSName } = useENSName(account ?? undefined)
 
   const allTransactions = useAllTransactions()
-
+  
   const sortedRecentTransactions = useMemo(() => {
     const txs = Object.values(allTransactions)
     return txs.filter(isTransactionRecent).sort(newTransactionsFirst)
@@ -167,7 +167,7 @@ function Web3StatusInner() {
     return (
       <Web3StatusConnect className='connect-wallet' id="connect-wallet" onClick={toggleWalletModal} faded={!account}>
         <Text className='text'>
-          Connect to Wallet
+          Connect Wallet
         </Text>
       </Web3StatusConnect>
 

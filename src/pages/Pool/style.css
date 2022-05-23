@@ -8,6 +8,7 @@
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     border-radius: 100px;
     color: white;
+  
 }
 
 .pool-body-connect:active {
@@ -19,13 +20,12 @@
 }
 
 .main-warrap {
-    width: 586px;
-    height: 586px;
+ 
     padding: 1px;
 }
 
 .LiquidityList {
-    width: 588px;
+    width: 100%;
     height: 588px;
 }
 
@@ -34,13 +34,14 @@
     background-color: #131118;
     padding: 24px;
     border-radius: 8px;
+    margin-bottom: 10px;
 
 }
 
 .single-liquidity-header {
     display: flex;
     justify-content: space-between;
-    height: 80px;
+    max-height: 40px;
 
 }
 
@@ -96,16 +97,18 @@
 }
 
 .single-liquidity-content button {
-    width: 538px;
+    width: 100%;
     height: 48px;
     border-radius: 100px;
-    background-color: #1C1924;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     border: 0px;
     cursor: pointer;
 }
 
 .single-liquidity-content button p {
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
+    color:white
+}
+.gradientButton{
+    height: 30px;
+    padding: 0 10px !important;
 }

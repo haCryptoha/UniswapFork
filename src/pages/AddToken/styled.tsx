@@ -46,7 +46,7 @@ opacity: 1 ;
 `
 
 export const CurrencyDropdown = styled(CurrencyInputPanel)`
-  width: fit-content;
+  width:100%;
  
 `
 
