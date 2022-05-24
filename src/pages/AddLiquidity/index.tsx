@@ -15,6 +15,12 @@ import {
   useMintActionHandlers,
   useMintState
 } from 'state/mint/hooks'
+import {
+  useRangeHopCallbacks,
+  useV3DerivedMintInfo,
+  useV3MintActionHandlers,
+  useV3MintState,
+} from 'state/mint/v3/hooks'
 import { ThemeContext } from 'styled-components/macro'
 
 import { ButtonError, ButtonLight, ButtonPrimary, ButtonText, ButtonYellow } from '../../components/Button'
@@ -77,10 +83,10 @@ export default function AddLiquidity({
     params: { currencyIdA, currencyIdB, feeAmount: feeAmountFromUrl, tokenId },
   },
   history,
-}: RouteComponentProps<{ currencyIdA?: string; currencyIdB?: string; feeAmount?: string; tokenId?: string }>) {
+  }: RouteComponentProps<{ currencyIdA?: string; currencyIdB?: string; feeAmount?: string; tokenId?: string }>) {
   const { account, chainId, library } = useActiveWeb3React()
   const vaultManager = useVaultManagerContract()
-
+  
   // check for existing position if tokenId in url
   const { position: existingPositionDetails, loading: positionLoading } = useV3PositionFromTokenId(
     tokenId ? BigNumber.from(tokenId) : undefined
@@ -116,7 +122,19 @@ export default function AddLiquidity({
     poolTokenPercentage,
     error,
   } = useDerivedMintInfo(baseCurrency ?? undefined, currencyB ?? undefined)
-
+  const {
+    errorMessage,
+    depositADisabled,
+    depositBDisabled,
+    invertPrice,
+    ticksAtLimit,
+  } = useV3DerivedMintInfo(
+    baseCurrency ?? undefined,
+    quoteCurrency ?? undefined,
+    feeAmount,
+    baseCurrency ?? undefined,
+    existingPosition
+  )
   const { onFieldAInput, onFieldBInput } =
   useMintActionHandlers(noLiquidity)
 
@@ -285,7 +303,9 @@ export default function AddLiquidity({
 
   const pendingText = (<>Supplying {parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)} {currencies[Field.CURRENCY_A]?.symbol} and{' '}
   {parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)} {currencies[Field.CURRENCY_B]?.symbol}</>);
-
+  
+  const toggleWalletModal = useWalletModalToggle()
+  const showConnectAWallet = Boolean(!account)
   return (
     <>
       <ScrollablePage>
@@ -369,8 +389,17 @@ export default function AddLiquidity({
                 </div>
               </ResponsiveTwoColumns>
             </Wrapper>
+            {showConnectAWallet ? (
+              <div className='add-liquidity-warrap'>
+                <button className='add-liquidity' style={clickable?{ border: "0px" }:{border:'0px',cursor: 'not-allowed'}} onClick={toggleWalletModal}><p>Connect Wallet</p></button>
+              </div>
+            ):(error?
+            <div className='add-liquidity-warrap'>
+                <button className='add-liquidity' style={{border:'0px',cursor: 'not-allowed'}} ><p>{error}</p></button>
+            </div>
+            :
             <div className='add-liquidity-footer'>
-              {approvalA === ApprovalState.NOT_APPROVED ? <button className='Approve-pair' style={{ border: "0px" }} onClick={approveACallback} >Approve</button>
+              { approvalA === ApprovalState.NOT_APPROVED ? <button className='Approve-pair' style={{ border: "0px" }} onClick={approveACallback} >Approve</button>
                 : approvalA === ApprovalState.PENDING ? <div className='Approve-success-warrap'>
                   <button className='Approve-success' style={{ border: "0px" }}><p style={{ color: "white" }}>Transaction in progress-Please wait</p></button>
                 </div>
@@ -378,8 +407,8 @@ export default function AddLiquidity({
                     <button className='add-liquidity' style={clickable?{ border: "0px" }:{border:'0px',cursor: 'not-allowed'}} onClick={onAdd}><p>{waiting?'Transaction in progress-Please wait':'Add Liquidity'}</p></button>
                   </div>
               }
-
-            </div>
+            </div>)
+            }            
           </PageWrapper>
         </div>
 

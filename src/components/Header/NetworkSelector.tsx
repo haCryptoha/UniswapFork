@@ -7,7 +7,7 @@ import useParsedQueryString from 'hooks/useParsedQueryString'
 import usePrevious from 'hooks/usePrevious'
 import { ParsedQs } from 'qs'
 import { useCallback, useEffect, useRef } from 'react'
-import { ArrowDownCircle, ChevronDown } from 'react-feather'
+import { ArrowDownCircle, ChevronDown , XCircle, PlusCircle } from 'react-feather'
 import { useHistory } from 'react-router-dom'
 import { useModalOpen, useToggleModal } from 'state/application/hooks'
 import { addPopup, ApplicationModal } from 'state/application/reducer'
@@ -50,6 +50,13 @@ const FlyoutHeader = styled.div`
   color: ${({ theme }) => theme.text1};
   font-weight: 400;
 `
+const FlyoutFooter = styled.div`
+  color: ${({ theme }) => theme.text1};
+  font-weight: 400;
+  text-align:center;
+
+`
+
 const FlyoutMenu = styled.div`
   position: absolute;
  
@@ -98,6 +105,21 @@ const LinkOutCircle = styled(ArrowDownCircle)`
   width: 16px;
   height: 16px;
 `
+const RemoveCircle = styled(XCircle)`
+  width: 16px;
+  height: 16px;
+  hover:{
+    cursor:pointer;
+  }
+`
+const AddCircle = styled(PlusCircle)`
+  width: 16px;
+  height: 16px;
+  hover:{
+    cursor:pointer;
+  }
+`
+
 const Logo = styled.img`
   height: 20px;
   width: 20px;
@@ -140,6 +162,11 @@ const StyledChevronDown = styled(ChevronDown)`
   width: 16px;
   color:white;
 `
+const networkId: Array<number> = [1,3,4,5]
+const removeNetwork= (id) =>{
+  networkId = networkId.splice(networkId.indexOf(id),1)
+}
+
 const BridgeLabel = ({ chainId }: { chainId: SupportedChainId }) => {
   switch (chainId) {
     case SupportedChainId.ARBITRUM_ONE:
@@ -186,10 +213,13 @@ function Row({
   const { helpCenterUrl, explorer, bridge, label, logoUrl } = CHAIN_INFO[targetChain]
 
   const rowContent = (
-    <FlyoutRow onClick={() => onSelectChain(targetChain)} active={active}>
-      <Logo src={logoUrl} />
-      <NetworkLabel>{label}</NetworkLabel>
+    <FlyoutRow  active={active}>
+      <Logo src={logoUrl} onClick={() => onSelectChain(targetChain)} />
+      <NetworkLabel onClick={() => onSelectChain(targetChain)}>{label}</NetworkLabel>
       {chainId === targetChain && <FlyoutRowActiveIndicator />}
+      <RemoveCircle />
+
+
     </FlyoutRow>
   )
 
@@ -307,6 +337,7 @@ export default function NetworkSelector() {
   if (!chainId || !info || !library) {
     return null
   }
+  
 
   return (
     <SelectorWrapper ref={node as any} onMouseEnter={toggle} onMouseLeave={toggle}>
@@ -321,10 +352,15 @@ export default function NetworkSelector() {
             <FlyoutHeader>
               Select a network
             </FlyoutHeader>
-            <Row onSelectChain={handleChainSwitch} targetChain={SupportedChainId.MAINNET} />
-            <Row onSelectChain={handleChainSwitch} targetChain={SupportedChainId.POLYGON} />
-            <Row onSelectChain={handleChainSwitch} targetChain={SupportedChainId.OPTIMISM} />
-            <Row onSelectChain={handleChainSwitch} targetChain={SupportedChainId.ARBITRUM_ONE} />
+            {
+              networkId.map((networkId) => {
+                return <Row onSelectChain={handleChainSwitch} key={networkId.id} targetChain={networkId} />
+              })
+            }
+           <FlyoutRow  active={false}>
+              <AddCircle/>
+              <NetworkLabel>&nbsp;  Add a network</NetworkLabel>        
+            </FlyoutRow>
           </FlyoutMenuContents>
         </FlyoutMenu>
       )}
