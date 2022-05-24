@@ -24,7 +24,7 @@ const ActiveRowLinkList = styled.div`
   padding: 0 8px;
   & > a {
     align-items: center;
-    color: ${({ theme }) => theme.text2};
+    color: ${({ theme }) => theme.text1};
     display: flex;
     flex-direction: row;
     font-size: 14px;
@@ -40,7 +40,7 @@ const ActiveRowLinkList = styled.div`
   }
 `
 const ActiveRowWrapper = styled.div`
-  background-color: ${({ theme }) => theme.bg1};
+  background-color: ${({ theme }) => theme.bg3};
   border-radius: 8px;
   cursor: pointer;
   padding: 8px;
@@ -77,7 +77,7 @@ const FlyoutMenuContents = styled.div`
 `
 const FlyoutRow = styled.div<{ active: boolean }>`
   align-items: center;
-  background-color: ${({ active, theme }) => (active ? theme.bg1 : 'transparent')};
+  background-color: ${({ active, theme }) => (active ? theme.bg3 : 'transparent')};
   border-radius: 8px;
   cursor: pointer;
   display: flex;
