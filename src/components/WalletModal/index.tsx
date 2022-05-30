@@ -64,7 +64,7 @@ const HeaderRow = styled.div`
 
 const ContentWrapper = styled.div`
   background-color: ${({ theme }) => theme.bg1};
-  padding: 0 1rem 1rem 1rem;
+  
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 
@@ -430,9 +430,12 @@ export default function WalletModal({
 
   return (
     <Modal isOpen={walletModalOpen} onDismiss={toggleWalletModal} minHeight={false} maxHeight={100}>
-      <div style = {{background:'linear-gradient(73.6deg, rgb(133, 255, 196) 2.11%, rgb(92, 198, 255) 42.39%, rgb(188, 133, 255) 85.72%)',padding:'1px',borderRadius:'40px',width:'50vw'}}>
-        <Wrapper className='wallet-modal' style={{ backgroundColor: "#131118" }} >{getModalContent()}</Wrapper>
+      <div className="hideBackground">
+          <div className = "walletOutline" style = {{background:'linear-gradient(73.6deg, rgb(133, 255, 196) 2.11%, rgb(92, 198, 255) 42.39%, rgb(188, 133, 255) 85.72%)',padding:'1px',borderRadius:'40px',width:'50vw',minWidth:'300px'}}>
+            <Wrapper className='wallet-modal' style={{ backgroundColor: "#131118" }} >{getModalContent()}</Wrapper>
+          </div>
       </div>
+      
       
     </Modal>
   )
