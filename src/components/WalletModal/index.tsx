@@ -37,7 +37,7 @@ const CloseIcon = styled.div`
   }
 `
 
-const CloseColor = styled(Close)`
+const CloseColor     = styled(Close)`
   path {
     stroke: ${({ theme }) => theme.text4};
   }
@@ -48,6 +48,12 @@ const Wrapper = styled.div`
   margin: 0;
   padding: 0;
   width: 100%;
+    background-color: rgb(19, 17, 24);
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    position: fixed;
 `
 
 const HeaderRow = styled.div`

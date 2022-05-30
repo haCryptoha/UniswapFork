@@ -114,7 +114,10 @@ export default function Option({
 }) {
   const content = (<div className='modal-option-card-warrap'>
     <OptionCardClickable className="modal-option-card" style={{ width: "100%", borderRadius: "8px", backgroundColor: "#1C1924" }} id={id} onClick={onClick} clickable={clickable && !active} active={active}>
-      <OptionCardLeft >
+      <IconWrapper size={size}>
+        <img src={icon} alt={'Icon'} />
+      </IconWrapper>
+	  <OptionCardLeft >
         <HeaderText color={color} >
           {active ? (
             <CircleWrapper>
@@ -129,9 +132,7 @@ export default function Option({
         </HeaderText>
         {subheader && <SubHeader>{subheader}</SubHeader>}
       </OptionCardLeft>
-      <IconWrapper size={size}>
-        <img src={icon} alt={'Icon'} />
-      </IconWrapper>
+      
     </OptionCardClickable>
   </div>
   )
