@@ -319,7 +319,7 @@ export default function Deposit({
       return
     }
   }
-
+  const showConnectAWallet = Boolean(!account)
   const handleCurrencySelect = useCallback(
     (currencyNew: Currency, currencyIdOther?: string): (string | undefined)[] => {
       const currencyIdNew = currencyId(currencyNew)
@@ -599,15 +599,24 @@ export default function Deposit({
               </ResponsiveTwoColumns>
             </Wrapper>
             <div className='add-liquidity-footer'>
-              {approvalA === ApprovalState.NOT_APPROVED ? <button className='Approve-pair' style={{ border: "0px" }} onClick={approveACallback} >Approve</button>
-                : approvalA === ApprovalState.PENDING ? <div className='Approve-success-warrap'>
-                  <button className='Approve-success' style={{ border: "0px" }}><p style={{ color: "white" }}>Waiting...</p></button>
-                </div>
-                  : <div className='add-liquidity-warrap'>
-                    <button className='add-liquidity'  onClick={()=>setShowConfirm(true)}><p>Deposit</p></button>
+              
+              {
+                showConnectAWallet ? (
+                  <div className='add-liquidity-warrap'>
+                    <button className='add-liquidity' onClick={toggleWalletModal}><p>Connect Wallet</p></button>
                   </div>
+                ):(
+                <div className='add-liquidity-footer'>
+                  { approvalA === ApprovalState.NOT_APPROVED ? <button className='Approve-pair' style={{ border: "0px" }} onClick={approveACallback} >Approve</button>
+                    : approvalA === ApprovalState.PENDING ? <div className='Approve-success-warrap'>
+                      <button className='Approve-success' style={{ border: "0px" }}><p style={{ color: "white" }}>Approving</p></button>
+                    </div>
+                      : <div className='add-liquidity-warrap'>
+                          <button className='add-liquidity'  onClick={()=>setShowConfirm(true)}><p>Deposit</p></button>
+                        </div>
+                  }
+                </div>)
               }
-
             </div>
           </PageWrapper>
         </div>

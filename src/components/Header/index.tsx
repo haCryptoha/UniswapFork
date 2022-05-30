@@ -179,7 +179,7 @@ const Title = styled.a`
     `};
   ${({ theme }) => theme.mediaWidth.upToSmall`
     justify-self: center;
-    width:50px;
+   
     margin-left:10%;
   `};
   :hover {

@@ -238,7 +238,7 @@ export default function Pool() {
               
                 <ButtonRow>  
                   <Dropdown  onUserClick={setContent}/>             
-                  <ResponsiveButtonPrimary className = "gradientButton" id="join-pool-button" as={Link} to="/add/ETH" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
+                  <ResponsiveButtonPrimary className = "gradientButton" id="join-pool-button" as={Link} to="/add/0x139F097A7693B9f2080b44D71818e3120c8fFeF0" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
                     New Position
                   </ResponsiveButtonPrimary>
                 </ButtonRow>

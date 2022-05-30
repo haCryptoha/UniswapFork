@@ -401,7 +401,7 @@ export default function AddLiquidity({
             <div className='add-liquidity-footer'>
               { approvalA === ApprovalState.NOT_APPROVED ? <button className='Approve-pair' style={{ border: "0px" }} onClick={approveACallback} >Approve</button>
                 : approvalA === ApprovalState.PENDING ? <div className='Approve-success-warrap'>
-                  <button className='Approve-success' style={{ border: "0px" }}><p style={{ color: "white" }}>Transaction in progress-Please wait</p></button>
+                  <button className='Approve-success' style={{ border: "0px" }}><p style={{ color: "white" }}>Approving</p></button>
                 </div>
                   : <div className='add-liquidity-warrap'>
                     <button className='add-liquidity' style={clickable?{ border: "0px" }:{border:'0px',cursor: 'not-allowed'}} onClick={onAdd}><p>{waiting?'Transaction in progress-Please wait':'Add Liquidity'}</p></button>
