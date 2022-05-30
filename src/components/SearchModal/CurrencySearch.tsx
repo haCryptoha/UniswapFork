@@ -32,6 +32,7 @@ const ContentWrapper = styled(Column)`
   width: 100%;
   flex: 1 1;
   position: relative;
+  background-color:#141414;
 `
 
 const Footer = styled.div`

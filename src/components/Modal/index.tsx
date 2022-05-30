@@ -23,6 +23,7 @@ const StyledDialogOverlay = styled(AnimatedDialogOverlay)`
     height: "564px";
     backgroundColor: "#131118";
     marginTop: "100px";
+    backdrop-filter: blur(2px);
   }
 `
 
@@ -39,9 +40,9 @@ const StyledDialogContent = styled(({ minHeight, maxHeight, mobile, isOpen, ...r
 
   &[data-reach-dialog-content] {
     
-    background-color: #565a69db;
+    background-color: rgb(32 30 30 / 80%);
     border: 1px solid ${({ theme }) => theme.bg1};
-	color:white;
+	  color:white;
     box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadow1)};
     padding: 0px;
     width: 50vw;

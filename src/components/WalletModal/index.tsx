@@ -29,8 +29,8 @@ require("./style.css")
 
 const CloseIcon = styled.div`
   position: absolute;
-  right: 1rem;
-  top: 14px;
+  right: 5vw;
+ 
   &:hover {
     cursor: pointer;
     opacity: 0.6;
@@ -48,12 +48,8 @@ const Wrapper = styled.div`
   margin: 0;
   padding: 0;
   width: 100%;
-    background-color: rgb(19, 17, 24);
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    position: fixed;
+  border-radius: 40px;
+    
 `
 
 const HeaderRow = styled.div`
@@ -77,6 +73,7 @@ const ContentWrapper = styled.div`
 
 const UpperSection = styled.div`
   position: relative;
+  padding:3vw;
  
   h5 {
     margin: 0;
@@ -98,6 +95,8 @@ const UpperSection = styled.div`
 const OptionGrid = styled.div`
   display: grid;
   grid-gap: 10px;
+  grid-gap: 3vw;
+  margin: 3vw 0vw;
   ${({ theme }) => theme.mediaWidth.upToMedium`
     grid-template-columns: 1fr;
     grid-gap: 10px;
@@ -371,9 +370,7 @@ export default function WalletModal({
     }
     return (
       <UpperSection>
-        <CloseIcon onClick={toggleWalletModal} style={{ color: "white" }}>
-          <CloseColor />
-        </CloseIcon>
+        
         {walletView !== WALLET_VIEWS.ACCOUNT ? (
           <HeaderRow color="blue">
             <HoverText
@@ -390,6 +387,12 @@ export default function WalletModal({
             <HoverText className="modal-header-text">
               Connect Wallet
             </HoverText>
+            <HoverText className="modal-header-text">
+              <CloseIcon onClick={toggleWalletModal} style={{ color: "white" }}>
+                <CloseColor />
+              </CloseIcon>
+            </HoverText>
+            
           </HeaderRow>
         )}
 
@@ -427,7 +430,10 @@ export default function WalletModal({
 
   return (
     <Modal isOpen={walletModalOpen} onDismiss={toggleWalletModal} minHeight={false} maxHeight={100}>
-      <Wrapper className='wallet-modal' style={{ backgroundColor: "#131118" }} >{getModalContent()}</Wrapper>
+      <div style = {{background:'linear-gradient(73.6deg, rgb(133, 255, 196) 2.11%, rgb(92, 198, 255) 42.39%, rgb(188, 133, 255) 85.72%)',padding:'1px',borderRadius:'40px',width:'50vw'}}>
+        <Wrapper className='wallet-modal' style={{ backgroundColor: "#131118" }} >{getModalContent()}</Wrapper>
+      </div>
+      
     </Modal>
   )
 }

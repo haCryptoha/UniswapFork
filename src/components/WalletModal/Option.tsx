@@ -130,7 +130,7 @@ export default function Option({
           )}
           {header}
         </HeaderText>
-        {subheader && <SubHeader>{subheader}</SubHeader>}
+        {/*subheader && <SubHeader>{subheader}</SubHeader>*/}
       </OptionCardLeft>
       
     </OptionCardClickable>

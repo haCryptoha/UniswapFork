@@ -16,6 +16,11 @@ import {
   useV3MintActionHandlers,
   useV3MintState,
 } from 'state/mint/v3/hooks'
+import {
+  useDerivedMintInfo,
+  useMintActionHandlers,
+  useMintState
+} from 'state/mint/hooks'
 import { ThemeContext } from 'styled-components/macro'
 
 import { ButtonError, ButtonLight, ButtonPrimary, ButtonText, ButtonYellow } from '../../components/Button'
@@ -80,6 +85,7 @@ export default function Deposit({
   },
   history,
 }: RouteComponentProps<{ currencyIdA?: string ; currencyIdB?: string; feeAmount?: string; tokenId?: string }>) {
+ 
   const { account, chainId, library } = useActiveWeb3React()
   // @ts-ignore
   const theme = useContext(ThemeContext)
@@ -94,7 +100,7 @@ export default function Deposit({
   )
   const hasExistingPosition = !!existingPositionDetails && !positionLoading
   const { position: existingPosition } = useDerivedPositionInfo(existingPositionDetails)
-  currencyIdA = 'BNB'
+
   // fee selection from url
   const feeAmount: FeeAmount | undefined =
     feeAmountFromUrl && Object.values(FeeAmount).includes(parseFloat(feeAmountFromUrl))
@@ -109,20 +115,17 @@ export default function Deposit({
   const quoteCurrency =
     baseCurrency && currencyB && baseCurrency.wrapped.equals(currencyB.wrapped) ? undefined : currencyB
 
-  // mint state
-  const { independentField, typedValue, startPriceTypedValue } = useV3MintState()
 
+// mint state
+const { independentField, typedValue, startPriceTypedValue } = useMintState();
   const {
     pool,
     ticks,
-    dependentField,
-    price,
-    pricesAtTicks,
-    parsedAmounts,
-    currencyBalances,
+     pricesAtTicks,
+
+
     position,
-    noLiquidity,
-    currencies,
+
     errorMessage,
     invalidPool,
     invalidRange,
@@ -138,7 +141,19 @@ export default function Deposit({
     baseCurrency ?? undefined,
     existingPosition
   )
-
+  const {
+    dependentField,
+    currencies,
+    pair,
+    pairState,
+    currencyBalances,
+    parsedAmounts,
+    price,
+    noLiquidity,
+    liquidityMinted,
+    poolTokenPercentage,
+    error,
+  } = useDerivedMintInfo(baseCurrency ?? undefined, currencyB ?? undefined)
   const { onFieldAInput, onFieldBInput, onLeftRangeInput, onRightRangeInput, onStartPriceInput } =
     useV3MintActionHandlers(noLiquidity)
 
@@ -574,22 +589,22 @@ export default function Deposit({
                   >
                         <AutoColumn gap="md">
                          
-                          
-                          <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
-                              <CurrencyInputPanel
-                                value={formattedAmounts[Field.CURRENCY_B]}
-                                onUserInput={onFieldBInput}
-                                onMax={() => {
-                                  onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
-                                }}
-                                showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
-                                fiatValue={usdcValues[Field.CURRENCY_B]}
-                                currency={currencies[Field.CURRENCY_B] ?? null}
-                                onCurrencySelect={handleCurrencyBSelect}
-                                id="add-liquidity-input-tokenb"
-                                showCommonBases
-                              />
-                          </div>                   
+                        <div className='fromToken' style={{ display: "flex", justifyContent: "space-between" }}>
+                          <CurrencyInputPanel
+                            value={formattedAmounts[Field.CURRENCY_A]}
+                            onUserInput={onFieldAInput}
+                            onMax={() => {
+                              onFieldAInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
+                            }}
+                            showMaxButton={!atMaxAmounts[Field.CURRENCY_A]}
+                            onCurrencySelect={handleCurrencyASelect}
+                            currency={currencies[Field.CURRENCY_A] ?? null}
+                            id="add-liquidity-input-tokena"
+                            fiatValue={usdcValues[Field.CURRENCY_A]}
+                            showCommonBases
+                          />
+                        </div>
+                                            
                           
                         </AutoColumn>
                     </DynamicSection>
@@ -601,21 +616,19 @@ export default function Deposit({
             <div className='add-liquidity-footer'>
               
               {
-                showConnectAWallet ? (
-                  <div className='add-liquidity-warrap'>
-                    <button className='add-liquidity' onClick={toggleWalletModal}><p>Connect Wallet</p></button>
+               showConnectAWallet ? (
+                <div className='add-liquidity-warrap'>
+                  <button className='add-liquidity'  onClick={toggleWalletModal}><p>Connect Wallet</p></button>
+                </div>
+              ):(
+             approvalA === ApprovalState.NOT_APPROVED ? <button className='Approve-pair' style={{ border: "0px" }} onClick={approveACallback} >Approve</button>
+                  : approvalA === ApprovalState.PENDING ? <div className='Approve-success-warrap'>
+                    <button className='Approve-success' style={{ border: "0px" }}><p style={{ color: "white" }}>Approving</p></button>
                   </div>
-                ):(
-                <div className='add-liquidity-footer'>
-                  { approvalA === ApprovalState.NOT_APPROVED ? <button className='Approve-pair' style={{ border: "0px" }} onClick={approveACallback} >Approve</button>
-                    : approvalA === ApprovalState.PENDING ? <div className='Approve-success-warrap'>
-                      <button className='Approve-success' style={{ border: "0px" }}><p style={{ color: "white" }}>Approving</p></button>
+                    : <div className='add-liquidity-warrap'>
+                      <button className='add-liquidity'  onClick={()=>setShowConfirm(true)}><p>{'Deposit'}</p></button>
                     </div>
-                      : <div className='add-liquidity-warrap'>
-                          <button className='add-liquidity'  onClick={()=>setShowConfirm(true)}><p>Deposit</p></button>
-                        </div>
-                  }
-                </div>)
+               )
               }
             </div>
           </PageWrapper>
