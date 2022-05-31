@@ -40,14 +40,17 @@ const ActiveRowLinkList = styled.div`
   }
 `
 const ActiveRowWrapper = styled.div`
-  background-color: ${({ theme }) => theme.bg3};
+
+  background-color: 'rgb(60 60 60)';
+  
   border-radius: 8px;
   cursor: pointer;
-  padding: 8px;
+  padding: 0px;
   width: 100%;
 `
 const FlyoutHeader = styled.div`
   color: ${({ theme }) => theme.text1};
+  color:white;
   font-weight: 400;
 `
 const FlyoutFooter = styled.div`
@@ -60,7 +63,7 @@ const FlyoutFooter = styled.div`
 const FlyoutMenu = styled.div`
   position: absolute;
  
-  width: 272px;
+  width: 180px;
   z-index: 99;
   padding-top: 10px;
   @media screen and (min-width: ${MEDIA_WIDTHS.upToSmall}px) {
@@ -69,7 +72,7 @@ const FlyoutMenu = styled.div`
 `
 const FlyoutMenuContents = styled.div`
   align-items: flex-start;
-  background-color: ${({ theme }) => theme.bg0};
+  background-color: rgb(31 30 34);
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
     0px 24px 32px rgba(0, 0, 0, 0.01);
   border-radius: 20px;
@@ -84,7 +87,8 @@ const FlyoutMenuContents = styled.div`
 `
 const FlyoutRow = styled.div<{ active: boolean }>`
   align-items: center;
-  background-color: ${({ active, theme }) => (active ? theme.bg3 : 'transparent')};
+ 
+  background-color: ${({ active, theme }) => (active ? 'rgb(60 60 60)' : 'transparent')};
   border-radius: 8px;
   cursor: pointer;
   display: flex;
@@ -127,6 +131,7 @@ const Logo = styled.img`
 `
 const NetworkLabel = styled.div`
   flex: 1 1 auto;
+  color: white;
 `
 const SelectorLabel = styled(NetworkLabel)`
   display: none;
@@ -144,7 +149,7 @@ const SelectorControls = styled.div<{ interactive: boolean }>`
   display: flex;
   font-weight: 500;
   justify-content: space-between;
-  height: 30px;
+  height: 40px;
   padding: 0 10px !important;
 `
 const SelectorLogo = styled(Logo) <{ interactive?: boolean }>`
@@ -162,7 +167,7 @@ const StyledChevronDown = styled(ChevronDown)`
   width: 16px;
   color:white;
 `
-const networkId: Array<number> = [1,3,4,5]
+const networkId: Array<number> = [1,3,137,10,42161]
 const removeNetwork= (id) =>{
   networkId = networkId.splice(networkId.indexOf(id),1)
 }
@@ -217,9 +222,6 @@ function Row({
       <Logo src={logoUrl} onClick={() => onSelectChain(targetChain)} />
       <NetworkLabel onClick={() => onSelectChain(targetChain)}>{label}</NetworkLabel>
       {chainId === targetChain && <FlyoutRowActiveIndicator />}
-      <RemoveCircle />
-
-
     </FlyoutRow>
   )
 
@@ -227,7 +229,7 @@ function Row({
     return (
       <ActiveRowWrapper>
         {rowContent}
-        <ActiveRowLinkList>
+        {/*<ActiveRowLinkList>
           {bridge ? (
             <ExternalLink href={bridge}>
               <BridgeLabel chainId={chainId} /> <LinkOutCircle />
@@ -243,7 +245,7 @@ function Row({
               Help Center <LinkOutCircle />
             </ExternalLink>
           ) : null}
-        </ActiveRowLinkList>
+        </ActiveRowLinkList>*/}
       </ActiveRowWrapper>
     )
   }
@@ -349,18 +351,13 @@ export default function NetworkSelector() {
       {open && (
         <FlyoutMenu>
           <FlyoutMenuContents>
-            <FlyoutHeader>
-              Select a network
-            </FlyoutHeader>
+            
             {
               networkId.map((networkId) => {
                 return <Row onSelectChain={handleChainSwitch} key={networkId.id} targetChain={networkId} />
               })
             }
-           <FlyoutRow  active={false}>
-              <AddCircle/>
-              <NetworkLabel>&nbsp;  Add a network</NetworkLabel>        
-            </FlyoutRow>
+         
           </FlyoutMenuContents>
         </FlyoutMenu>
       )}

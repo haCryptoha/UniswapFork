@@ -1,7 +1,7 @@
 // @ts-nocheck
 import Loader from 'components/Loader'
 import ApeModeQueryParamReader from 'hooks/useApeModeQueryParamReader'
-import { Suspense } from 'react'
+import { Suspense, useRef, useEffect, useCallback, useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
@@ -71,20 +71,34 @@ function TopLevelModals() {
   const toggle = useToggleModal(ApplicationModal.ADDRESS_CLAIM)
   return <AddressClaimModal isOpen={open} onDismiss={toggle} />
 }
-
-export default function App() {
+interface BodyContentProps {
+  setBarState: (value:boolean) => void;
+}
+const BodyContent = ({setBarState}:BodyContentProps) => {  
+  const node = useRef();
+  const handleScroll = useCallback(() => {
+    const { scrollTop, scrollHeight, clientHeight } = node.current;
+    if (scrollTop + clientHeight === scrollHeight) {
+      setBarState(true);
+    } else {
+      setBarState(false);
+  
+    }
+  }, [node]);
+  useEffect(() => {
+    const instance = node.current;
+     console.log(instance);
+    if (instance !==null) {
+      
+      console.log(node.current);
+      instance.addEventListener("scroll", handleScroll);
+      return () =>{
+        instance.removeEventListener("scroll", handleScroll);
+      } 
+    }
+  }, [node, handleScroll]);
   return (
-    <ErrorBoundary>
-
-      <Route component={GoogleAnalyticsReporter} />
-      <Route component={DarkModeQueryParamReader} />
-      <Route component={ApeModeQueryParamReader} />
-      <Web3ReactManager>
-        <AppWrapper >
-          <HeaderWrapper>
-            <Header />
-          </HeaderWrapper>
-          <BodyWrapper style={{ backgroundColor: "#09080C", overflow:"auto" }}>
+        <BodyWrapper ref={node} style={{ backgroundColor: "#09080C", overflow:"auto" }}>
             <Popups />
             <Polling />
             <TopLevelModals />
@@ -100,14 +114,14 @@ export default function App() {
                 <Route exact strict path="/pool" component={Pool} />
                 <Route exact strict path="/join" component={Lend} />
                 <Route exact strict path="/claim" component={Lend} />
-				<Route exact strict path="/lend/deposit" component={Deposit} />
+				        <Route exact strict path="/lend/deposit" component={Deposit} />
                 <Route
                   exact
                   strict
                   path="/lend/deposit/:currencyIdA?/:currencyIdB?/:feeAmount?"
                   component={RedirectDepositTokenId}
                 />
-				<Route
+				        <Route
                   exact
                   strict
                   path="/migrat/add/:currencyIdA?/:currencyIdB?/:feeAmount?"
@@ -147,7 +161,23 @@ export default function App() {
               </Switch>
             </Suspense>
             <Marginer />
-          </BodyWrapper>
+        </BodyWrapper>
+  )
+}
+export default function App() {
+  const [showBarState, setBarState] = useState(false);
+  return (
+    <ErrorBoundary>
+
+      <Route component={GoogleAnalyticsReporter} />
+      <Route component={DarkModeQueryParamReader} />
+      <Route component={ApeModeQueryParamReader} />
+      <Web3ReactManager>
+        <AppWrapper >
+          <HeaderWrapper style={showBarState?{borderBottom:'1px solid #61cdf9'}:{border:'none'}}>
+            <Header />
+          </HeaderWrapper>
+          <BodyContent setBarState={setBarState}/>
         </AppWrapper>
       </Web3ReactManager>
     </ErrorBoundary>

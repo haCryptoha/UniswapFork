@@ -70,7 +70,7 @@ const Web3StatusConnect = styled(Web3StatusGeneric) <{ faded?: boolean }>`
 
 const Web3StatusConnected = styled(Web3StatusGeneric) <{ pending?: boolean }>`
   color:white;
-    height: 40px ;
+    height: 38px ;
     border: none;
     margin-right: 0px;
    
@@ -139,18 +139,18 @@ function Web3StatusInner() {
 
   if (account) {
     return (
-      <Web3StatusConnected className='connect-wallet' style={{ borderRadius: "16px" }} id="web3-status-connected" onClick={toggleWalletModal} pending={hasPendingTransactions}>
+      <Web3StatusConnected  style={{  backgroundColor:'black', borderRadius: "16px", }} id="web3-status-connected" onClick={toggleWalletModal} pending={hasPendingTransactions}>
         {hasPendingTransactions ? (
           <RowBetween>
-            <Text className='text'>
+            <p className='textGradient' >
               {pending?.length} Pending
-            </Text>{' '}
+            </p>{' '}
             <Loader stroke="white" />
           </RowBetween>
         ) : (
           <>
             {hasSocks ? <Sock /> : null}
-            <Text className='text'>{ENSName || shortenAddress(account)}</Text>
+            <p className='textGradient'>{ENSName || shortenAddress(account)}</p>
           </>
         )}
         {!hasPendingTransactions && connector && <WrappedStatusIcon connector={connector} />}
@@ -165,7 +165,7 @@ function Web3StatusInner() {
     )
   } else {
     return (
-      <Web3StatusConnect className='connect-wallet' id="connect-wallet" onClick={toggleWalletModal} faded={!account}>
+      <Web3StatusConnect id="connect-wallet" onClick={toggleWalletModal} faded={!account}>
         <Text className='text'>
           Connect Wallet
         </Text>

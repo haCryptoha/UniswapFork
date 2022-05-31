@@ -21,9 +21,8 @@ const StyledDialogOverlay = styled(AnimatedDialogOverlay)`
     width: "464px" !important;
     max-width: "464px" !important;
     height: "564px";
-    backgroundColor: "#131118";
+    background-color: transparent;
     marginTop: "100px";
-    backdrop-filter: blur(2px);
   }
 `
 

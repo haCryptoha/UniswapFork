@@ -26,6 +26,7 @@ import AnimatedConfirmation from './AnimatedConfirmation'
 const Wrapper = styled.div`
   width: 100%;
   padding: 1rem;
+  backdrop-filter: blur(5px);
 
  
 `
@@ -104,6 +105,7 @@ function TransactionSubmittedContent({
   const { addToken, success } = useAddTokenToMetamask(currencyToAdd)
 
   return (
+    
     <Wrapper>
       <Section inline={inline}>
         {!inline && (

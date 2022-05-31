@@ -93,14 +93,14 @@ const HeaderLinks = styled(Row)`
   border-radius: 100px;
   display: grid;
   grid-auto-flow: column;
-  grid-gap: 3px;
+  grid-gap: 7px;
   overflow: auto;
   align-items: center;
   background: #262231;
   ${({ theme }) => theme.mediaWidth.upToLarge`
     justify-self: start;  
     margin-left: 17%;
-    grid-gap: 3px;
+    grid-gap: 7px;
     `};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     justify-self: center;
@@ -114,7 +114,7 @@ const HeaderLinks = styled(Row)`
     bottom: 0; right: 50%;
     transform: translate(50%,-50%);
     margin: 0 auto;
-    grid-gap: 0px;
+    grid-gap: 7px;
    
     box-shadow: 0px 6px 10px rgb(0 0 0 / 2%);
   `};
@@ -128,7 +128,7 @@ const AccountElement = styled.div<{ active: boolean }>`
   border-radius: 16px;
   white-space: nowrap;
   width: 100%;
-  height: 40px;
+  height: 30px;
 
   :focus {
     border: 1px solid blue;
@@ -212,7 +212,8 @@ const StyledNavLink = styled(NavLink).attrs({
   white-space: nowrap;
   background-color: #1C1924;
   border-radius: 100px;
-  height:40px;
+  height:30px;
+  box-sizing: content-box;
   &.${activeClassName} {
     font-weight: 600;
     justify-content: center;
@@ -345,35 +346,35 @@ export default function Header() {
                 pathname.startsWith('/add')
               }
             >
-              Pool
+              Capital
             </StyledNavLink>
          </NavLinkOutBack>
         </NavLinkOutLine>
         <NavLinkOutLine to={'/migrate/v2'} id={`pool-nav-link-out`}>
          <NavLinkOutBack>
           <StyledNavLink className="header-nav-link" id={`migrate-nav-link`} to={'/migrate/v2'}>
-            Migrate
+            Token
           </StyledNavLink>
          </NavLinkOutBack>
         </NavLinkOutLine>
         <NavLinkOutLine to={'/lend'} id={`pool-nav-link-out`}>
          <NavLinkOutBack>
           <StyledNavLink className="header-nav-link" id={`lend-nav-link`} to={'/lend'}>
-            Lend
+            Pair
           </StyledNavLink>
          </NavLinkOutBack>
         </NavLinkOutLine>
         <NavLinkOutLine to={'/join'} id={`pool-nav-link-out`}>
          <NavLinkOutBack>
           <StyledNavLink className="header-nav-link" id={`join-nav-link`} to={'/join'}>
-            Join
+            DDC
           </StyledNavLink>
          </NavLinkOutBack>
         </NavLinkOutLine>
         <NavLinkOutLine to={'/claim'} id={`pool-nav-link-out`}>
          <NavLinkOutBack>
           <StyledNavLink className="header-nav-link" id={`claim-nav-link`} to={'/claim'}>
-            Claim
+            DDJ
           </StyledNavLink>
          </NavLinkOutBack>
         </NavLinkOutLine>
@@ -415,7 +416,7 @@ export default function Header() {
             </UNIWrapper>
           )}
          
-          <AccountElement active={!!account} style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", color:"white" ,width: "",  height:"30px",marginRight: "30px" }}>
+          <AccountElement active={!!account} style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", color:"white" ,width: "",  height:"40px",marginRight: "30px" ,padding:'1px'}}>
 
 
 
