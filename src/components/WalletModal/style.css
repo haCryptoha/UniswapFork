@@ -28,6 +28,8 @@
     width: 100%;
     padding: 1px;
     margin: auto;
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    border-radius: 8px;
 }
 .modal-option-card-warrap:hover,
 .modal-option-card-warrap:focus {

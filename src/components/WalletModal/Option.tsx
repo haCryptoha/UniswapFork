@@ -7,7 +7,7 @@ const InfoCard = styled.button<{ active?: boolean }>`
   background-color: ${({ theme, active }) => (active ? theme.bg3 : theme.bg2)};
   padding: 1rem;
   outline: none;
-  border: 1px solid;
+  border: none;
   border-radius: 12px;
   height:76px;
   &:focus {
@@ -66,8 +66,9 @@ const CircleWrapper = styled.div`
 const HeaderText = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   color: white;
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 24px;
+  font-weight: 700;
+  line-height:36px;
 `
 
 const SubHeader = styled.div`
@@ -114,7 +115,7 @@ export default function Option({
   id: string
 }) {
   const content = (<div className='modal-option-card-warrap'>
-    <OptionCardClickable className="modal-option-card" style={{ width: "100%", borderRadius: "8px", backgroundColor: "#1C1924" }} id={id} onClick={onClick} clickable={clickable && !active} active={active}>
+    <OptionCardClickable className="modal-option-card" style={{ width: "100%", borderRadius: "8px", backgroundColor: "#1C1924" ,    padding: '16px 101px'}} id={id} onClick={onClick} clickable={clickable && !active} active={active}>
       
       <OptionCardLeft style={icon.startsWith("/static/media/walletConnectIcon")?{margin:'auto'}:{}} >
           <HeaderText color={color} >
