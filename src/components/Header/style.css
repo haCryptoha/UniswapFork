@@ -5,7 +5,7 @@
 
 .header-nav-link {
     color: #343040;
-    margin-right: 7px;
+   
 }
 
 .header-nav-link:hover {
@@ -39,6 +39,21 @@
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     border: none;
     height: 40px;
+
+}
+.select-network-drop {
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+    border: none;
+    padding:1px;
+    position: absolute;
+ 
+    width: 182px;
+    height: fit-content;
+    z-index: 99;
+    padding-top: 10px;
+    @media screen and (min-width: ${MEDIA_WIDTHS.upToSmall}px) {
+    
+    }
 
 }
 .textGradient{

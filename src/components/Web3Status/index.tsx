@@ -35,7 +35,7 @@ const Web3StatusGeneric = styled(ButtonSecondary)`
   width: 100%;
   align-items: center;
   padding: 0.5rem;
-  border-radius: 14px;
+  border-radius: 100px;
   cursor: pointer;
   user-select: none;
   height: 36px;
@@ -49,6 +49,7 @@ const Web3StatusError = styled(Web3StatusGeneric)`
   background-color: ${({ theme }) => theme.red1};
   color: ${({ theme }) => theme.white};
   font-weight: 500;
+  height: 40px;
   :hover,
   :focus {
     background-color: ${({ theme }) => darken(0.1, theme.red1)};
@@ -139,7 +140,7 @@ function Web3StatusInner() {
 
   if (account) {
     return (
-      <Web3StatusConnected  style={{  backgroundColor:'black', borderRadius: "16px", }} id="web3-status-connected" onClick={toggleWalletModal} pending={hasPendingTransactions}>
+      <Web3StatusConnected  style={{  backgroundColor:'black', borderRadius: "100px", }} id="web3-status-connected" onClick={toggleWalletModal} pending={hasPendingTransactions}>
         {hasPendingTransactions ? (
           <RowBetween>
             <p className='textGradient' >

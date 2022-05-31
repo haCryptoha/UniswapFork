@@ -104,7 +104,7 @@ const BodyContent = ({setBarState}:BodyContentProps) => {
             <TopLevelModals />
             <Suspense fallback={<Loader />}>
               <Switch>
-                <Route exact strict path="/claim" component={OpenClaimAddressModalAndRedirectToSwap} />
+                <Route exact strict path="/claim" component={Lend} />
                 <Route exact strict path="/uni" component={Deposit} />
                 <Route exact strict path="/uni/:currencyIdA/:currencyIdB" component={Manage} />
 
@@ -113,8 +113,7 @@ const BodyContent = ({setBarState}:BodyContentProps) => {
                 <Route exact strict path="/lend" component={Lend} />
                 <Route exact strict path="/pool" component={Pool} />
                 <Route exact strict path="/join" component={Lend} />
-                <Route exact strict path="/claim" component={Lend} />
-				        <Route exact strict path="/lend/deposit" component={Deposit} />
+                <Route exact strict path="/lend/deposit" component={Deposit} />
                 <Route
                   exact
                   strict

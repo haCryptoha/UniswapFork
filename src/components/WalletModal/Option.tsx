@@ -9,6 +9,7 @@ const InfoCard = styled.button<{ active?: boolean }>`
   outline: none;
   border: 1px solid;
   border-radius: 12px;
+  height:76px;
   &:focus {
     box-shadow: 0 0 0 1px ${({ theme }) => theme.primary1};
   }
@@ -114,24 +115,30 @@ export default function Option({
 }) {
   const content = (<div className='modal-option-card-warrap'>
     <OptionCardClickable className="modal-option-card" style={{ width: "100%", borderRadius: "8px", backgroundColor: "#1C1924" }} id={id} onClick={onClick} clickable={clickable && !active} active={active}>
-      <IconWrapper size={size}>
-        <img src={icon} alt={'Icon'} />
-      </IconWrapper>
-	  <OptionCardLeft >
-        <HeaderText color={color} >
-          {active ? (
-            <CircleWrapper>
-              <GreenCircle>
-                <div />
-              </GreenCircle>
-            </CircleWrapper>
-          ) : (
-            ''
-          )}
-          {header}
-        </HeaderText>
-        {/*subheader && <SubHeader>{subheader}</SubHeader>*/}
-      </OptionCardLeft>
+      
+      <OptionCardLeft style={icon.startsWith("/static/media/walletConnectIcon")?{margin:'auto'}:{}} >
+          <HeaderText color={color} >
+            {active ? (
+              <CircleWrapper>
+                <GreenCircle>
+                  <div />
+                </GreenCircle>
+              </CircleWrapper>
+            ) : (
+              ''
+            )}
+            {header}
+          </HeaderText>
+          {/*subheader && <SubHeader>{subheader}</SubHeader>*/}
+        </OptionCardLeft>
+        {icon.startsWith("/static/media/walletConnectIcon")
+          ?<></>
+          :<IconWrapper size={size}>
+              <img src={icon} alt={'Icon'} />
+          </IconWrapper>
+
+        }
+        
       
     </OptionCardClickable>
   </div>

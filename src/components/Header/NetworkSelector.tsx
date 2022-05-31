@@ -61,11 +61,14 @@ const FlyoutFooter = styled.div`
 `
 
 const FlyoutMenu = styled.div`
+  background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+  border: none;
+  padding:1px;
   position: absolute;
- 
+  margin-top: 10px;
+  border-radius: 20px;
   width: 180px;
   z-index: 99;
-  padding-top: 10px;
   @media screen and (min-width: ${MEDIA_WIDTHS.upToSmall}px) {
   
   }
@@ -143,7 +146,7 @@ const SelectorLabel = styled(NetworkLabel)`
 `
 const SelectorControls = styled.div<{ interactive: boolean }>`
   align-items: center;
-  border-radius: 16px;
+  border-radius: 100px;
   color: ${({ theme }) => theme.text1};
   cursor: ${({ interactive }) => (interactive ? 'pointer' : 'auto')};
   display: flex;
@@ -348,18 +351,21 @@ export default function NetworkSelector() {
         <SelectorLabel>{info.label}</SelectorLabel>
         <StyledChevronDown />
       </SelectorControls>
-      {open && (
-        <FlyoutMenu>
-          <FlyoutMenuContents>
+      {true && (
+        
+            <FlyoutMenu>
+              <FlyoutMenuContents>
+                
+                {
+                  networkId.map((networkId) => {
+                    return <Row onSelectChain={handleChainSwitch} key={networkId.id} targetChain={networkId} />
+                  })
+                }
             
-            {
-              networkId.map((networkId) => {
-                return <Row onSelectChain={handleChainSwitch} key={networkId.id} targetChain={networkId} />
-              })
-            }
-         
-          </FlyoutMenuContents>
-        </FlyoutMenu>
+              </FlyoutMenuContents>
+            </FlyoutMenu>
+        
+        
       )}
     </SelectorWrapper>
   )

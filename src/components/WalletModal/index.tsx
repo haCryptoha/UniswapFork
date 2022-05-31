@@ -29,7 +29,7 @@ require("./style.css")
 
 const CloseIcon = styled.div`
   position: absolute;
-  right: 5vw;
+  margin-left:94px;
  
   &:hover {
     cursor: pointer;
@@ -46,19 +46,25 @@ const CloseColor     = styled(Close)`
 const Wrapper = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   margin: 0;
-  padding: 0;
+  padding: 54px 56px 76px 56px;
   width: 100%;
   border-radius: 40px;
+  width: 512px;
+  height: 423px;
+ 
     
 `
 
 const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   padding: 1rem 1rem;
+  padding: 0;
   font-weight: 500;
+  height:36px;
   color: ${(props) => (props.color === 'blue' ? ({ theme }) => theme.primary1 : 'inherit')};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 1rem;
+    padding: 0;
   `};
 `
 
@@ -69,11 +75,11 @@ const ContentWrapper = styled.div`
   border-bottom-right-radius: 20px;
 
   ${({ theme }) => theme.mediaWidth.upToMedium`padding: 0 1rem 1rem 1rem`};
+  ${({ theme }) => theme.mediaWidth.upToMedium`padding: 0`};
 `
 
 const UpperSection = styled.div`
   position: relative;
-  padding:3vw 3vw;
  
   h5 {
     margin: 0;
@@ -94,12 +100,10 @@ const UpperSection = styled.div`
 
 const OptionGrid = styled.div`
   display: grid;
-  grid-gap: 10px;
-  grid-gap: 3vw;
-  margin: 3vw 0vw;
+  grid-gap: 26px;
   ${({ theme }) => theme.mediaWidth.upToMedium`
     grid-template-columns: 1fr;
-    grid-gap: 10px;
+    grid-gap: 26px;
   `};
 `
 
@@ -383,7 +387,7 @@ export default function WalletModal({
             </HoverText>
           </HeaderRow>
         ) : (
-          <HeaderRow className="modal-header" style={{ justifyContent: "center", height: "76px" }} >
+          <HeaderRow className="modal-header" style={{ justifyContent: "center",    marginBottom: '77px' }} >
             <HoverText className="modal-header-text">
               Connect Wallet
             </HoverText>
@@ -431,7 +435,7 @@ export default function WalletModal({
   return (
     <Modal isOpen={walletModalOpen} onDismiss={toggleWalletModal} minHeight={false} maxHeight={100}>
       <div className="hideBackground">
-          <div className = "walletOutline" style = {{background:'linear-gradient(73.6deg, rgb(133, 255, 196) 2.11%, rgb(92, 198, 255) 42.39%, rgb(188, 133, 255) 85.72%)',padding:'1px',borderRadius:'40px',width:'40%',minWidth:'300px'}}>
+          <div className = "walletOutline" style = {{background:'linear-gradient(73.6deg, rgb(133, 255, 196) 2.11%, rgb(92, 198, 255) 42.39%, rgb(188, 133, 255) 85.72%)',padding:'1px',borderRadius:'40px'}}>
             <Wrapper className='wallet-modal' style={{ backgroundColor: "#131118" }} >{getModalContent()}</Wrapper>
           </div>
       </div>

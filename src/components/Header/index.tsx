@@ -125,7 +125,7 @@ const AccountElement = styled.div<{ active: boolean }>`
   flex-direction: row;
   align-items: center;
   background-color: ${({ theme, active }) => (!active ? theme.bg0 : theme.bg0)};
-  border-radius: 16px;
+  border-radius: 100px;
   white-space: nowrap;
   width: 100%;
   height: 30px;
@@ -371,7 +371,13 @@ export default function Header() {
           </StyledNavLink>
          </NavLinkOutBack>
         </NavLinkOutLine>
-        <NavLinkOutLine to={'/claim'} id={`pool-nav-link-out`}>
+        <NavLinkOutLine 
+          to={'/claim'} 
+          id={`pool-nav-link-out`}
+          isActive={(match, { pathname }) =>
+          Boolean(match) ||
+          pathname.startsWith('/claim') }
+        >
          <NavLinkOutBack>
           <StyledNavLink className="header-nav-link" id={`claim-nav-link`} to={'/claim'}>
             DDJ
@@ -416,7 +422,7 @@ export default function Header() {
             </UNIWrapper>
           )}
          
-          <AccountElement active={!!account} style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", color:"white" ,width: "",  height:"40px",marginRight: "30px" ,padding:'1px'}}>
+          <AccountElement active={!!account} style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", color:"white" ,width: "",  height:"40px",marginRight: "34px",marginLeft:'32px' ,padding:'1px'}}>
 
 
 
