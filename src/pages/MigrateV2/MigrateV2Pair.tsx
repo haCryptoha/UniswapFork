@@ -40,7 +40,7 @@ import { AutoRow, RowBetween, RowFixed } from '../../components/Row'
 import { V2_FACTORY_ADDRESSES } from '../../constants/addresses'
 import { WRAPPED_NATIVE_CURRENCY } from '../../constants/tokens'
 import { useToken } from '../../hooks/Tokens'
-import { usePairContract, useV2MigratorContract } from '../../hooks/useContract'
+import { usePairContract, useMigratorContract } from '../../hooks/useContract'
 import useIsArgentWallet from '../../hooks/useIsArgentWallet'
 import { useTotalSupply } from '../../hooks/useTotalSupply'
 import { TransactionType } from '../../state/transactions/actions'
@@ -233,7 +233,7 @@ function V2PairMigration({
   const [confirmingMigration, setConfirmingMigration] = useState<boolean>(false)
   const [pendingMigrationHash, setPendingMigrationHash] = useState<string | null>(null)
 
-  const migrator = useV2MigratorContract()
+  const migrator = useMigratorContract()
 
   // approvals
   const [approval, approveManually] = useApproveCallback(pairBalance, migrator?.address)

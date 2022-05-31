@@ -1,4 +1,3 @@
-import { FACTORY_ADDRESS as V2_FACTORY_ADDRESS } from '@uniswap/v2-sdk'
 import { FACTORY_ADDRESS as V3_FACTORY_ADDRESS } from '@uniswap/v3-sdk'
 
 import { constructSameAddressMap } from '../utils/constructSameAddressMap'
@@ -17,9 +16,9 @@ export const MULTICALL_ADDRESS: AddressMap = {
   [SupportedChainId.ARBITRUM_ONE]: '0xadF885960B47eA2CD9B55E6DAc6B42b7Cb2806dB',
   [SupportedChainId.ARBITRUM_RINKEBY]: '0xa501c031958F579dB7676fF1CE78AD305794d579',
 }
-export const V2_FACTORY_ADDRESSES: AddressMap = constructSameAddressMap(V2_FACTORY_ADDRESS)
+export const V2_FACTORY_ADDRESSES: AddressMap = constructSameAddressMap('0xc35DADB65012eC5796536bD9864eD8773aBc74C4')
 
-export const V2_ROUTER_ADDRESS: AddressMap = constructSameAddressMap('0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D')
+export const V2_ROUTER_ADDRESS: AddressMap = constructSameAddressMap('0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506')
 export const V3_ROUTER_ADDRESS: AddressMap = constructSameAddressMap('0xE592427A0AEce92De3Edee1F18E0157C05861564', [
   SupportedChainId.OPTIMISM,
   SupportedChainId.OPTIMISTIC_KOVAN,
@@ -48,6 +47,11 @@ export const GOVERNANCE_ALPHA_V0_ADDRESSES: AddressMap = constructSameAddressMap
  */
 export const GOVERNANCE_ALPHA_V1_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0xC4e172459f1E7939D522503B81AFAaC1014CE6F6',
+}
+
+export const INIT_CODE_HASH: AddressMap  = {
+  [SupportedChainId.MAINNET] : '0xe18a34eb0e04b04f7a0ac29a6e80748dca96319b42c54d679cb821dca90c6303',
+  [SupportedChainId.ROPSTEN] : '0xe18a34eb0e04b04f7a0ac29a6e80748dca96319b42c54d679cb821dca90c6303'
 }
 /**
  * The latest governor bravo that is currently admin of timelock
@@ -105,6 +109,19 @@ export const SUSHI_VAULT_ADDRESSES: AddressMap = constructSameAddressMap(
   ]
 )
 
+export const ASSET_VAULT_ADDRESSES: AddressMap = constructSameAddressMap(
+  '0x84ff0a4B565b5c6c4c3d797a4C975C1E5f1388c8',
+  [
+    SupportedChainId.OPTIMISM,
+    SupportedChainId.OPTIMISTIC_KOVAN,
+    SupportedChainId.ARBITRUM_ONE,
+    SupportedChainId.ARBITRUM_RINKEBY,
+    SupportedChainId.POLYGON_MUMBAI,
+    SupportedChainId.POLYGON,
+    SupportedChainId.ROPSTEN,
+  ]
+)
+
 export const ENS_REGISTRAR_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
   [SupportedChainId.ROPSTEN]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
@@ -126,3 +143,13 @@ export const TICK_LENS_ADDRESSES: AddressMap = {
   [SupportedChainId.ARBITRUM_ONE]: '0xbfd8137f7d1516D3ea5cA83523914859ec47F573',
   [SupportedChainId.ARBITRUM_RINKEBY]: '0xbfd8137f7d1516D3ea5cA83523914859ec47F573',
 }
+
+export const LP_MIGRATOR_ADDRESSES: AddressMap = constructSameAddressMap('0x94f9FD7CFd22C5FDde68e30F0D6D122B7d598839', [
+  SupportedChainId.OPTIMISM,
+  SupportedChainId.OPTIMISTIC_KOVAN,
+  SupportedChainId.ARBITRUM_ONE,
+  SupportedChainId.ARBITRUM_RINKEBY,
+  SupportedChainId.POLYGON_MUMBAI,
+  SupportedChainId.POLYGON,
+  SupportedChainId.ROPSTEN,
+])

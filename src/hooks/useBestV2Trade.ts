@@ -1,5 +1,7 @@
+// @ts-nocheck
 import { Currency, CurrencyAmount, TradeType } from '@uniswap/sdk-core'
-import { Pair, Trade } from '@uniswap/v2-sdk'
+import { Trade } from '@uniswap/v2-sdk'
+import { Pair } from 'lib/utils/pair'
 import { useMemo } from 'react'
 import { isTradeBetter } from 'utils/isTradeBetter'
 

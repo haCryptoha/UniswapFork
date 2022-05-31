@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Currency, CurrencyAmount, Token } from '@uniswap/sdk-core'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import JSBI from 'jsbi'
@@ -6,6 +7,7 @@ import { Plus } from 'react-feather'
 import { useLocation } from 'react-router'
 import { Text } from 'rebass'
 
+import { useMigratorContract } from '../../hooks/useContract'
 import { ButtonDropdownLight } from '../../components/Button'
 import { LightCard } from '../../components/Card'
 import { BlueCard } from '../../components/Card'
@@ -24,6 +26,8 @@ import { ThemedText } from '../../theme'
 import { currencyId } from '../../utils/currencyId'
 import AppBody from '../AppBody'
 import { Dots } from '../Pool/styleds'
+import { ApprovalState, useApproveCallback } from '../../hooks/useApproveCallback'
+import { LP_MIGRATOR_ADDRESSES } from '../../constants/addresses'
 
 enum Fields {
   TOKEN0 = 0,
@@ -42,10 +46,14 @@ export default function MigrateV2() {
   const [showSearch, setShowSearch] = useState<boolean>(false)
   const [activeField, setActiveField] = useState<number>(Fields.TOKEN1)
 
+  const migrateContract = useMigratorContract();
   const [currency0, setCurrency0] = useState<Currency | null>(() => (chainId ? nativeOnChain(chainId) : null))
   const [currency1, setCurrency1] = useState<Currency | null>(null)
+  const [waiting, setWaiting] = useState<boolean>(false)
+  const [clickable, setClickable] = useState<boolean>(true)
 
   const [pairState, pair] = useV2Pair(currency0 ?? undefined, currency1 ?? undefined)
+
   const addPair = usePairAdder()
   useEffect(() => {
     if (pair) {
@@ -76,9 +84,48 @@ export default function MigrateV2() {
     [activeField]
   )
 
+  const [approval, approveManually] = useApproveCallback(position, chainId ? LP_MIGRATOR_ADDRESSES[chainId] : undefined)
+  const approve = useCallback(async () => {
+    await approveManually()
+  });
+
   const handleSearchDismiss = useCallback(() => {
     setShowSearch(false)
   }, [setShowSearch])
+
+  async function onImport() {
+    if(!clickable) return
+    setClickable(false)
+    if (!chainId || !account) return
+
+    if (migrateContract && account) {
+      try {
+        setWaiting(true);
+        console.log(pair);
+        console.log(position.quotient.toString());
+        await migrateContract.importLPTokens(pair?.liquidityToken.address, position.quotient.toString()).then((response: TransactionResponse) => {
+          setAttemptingTxn(false)
+          setWaiting(false);
+        })
+
+        ReactGA.event({
+          category: 'Liquidity',
+          action: 'Import',
+          label: [pair?.token0?.symbol, pair?.token1?.symbol].join('/'),
+        })
+      }
+      catch (error) {
+
+        setWaiting(false);
+        console.error('Failed to send transaction', error)
+        setAttemptingTxn(false)
+        // we only care if the error is something _other_ than the user rejected the tx
+        if (error?.code !== 4001) {
+          console.error(error)
+        }
+      }
+    }
+  }
 
   const prerequisiteMessage = (
     <LightCard padding="45px 10px">
@@ -86,7 +133,7 @@ export default function MigrateV2() {
         {!account ? (
           "Connect to a wallet to find pools"
         ) : (
-          "Select a token to find your v2 liquidity."
+          "Select a token to find your liquidity."
         )}
       </Text>
     </LightCard>
@@ -101,7 +148,7 @@ export default function MigrateV2() {
             <AutoColumn gap="10px">
               <ThemedText.Link fontWeight={400} color={'primaryText1'}>
                
-                  <b>Tip:</b> Use this tool to find v2 pools that don&apos;t automatically appear in the interface.
+              <b>Tip:</b> Use this tool to find liquidity pools that wasn&apos;t added using the Double interface.
                 
               </ThemedText.Link>
             </AutoColumn>
@@ -168,7 +215,17 @@ export default function MigrateV2() {
           {currency0 && currency1 ? (
             pairState === PairState.EXISTS ? (
               hasPosition && pair ? (
-                <MinimalPositionCard pair={pair} border="1px solid #CED0D9" />
+                <>
+                  <MinimalPositionCard pair={pair} border="1px solid #CED0D9" />
+                  <div className='add-liquidity-warrap'>
+                    {
+                      approval === ApprovalState.NOT_APPROVED ? 
+                        <button className='add-liquidity' style={clickable?{ border: "0px" }:{border:'0px',cursor: 'not-allowed'}} onClick={approve}><p>{approval === ApprovalState.PENDING?'Approving':'Approve'}</p></button>
+                      :
+                        <button className='add-liquidity' style={clickable?{ border: "0px" }:{border:'0px',cursor: 'not-allowed'}} onClick={onImport}><p>{waiting?'Transaction in progress-Please wait':'Import Liquidity'}</p></button>
+                    }
+                  </div>
+                </>
               ) : (
                 <LightCard padding="45px 10px">
                   <AutoColumn gap="sm" justify="center">

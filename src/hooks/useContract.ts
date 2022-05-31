@@ -7,6 +7,7 @@ import UniswapInterfaceMulticallJson from '@uniswap/v3-periphery/artifacts/contr
 import NonfungiblePositionManagerJson from '@uniswap/v3-periphery/artifacts/contracts/NonfungiblePositionManager.sol/NonfungiblePositionManager.json'
 import V3MigratorJson from '@uniswap/v3-periphery/artifacts/contracts/V3Migrator.sol/V3Migrator.json'
 import ARGENT_WALLET_DETECTOR_ABI from 'abis/argent-wallet-detector.json'
+import MigratorJson from 'abis/lp-migration.json'
 import EIP_2612 from 'abis/eip_2612.json'
 import ENS_PUBLIC_RESOLVER_ABI from 'abis/ens-public-resolver.json'
 import ENS_ABI from 'abis/ens-registrar.json'
@@ -14,6 +15,7 @@ import ERC20_ABI from 'abis/erc20.json'
 import ERC20_BYTES32_ABI from 'abis/erc20_bytes32.json'
 import ERC721_ABI from 'abis/erc721.json'
 import ERC1155_ABI from 'abis/erc1155.json'
+import AssetVaultJson from 'abis/asset-vault.json'
 import { ArgentWalletDetector, EnsPublicResolver, EnsRegistrar, Erc20, Erc721, Erc1155, Weth } from 'abis/types'
 import WETH_ABI from 'abis/weth.json'
 import {
@@ -23,9 +25,11 @@ import {
   NONFUNGIBLE_POSITION_MANAGER_ADDRESSES,
   QUOTER_ADDRESSES,
   SUSHI_VAULT_ADDRESSES,
+  LP_MIGRATOR_ADDRESSES,
   TICK_LENS_ADDRESSES,
   V2_ROUTER_ADDRESS,
   V3_MIGRATOR_ADDRESSES,
+  ASSET_VAULT_ADDRESSES
 } from 'constants/addresses'
 import { WRAPPED_NATIVE_CURRENCY } from 'constants/tokens'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
@@ -44,6 +48,9 @@ const { abi: MulticallABI } = UniswapInterfaceMulticallJson
 const { abi: NFTPositionManagerABI } = NonfungiblePositionManagerJson
 const { abi: VaultMangerABI } = VaultMangerJson
 const { abi: V2MigratorABI } = V3MigratorJson
+
+const { abi: MigratorABI } = MigratorJson
+const { abi: AssetVaultABI } = AssetVaultJson
 
 // returns null on errors
 export function useContract<T extends Contract = Contract>(
@@ -71,6 +78,11 @@ export function useContract<T extends Contract = Contract>(
 export function useV2MigratorContract() {
   return useContract<V3Migrator>(V3_MIGRATOR_ADDRESSES, V2MigratorABI, true)
 }
+
+export function useMigratorContract() {
+  return useContract(LP_MIGRATOR_ADDRESSES, MigratorABI, true)
+}
+
 
 export function useTokenContract(tokenAddress?: string, withSignerIfPossible?: boolean) {
   return useContract<Erc20>(tokenAddress, ERC20_ABI, withSignerIfPossible)
@@ -140,6 +152,15 @@ export function useVaultManagerContract(withSignerIfPossible?: boolean): Contrac
     withSignerIfPossible
   )
 }
+
+export function useAssetVaultContract(withSignerIfPossible?: boolean): Contract | null {
+  return useContract<Contract>(
+    ASSET_VAULT_ADDRESSES,
+    AssetVaultABI,
+    withSignerIfPossible
+  )
+}
+
 
 export function useV3Quoter() {
   return useContract<Quoter>(QUOTER_ADDRESSES, QuoterABI)

@@ -1,11 +1,11 @@
 import { Interface } from '@ethersproject/abi'
 import { Currency, CurrencyAmount } from '@uniswap/sdk-core'
 import { abi as IUniswapV2PairABI } from '@uniswap/v2-core/build/IUniswapV2Pair.json'
-import { computePairAddress, Pair } from '@uniswap/v2-sdk'
+import { Pair, computePairAddress } from 'lib/utils/pair'
 import { useMultipleContractSingleData } from 'lib/hooks/multicall'
 import { useMemo } from 'react'
 
-import { V2_FACTORY_ADDRESSES } from '../constants/addresses'
+import { V2_FACTORY_ADDRESSES, INIT_CODE_HASH } from '../constants/addresses'
 
 const PAIR_INTERFACE = new Interface(IUniswapV2PairABI)
 
@@ -30,7 +30,7 @@ export function useV2Pairs(currencies: [Currency | undefined, Currency | undefin
           tokenA.chainId === tokenB.chainId &&
           !tokenA.equals(tokenB) &&
           V2_FACTORY_ADDRESSES[tokenA.chainId]
-          ? computePairAddress({ factoryAddress: V2_FACTORY_ADDRESSES[tokenA.chainId], tokenA, tokenB })
+          ? computePairAddress({ factoryAddress: V2_FACTORY_ADDRESSES[tokenA.chainId], tokenA, tokenB, codeHash: INIT_CODE_HASH[tokenA.chainId] })
           : undefined
       }),
     [tokens]
@@ -53,11 +53,13 @@ export function useV2Pairs(currencies: [Currency | undefined, Currency | undefin
         PairState.EXISTS,
         new Pair(
           CurrencyAmount.fromRawAmount(token0, reserve0.toString()),
-          CurrencyAmount.fromRawAmount(token1, reserve1.toString())
-        ),
+          CurrencyAmount.fromRawAmount(token1, reserve1.toString()),
+          V2_FACTORY_ADDRESSES[tokenA.chainId],
+          INIT_CODE_HASH[tokenA.chainId]
+        )
       ]
     })
-  }, [results, tokens])
+  }, [results, tokens, pairAddresses[0]])
 }
 
 export function useV2Pair(tokenA?: Currency, tokenB?: Currency): [PairState, Pair | null] {

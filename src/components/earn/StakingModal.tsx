@@ -2,7 +2,7 @@
 import { TransactionResponse } from '@ethersproject/providers'
 import StakingRewardsJson from '@uniswap/liquidity-staker/build/StakingRewards.json'
 import { CurrencyAmount, Token } from '@uniswap/sdk-core'
-import { Pair } from '@uniswap/v2-sdk'
+import { Pair } from 'lib/utils/pair'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useV2LiquidityTokenPermit } from 'hooks/useV2LiquidityTokenPermit'
 import { useCallback, useState } from 'react'

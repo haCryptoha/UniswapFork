@@ -20,7 +20,7 @@ import { MEDIA_WIDTHS } from 'theme'
 import { PositionDetails } from 'types/position'
 import { unwrappedToken } from 'utils/unwrappedToken'
 import { DAI, USDC_MAINNET, USDT, WBTC, WRAPPED_NATIVE_CURRENCY } from '../../constants/tokens'
-
+import Double from '../../sdk/Double'
 
 const LinkRow = styled(Link)`
   align-items: center;
@@ -202,7 +202,6 @@ export default function PositionListItem({ setActiveKey, activeKey, key, positio
   
   console.log("bundle:",bundleID);
   const [collapse, setCollapse] = useState(true);
-  const [removed, setRemoved] = useState(false);
   const [removeClicked, setRemoveClicked] = useState(false);
   const vaultManager = useVaultManagerContract();
   
@@ -344,7 +343,7 @@ export default function PositionListItem({ setActiveKey, activeKey, key, positio
                       </div>
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
-                      <div><p style={{ color: "#A6A0BB" }}>{currency1?.symbol} / {currency1?.symbol}</p></div>
+                      <div><p style={{ color: "#A6A0BB" }}>{currency0?.symbol} / {currency1?.symbol}</p></div>
                       <div style={{ display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", justifyContent: "end" }}>
                           <p style={{ color: "white" }}>1 {currency0?.symbol}= {(token1Amount / token0Amount).toFixed(2)} {currency1?.symbol}</p>
@@ -395,7 +394,9 @@ export default function PositionListItem({ setActiveKey, activeKey, key, positio
                 <PrimaryPositionIdData>
                   <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={36} margin />
                   <DataText>
-                    &nbsp;{currency0?.symbol}&nbsp;/&nbsp;{currency1?.symbol}
+                    &nbsp;{currency0?.symbol}&nbsp;/&nbsp;{currency1?.symbol}&nbsp;&nbsp;
+                    (#{bundleID})&nbsp;&nbsp;
+                    {liquidityRaw == 0 ? "(Closed)": ""}
                   </DataText>
                   &nbsp;
                 </PrimaryPositionIdData>
@@ -408,26 +409,32 @@ export default function PositionListItem({ setActiveKey, activeKey, key, positio
             </a>
             <div className="single-liquidity-content" style={{ height: collapse ? "0px" : "296px", overflow: 'hidden' }}>
               <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
-                <p className="single-token-left">Your total pool tokens</p>
-                <p className="single-token-right">{(+liquidity).toFixed(2)}</p>
-              </div>
-              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
-                <p className="single-token-left">Pooled {currency0?.symbol}</p>
+                <p className="single-token-left">Capital supplied</p>
                 <p className="single-token-right">{(+token0Amount).toFixed(2)} {currency0?.symbol}</p>
               </div>
               <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
-                <p className="single-token-left">Pooled {currency1?.symbol}</p>
+                <p className="single-token-left">Token matched</p>
                 <p className="single-token-right">{(+token1Amount).toFixed(2)} {currency1?.symbol}</p>
+              </div>
+              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                <p className="single-token-left">Pool token amount</p>
+                <p className="single-token-right">{(+liquidity).toFixed(2)}</p>
               </div>
               <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
                 <p className="single-token-left">Your pool share</p>
                 <p className="single-token-right">0.14%</p>
               </div>
-              <div className="description" style={{ display: collapse ? "none" : "flex", transition: "1s" }}>
-                <p>View Accure Fees and Analytics</p>
+              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                <p className="single-token-left">Pool capital amount</p>
+                <p className="single-token-right">{(+token0Amount).toFixed(2)} {currency0?.symbol}</p>
               </div>
+              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                <p className="single-token-left">Pool token amount</p>
+                <p className="single-token-right">{(+token1Amount).toFixed(2)} {currency1?.symbol}</p>
+              </div>
+              
               <div style={{ display: collapse ? "none" : "flex", justifyContent: "center", transition: "1s" }}>
-                <button onClick={() => setRemoveClicked(true)}><p>Remove</p></button>
+                <button onClick={() => setRemoveClicked(true)}><p>Remove Liquidity</p></button>
               </div>
             </div>
           </div> 
