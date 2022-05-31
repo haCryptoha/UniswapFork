@@ -15,3 +15,9 @@ export interface PositionDetails {
   tokensOwed0: BigNumber
   tokensOwed1: BigNumber
 }
+
+export interface AssetDetails {
+  owner: string
+  asset: string
+  amount: BigNumber
+}

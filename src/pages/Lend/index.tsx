@@ -149,17 +149,16 @@ export default function Lend() {
   const showConnectAWallet = Boolean(!account)
   const showV2Features = Boolean(chainId && V2_FACTORY_ADDRESSES[chainId])
 
-  const loadPools = async (accountAddr, ammType) => {
+  const loadPools = async (accountAddr) => {
     if (accountAddr != undefined) {
       const APIURL = 'https://api.thegraph.com/subgraphs/name/muranox/double2win'
       const tokensQuery = `
         query {
-          bundleEntities(where: {id: "${accountAddr.toLowerCase()}"}) {
+          assets(where: {owner: "${accountAddr.toLowerCase()}"}) {
             id
             asset
-            capital
-            lpAmount
-            ammType
+            owner
+            amount
           }
         }
       `
@@ -172,10 +171,9 @@ export default function Lend() {
         .query({
           query: gql(tokensQuery),
         });
-
-      if (resp.data.bundleEntities) {
+      if (resp.data.assets) {
         console.log(resp);
-        return resp.data.bundleEntities;
+        return resp.data.assets;
       }
     }
     return [];
@@ -188,14 +186,14 @@ export default function Lend() {
       setPositionsLoading(true);
       const closed = [], opened = [];
       //fetch pool
-      // const pools = await loadPools(account, params.platform);
-      // for (let i = 0; i < pools.length; i++) {
-      //   if (pools[i].lpAmount == 0) {
-      //     closed.push(pools[i]);
-      //   } else {
-      //     opened.push(pools[i]);
-      //   }
-      // }
+      const pools = await loadPools(account);
+      for (let i = 0; i < pools.length; i++) {
+        if (pools[i].amount == 0) {
+          closed.push(pools[i]);
+        } else {
+          opened.push(pools[i]);
+        }
+      }
       setOpenPositions(opened);
       setClosedPositions(closed);
       setFilteredPositions([...opened, ...(userHideClosedPositions ? [] : closed)])
