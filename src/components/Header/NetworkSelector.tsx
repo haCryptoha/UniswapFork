@@ -351,7 +351,7 @@ export default function NetworkSelector() {
         <SelectorLabel>{info.label}</SelectorLabel>
         <StyledChevronDown />
       </SelectorControls>
-      {true && (
+      {open && (
         
             <FlyoutMenu>
               <FlyoutMenuContents>
