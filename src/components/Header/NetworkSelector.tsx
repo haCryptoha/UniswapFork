@@ -65,7 +65,6 @@ const FlyoutMenu = styled.div`
   border: none;
   padding:1px;
   position: absolute;
-  margin-top: 10px;
   border-radius: 20px;
   width: 180px;
   z-index: 99;
@@ -352,8 +351,8 @@ export default function NetworkSelector() {
         <StyledChevronDown />
       </SelectorControls>
       {open && (
-        
-            <FlyoutMenu>
+           <div style={{ paddingTop: '10px',position: 'absolute' ,   width: '189px'}}>
+              <FlyoutMenu>
               <FlyoutMenuContents>
                 
                 {
@@ -364,6 +363,8 @@ export default function NetworkSelector() {
             
               </FlyoutMenuContents>
             </FlyoutMenu>
+           </div>
+            
         
         
       )}
