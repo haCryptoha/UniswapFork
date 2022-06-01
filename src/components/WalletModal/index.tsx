@@ -29,7 +29,7 @@ require("./style.css")
 
 const CloseIcon = styled.div`
   position: absolute;
-  margin-left:94px;
+  right:5px;
  
   &:hover {
     cursor: pointer;
@@ -46,11 +46,11 @@ const CloseColor     = styled(Close)`
 const Wrapper = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   margin: 0;
-  padding: 54px 56px 76px 56px;
+  padding: 20px;
   width: 100%;
   border-radius: 40px;
-  width: 512px;
-  height: 423px;
+  width: 507px;
+  
  
     
 `
@@ -58,24 +58,24 @@ const Wrapper = styled.div`
 const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   padding: 1rem 1rem;
-  padding: 0;
+  padding: 15px;
   font-weight: 500;
-  height:36px;
   color: ${(props) => (props.color === 'blue' ? ({ theme }) => theme.primary1 : 'inherit')};
+  color:#2172E5;
   ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 1rem;
-    padding: 0;
+    padding: 8px;
   `};
 `
 
 const ContentWrapper = styled.div`
-  background-color: ${({ theme }) => theme.bg1};
-  
+  background-color:#16161f;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
+  padding: 0 1rem 1rem 1rem;
 
   ${({ theme }) => theme.mediaWidth.upToMedium`padding: 0 1rem 1rem 1rem`};
-  ${({ theme }) => theme.mediaWidth.upToMedium`padding: 0`};
+ 
 `
 
 const UpperSection = styled.div`
@@ -100,10 +100,10 @@ const UpperSection = styled.div`
 
 const OptionGrid = styled.div`
   display: grid;
-  grid-gap: 26px;
+  grid-gap: 10px;
   ${({ theme }) => theme.mediaWidth.upToMedium`
     grid-template-columns: 1fr;
-    grid-gap: 26px;
+    grid-gap: 10px;
   `};
 `
 
@@ -387,20 +387,17 @@ export default function WalletModal({
             </HoverText>
           </HeaderRow>
         ) : (
-          <HeaderRow className="modal-header" style={{ justifyContent: "center",    marginBottom: '77px' }} >
+          <HeaderRow className="modal-header" style={{ justifyContent: "center",    marginBottom: '20px' }} >
             <HoverText className="modal-header-text">
               Connect Wallet
             </HoverText>
-            <HoverText className="modal-header-text">
-              <CloseIcon onClick={toggleWalletModal} style={{ color: "white" }}>
+            <CloseIcon onClick={toggleWalletModal} style={{ color: "white" }}>
                 <CloseColor />
-              </CloseIcon>
-            </HoverText>
-            
+            </CloseIcon>    
           </HeaderRow>
         )}
 
-        <ContentWrapper style={{ backgroundColor: "#131118" }}>
+        <ContentWrapper style={{ backgroundColor: "#16161f" }}>
           <AutoColumn gap="16px" style={{ justifyContent: "center" }}>
             {/* <LightCard>
               <AutoRow style={{ flexWrap: 'nowrap' }}>
@@ -436,7 +433,7 @@ export default function WalletModal({
     <Modal isOpen={walletModalOpen} onDismiss={toggleWalletModal} minHeight={false} maxHeight={100}>
       <div className="hideBackground">
           <div className = "walletOutline" style = {{background:'linear-gradient(73.6deg, rgb(133, 255, 196) 2.11%, rgb(92, 198, 255) 42.39%, rgb(188, 133, 255) 85.72%)',padding:'1px',borderRadius:'40px'}}>
-            <Wrapper className='wallet-modal' style={{ backgroundColor: "#131118" }} >{getModalContent()}</Wrapper>
+            <Wrapper className='wallet-modal' style={{ backgroundColor: "#16161f" }} >{getModalContent()}</Wrapper>
           </div>
       </div>
       

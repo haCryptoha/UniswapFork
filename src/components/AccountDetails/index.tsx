@@ -56,7 +56,6 @@ const InfoCard = styled.div`
   position: relative;
   display: grid;
   grid-row-gap: 12px;
-  margin-bottom: 20px;
 `
 
 const AccountGroupingRow = styled.div`
@@ -204,6 +203,9 @@ const WalletAction = styled(ButtonSecondary)`
   margin-left: 8px;
   font-size: 0.825rem;
   padding: 4px 6px;
+  background:linear-gradient(73.6deg, rgb(133, 255, 196) 2.11%, rgb(92, 198, 255) 42.39%, rgb(188, 133, 255) 85.72%);
+  color:white;
+  border:none;
   :hover {
     cursor: pointer;
     text-decoration: underline;

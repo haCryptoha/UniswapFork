@@ -9,7 +9,7 @@ const InfoCard = styled.button<{ active?: boolean }>`
   outline: none;
   border: none;
   border-radius: 12px;
-  height:76px;
+  height:60px;
   &:focus {
     box-shadow: 0 0 0 1px ${({ theme }) => theme.primary1};
   }
@@ -66,14 +66,13 @@ const CircleWrapper = styled.div`
 const HeaderText = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   color: white;
-  font-size: 24px;
-  font-weight: 700;
-  line-height:36px;
-`
+  font-size: 16px;
+  font-weight: 400;
+ `
 
 const SubHeader = styled.div`
   color: ${({ theme }) => theme.text2};
-  margin-top: 10px;
+  margin-top: 3px;
   font-size: 12px;
 `
 
@@ -115,9 +114,10 @@ export default function Option({
   id: string
 }) {
   const content = (<div className='modal-option-card-warrap'>
-    <OptionCardClickable className="modal-option-card" style={{ width: "100%", borderRadius: "8px", backgroundColor: "#1C1924" ,    padding: '16px 101px'}} id={id} onClick={onClick} clickable={clickable && !active} active={active}>
+    <OptionCardClickable className="modal-option-card" style={{ width: "100%", borderRadius: "8px", backgroundColor: "#16161f" }} id={id} onClick={onClick} clickable={clickable && !active} active={active}>
       
-      <OptionCardLeft style={icon.startsWith("/static/media/walletConnectIcon")?{margin:'auto'}:{}} >
+        
+       <OptionCardLeft  >
           <HeaderText color={color} >
             {active ? (
               <CircleWrapper>
@@ -130,15 +130,14 @@ export default function Option({
             )}
             {header}
           </HeaderText>
-          {/*subheader && <SubHeader>{subheader}</SubHeader>*/}
+          {subheader && <SubHeader>{subheader}</SubHeader>}
         </OptionCardLeft>
-        {icon.startsWith("/static/media/walletConnectIcon")
-          ?<></>
-          :<IconWrapper size={size}>
+        <IconWrapper size={size}>
               <img src={icon} alt={'Icon'} />
-          </IconWrapper>
+        </IconWrapper>
+       
 
-        }
+        
         
       
     </OptionCardClickable>

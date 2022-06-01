@@ -45,7 +45,7 @@ const HeaderFrame = styled.div<{ showBackground: boolean }>`
   box-shadow: 0px 0px 0px 1px ${({ theme, showBackground }) => (showBackground ? theme.bg2 : 'transparent;')};
   transition: background-position 0.1s, box-shadow 0.1s;
   background-blend-mode: hard-light;
-
+  height 80px;
   ${({ theme }) => theme.mediaWidth.upToLarge`
     grid-template-columns: 48px 1fr 1fr;
   `};
@@ -215,9 +215,9 @@ const StyledNavLink = styled(NavLink).attrs({
   outline: none;
   cursor: pointer;
   text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 4px 11px;
+  font-size: 14ps;
+  font-weight: 700;
+  padding: 4px 16px;
   word-break: break-word;
   overflow: hidden;
   white-space: nowrap;
