@@ -124,15 +124,26 @@ const AccountElement = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: ${({ theme, active }) => (!active ? theme.bg0 : theme.bg0)};
   border-radius: 100px;
   white-space: nowrap;
   width: 100%;
   height: 30px;
-
+  background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+  color:white;
+  height:40px;
+  margin-right: 34px;
+  margin-left:16px ;
+  padding:1px;
   :focus {
     border: 1px solid blue;
   }
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+     margin-right: 34px;
+    
+    `};
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+     margin-right: -9px;
+  `};
 `
 
 const UNIAmount = styled(AccountElement)`
@@ -180,7 +191,7 @@ const Title = styled.a`
   ${({ theme }) => theme.mediaWidth.upToSmall`
     justify-self: center;
    
-    margin-left:10%;
+    margin-left:43px;
   `};
   :hover {
     cursor: pointer;
@@ -422,7 +433,7 @@ export default function Header() {
             </UNIWrapper>
           )}
          
-          <AccountElement active={!!account} style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", color:"white" ,width: "",  height:"40px",marginRight: "34px",marginLeft:'32px' ,padding:'1px'}}>
+          <AccountElement active={!!account}>
 
 
 

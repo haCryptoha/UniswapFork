@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { ButtonText } from 'components/Button'
 import PositionListItem from 'components/PositionListItem'
-import AssetListItme from 'components/AssetListItem'
 import React, {useState} from 'react'
 import styled from 'styled-components/macro'
 import { MEDIA_WIDTHS } from 'theme'
@@ -47,7 +46,7 @@ export default function PositionList({
   userHideClosedPositions,
 }: PositionListProps) {
  
-const [activeKey, setActiveKey] = useState<bundleID>("");
+ const [activeKey, setActiveKey] = useState<bundleID>("");
  
   return (
     <>
@@ -56,24 +55,15 @@ const [activeKey, setActiveKey] = useState<bundleID>("");
           Your positions
           {positions && ' (' + positions.length + ')'}
         </div>
-        {
-          positions[0].amount ? 
-            <></>
-          :
-          <ButtonText style={{ opacity: 1, color:'white' }} onClick={() => setUserHideClosedPositions(!userHideClosedPositions)}>
-            {!userHideClosedPositions ? "Hide" : "Show"} closed positions
-          </ButtonText>
-        }
+        <ButtonText style={{ opacity: 1, color:'white' }} onClick={() => setUserHideClosedPositions(!userHideClosedPositions)}>
+          {!userHideClosedPositions ? "Hide" : "Show"} closed positions
+        </ButtonText>
       </DesktopHeader>
       <MobileHeader style={{color:'white'}}>
         Your positions
       </MobileHeader>
       {positions.map((p) => {
-        if(p.amount) {
-          return <AssetListItme key={p.id.toString()} positionDetails={p} />
-        } else {
-          return <PositionListItem setActiveKey={setActiveKey} activeKey = {activeKey} key={p.id.toString()} positionDetails={p} />
-        }
+        return <PositionListItem setActiveKey={setActiveKey} activeKey = {activeKey} key={p.id.toString()} positionDetails={p} />
       })}
     </>
   )
