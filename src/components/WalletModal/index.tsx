@@ -50,7 +50,7 @@ const Wrapper = styled.div`
   width: 100%;
   border-radius: 40px;
   width: 507px;
-  height: 266px;
+  
  
     
 `

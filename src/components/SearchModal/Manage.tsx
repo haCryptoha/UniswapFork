@@ -18,6 +18,7 @@ const Wrapper = styled.div`
   position: relative;
   display: flex;
   flex-flow: column;
+  background:#141414;
 `
 
 const ToggleWrapper = styled(RowBetween)`

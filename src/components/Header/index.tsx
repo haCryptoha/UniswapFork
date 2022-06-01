@@ -193,7 +193,7 @@ const Title = styled.a`
   ${({ theme }) => theme.mediaWidth.upToSmall`
     justify-self: center;
    
-    margin-left:43px;
+    margin-left:100px;
   `};
   :hover {
     cursor: pointer;
