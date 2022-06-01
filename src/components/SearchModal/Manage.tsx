@@ -23,6 +23,8 @@ const Wrapper = styled.div`
 
 const ToggleWrapper = styled(RowBetween)`
   background-color: ${({ theme }) => theme.bg3};
+  background-color:transparent;
+  border: 1px solid white;
   border-radius: 12px;
   padding: 6px;
 `
@@ -36,7 +38,7 @@ const ToggleOption = styled.div<{ active?: boolean }>`
   border-radius: 12px;
   font-weight: 600;
   background-color: ${({ theme, active }) => (active ? theme.bg1 : theme.bg3)};
-  color: ${({ theme, active }) => (active ? theme.text1 : theme.text2)};
+  color: ${({ theme, active }) => (active ?  'white':'black')};
   user-select: none;
 
   :hover {
