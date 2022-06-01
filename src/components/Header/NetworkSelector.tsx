@@ -66,7 +66,7 @@ const FlyoutMenu = styled.div`
   padding:1px;
   position: absolute;
   border-radius: 20px;
-  width: 180px;
+  min-width: 162px;
   z-index: 99;
   @media screen and (min-width: ${MEDIA_WIDTHS.upToSmall}px) {
   
@@ -152,6 +152,10 @@ const SelectorControls = styled.div<{ interactive: boolean }>`
   font-weight: 500;
   justify-content: space-between;
   height: 40px;
+  width:160px;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  width:inherit;
+ `};
   padding: 0 10px !important;
 `
 const SelectorLogo = styled(Logo) <{ interactive?: boolean }>`
@@ -161,8 +165,10 @@ const SelectorLogo = styled(Logo) <{ interactive?: boolean }>`
   }
 `
 const SelectorWrapper = styled.div`
+
   @media screen and (min-width: ${MEDIA_WIDTHS.upToSmall}px) {
     position: relative;
+    
   }
 `
 const StyledChevronDown = styled(ChevronDown)`

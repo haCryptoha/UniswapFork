@@ -42,18 +42,14 @@
 
 }
 .select-network-drop {
-    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
-    border: none;
-    padding:1px;
+   
     position: absolute;
  
-    width: 182px;
+    width: 162px;
     height: fit-content;
     z-index: 99;
     padding-top: 10px;
-    @media screen and (min-width: ${MEDIA_WIDTHS.upToSmall}px) {
     
-    }
 
 }
 .textGradient{

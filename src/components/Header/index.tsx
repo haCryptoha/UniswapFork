@@ -99,7 +99,7 @@ const HeaderLinks = styled(Row)`
   background: #262231;
   ${({ theme }) => theme.mediaWidth.upToLarge`
     justify-self: start;  
-    margin-left: 17%;
+    margin-left: 130px;
     grid-gap: 7px;
     `};
   ${({ theme }) => theme.mediaWidth.upToMedium`
@@ -126,7 +126,7 @@ const AccountElement = styled.div<{ active: boolean }>`
   align-items: center;
   border-radius: 100px;
   white-space: nowrap;
-  width: 100%;
+  width: 160px;
   height: 30px;
   background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
   color:white;
@@ -139,10 +139,12 @@ const AccountElement = styled.div<{ active: boolean }>`
   }
   ${({ theme }) => theme.mediaWidth.upToLarge`
      margin-right: 34px;
+
     
     `};
   ${({ theme }) => theme.mediaWidth.upToSmall`
      margin-right: -9px;
+     width: 120px;
   `};
 `
 
@@ -182,7 +184,7 @@ const Title = styled.a`
   justify-self: flex-start;
   margin-left: 20%;
   text-decoration: none;
-  width:100px;
+  width:155px;
   ${({ theme }) => theme.mediaWidth.upToLarge`
     justify-self: start;  
     margin-left: 40%;
@@ -241,6 +243,9 @@ const StyledNavLink = styled(NavLink).attrs({
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
   }
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    padding: 4px 10px;
+  `};
 
 
 `
