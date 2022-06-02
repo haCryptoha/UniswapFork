@@ -395,7 +395,7 @@ export default function AccountDetails({
       ) : (
         <LowerSection>
           <ThemedText.White color={theme.text1}>
-            Your transactions will appear here...
+            {/* Your transactions will appear here... */}
           </ThemedText.White>
         </LowerSection>
       )}

@@ -5,6 +5,8 @@ import React, {useState} from 'react'
 import styled from 'styled-components/macro'
 import { MEDIA_WIDTHS } from 'theme'
 import { PositionDetails } from 'types/position'
+import AssetListItme from 'components/AssetListItem'
+
 
 const DesktopHeader = styled.div`
   display: none;
@@ -63,7 +65,11 @@ export default function PositionList({
         Your positions
       </MobileHeader>
       {positions.map((p) => {
-        return <PositionListItem setActiveKey={setActiveKey} activeKey = {activeKey} key={p.id.toString()} positionDetails={p} />
+        if(p.amount) {
+          return <AssetListItme key={p.id.toString()} positionDetails={p} />
+        } else {
+          return <PositionListItem key={p.id.toString()} positionDetails={p} />
+        }
       })}
     </>
   )

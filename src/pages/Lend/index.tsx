@@ -154,12 +154,11 @@ export default function Lend() {
       const APIURL = 'https://api.thegraph.com/subgraphs/name/muranox/double2win'
       const tokensQuery = `
         query {
-          bundleEntities(where: {id: "${accountAddr.toLowerCase()}"}) {
+          assets(where: {owner: "${accountAddr.toLowerCase()}"}) {
             id
             asset
-            capital
-            lpAmount
-            ammType
+            owner
+            amount
           }
         }
       `
@@ -172,10 +171,9 @@ export default function Lend() {
         .query({
           query: gql(tokensQuery),
         });
-
-      if (resp.data.bundleEntities) {
+      if (resp.data.assets) {
         console.log(resp);
-        return resp.data.bundleEntities;
+        return resp.data.assets;
       }
     }
     return [];
@@ -186,52 +184,23 @@ export default function Lend() {
       // You can await here
       console.log("first arrived");
       setPositionsLoading(true);
-      const closed = [], opened = [];
+      const opened = [];
       //fetch pool
-      // const pools = await loadPools(account, params.platform);
-      // for (let i = 0; i < pools.length; i++) {
-      //   if (pools[i].lpAmount == 0) {
-      //     closed.push(pools[i]);
-      //   } else {
-      //     opened.push(pools[i]);
-      //   }
-      // }
+      const pools = await loadPools(account);
+      for (let i = 0; i < pools.length; i++) {
+        if (pools[i].amount > 0) {
+          opened.push(pools[i]);
+        }
+      }
       setOpenPositions(opened);
-      setClosedPositions(closed);
-      setFilteredPositions([...opened, ...(userHideClosedPositions ? [] : closed)])
+      setFilteredPositions(opened);
       setPositionsLoading(false);
+      console.log(opened);
 
       // ...
     }
     fetchData();
   }, [params.platform, account])
-
-  const capitalizeFirstLetter = (string: string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1)
-  }
-
-  const menuItems = [
-    {
-      content: (
-        <MenuItem>
-          Trisolaris
-          {/* <ChevronsRight size={16} /> */}
-        </MenuItem>
-      ),
-      link: '/migrate/trisolaris',
-      external: false,
-    },
-    {
-      content: (
-        <MenuItem>
-          Uniswap V2
-          {/* <Layers size={16} /> */}
-        </MenuItem>
-      ),
-      link: '/migrate/uniswap',
-      external: false,
-    },
-  ]
 
   return (
     <>

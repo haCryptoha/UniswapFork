@@ -316,13 +316,6 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
     'WMATIC',
     'Wrapped MATIC'
   ),
-  [SupportedChainId.ROPSTEN]: new Token(
-    SupportedChainId.ROPSTEN,
-    '0x139F097A7693B9f2080b44D71818e3120c8fFeF0',
-    18,
-    'DAI',
-    'Test DAI'
-  ),
 }
 
 function isMatic(chainId: number): chainId is SupportedChainId.POLYGON | SupportedChainId.POLYGON_MUMBAI {
