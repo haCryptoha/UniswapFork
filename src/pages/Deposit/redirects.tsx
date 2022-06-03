@@ -5,29 +5,15 @@ import { WRAPPED_NATIVE_CURRENCY } from '../../constants/tokens'
 import Deposit from './index';
 
 export function RedirectDepositTokenId(
-  props: RouteComponentProps<{ currencyIdA: string; currencyIdB: string; feeAmount?: string }>
+  props: RouteComponentProps<{  currencyIdB: string; feeAmount?: string }>
 ) {
   const {
     match: {
-      params: { currencyIdA, currencyIdB },
+      params: {  currencyIdB },
     },
   } = props
 
-  const { chainId } = useActiveWeb3React()
-
-  // prevent weth + eth
-  const isETHOrWETHA =
-    currencyIdA === 'ETH' || (chainId !== undefined && currencyIdA === WRAPPED_NATIVE_CURRENCY[chainId]?.address)
-  const isETHOrWETHB =
-    currencyIdB === 'ETH' || (chainId !== undefined && currencyIdB === WRAPPED_NATIVE_CURRENCY[chainId]?.address)
-
-  if (
-    currencyIdA &&
-    currencyIdB &&
-    (currencyIdA.toLowerCase() === currencyIdB.toLowerCase() || (isETHOrWETHA && isETHOrWETHB))
-  ) {
-    return <Deposit {...props} />
-  }
-  console.log("two", props);
+  const { chainId } = useActiveWeb3React() 
+  
   return <Deposit {...props} />
 }

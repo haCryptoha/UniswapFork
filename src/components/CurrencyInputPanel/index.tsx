@@ -87,6 +87,7 @@ const InputRow = styled.div<{ selected: boolean }>`
   align-items: center;
   justify-content: space-between;
   padding: ${({ selected }) => (selected ? ' 1rem 1rem 0.75rem 1rem' : '1rem 1rem 1rem 1rem')};
+  padding:0px;
   padding-left:0px;
   padding-top:0px;
 `
@@ -113,9 +114,8 @@ const Aligner = styled.span`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  background: #131118;
-  height: 100%;
+  width: 160px;
+  height: 40px;
   border-radius: 15px;
   color:white;
   padding:5px;
@@ -185,6 +185,7 @@ interface CurrencyInputPanelProps {
   renderBalance?: (amount: CurrencyAmount<Currency>) => ReactNode
   locked?: boolean
   loading?: boolean
+  approved?: boolean
 }
 
 export default function CurrencyInputPanel({
@@ -207,6 +208,7 @@ export default function CurrencyInputPanel({
   hideInput = false,
   locked = false,
   loading = false,
+  approved,
   ...rest
 }: CurrencyInputPanelProps) {
   const [modalOpen, setModalOpen] = useState(false)
@@ -246,21 +248,25 @@ export default function CurrencyInputPanel({
             selected={!!currency}
             hideInput={hideInput}
             className={"open-currency-select-button"}
+            style={approved?{opacity:'0.45'}:{opacity:'1'}}
             onClick={() => {
+              if(approved){
+                return
+              }
               if (onCurrencySelect) {
                 setModalOpen(true)
               }
             }}
           >
-            <Aligner>
+            <Aligner >
               <RowFixed>
-                {pair ? (
+                {/*pair ? (
                   <span style={{ marginRight: '0.5rem' }}>
                     <DoubleCurrencyLogo currency0={pair.token0} currency1={pair.token1} size={24} margin={true} />
                   </span>
                 ) : currency ? (
                   <CurrencyLogo style={{ marginRight: '0.5rem' }} currency={currency} size={'24px'} />
-                ) : null}
+                ) : null*/}
                 {pair ? (
                   <StyledTokenName className="pair-name-container">
                     {pair?.token0.symbol}:{pair?.token1.symbol}
@@ -281,7 +287,7 @@ export default function CurrencyInputPanel({
         </InputRow>
         {!hideInput && !hideBalance && currency && (
           <FiatRow>
-            <RowBetween style={{marginTop:'-15px'}}>
+            <RowBetween style={{marginTop:'5px'}}>
               <LoadingOpacityContainer $loading={loading}>
                 <FiatValue fiatValue={fiatValue} priceImpact={priceImpact} />
               </LoadingOpacityContainer>
@@ -298,15 +304,15 @@ export default function CurrencyInputPanel({
                       renderBalance ? (
                         renderBalance(selectedCurrencyBalance)
                       ) : (
-                        <>Available Assets: {formatCurrencyAmount(selectedCurrencyBalance, 4)}</>
+                        <>Balance: {formatCurrencyAmount(selectedCurrencyBalance, 4)}</>
                       )
                     ) : null}
                   </ThemedText.Body>
-                  {showMaxButton && selectedCurrencyBalance ? (
+                  {/*showMaxButton && selectedCurrencyBalance ? (
                     <StyledBalanceMax onClick={onMax}>
                       <>MAX</>
                     </StyledBalanceMax>
-                  ) : null}
+                  ) : null*/}
                 </RowFixed>
               ) : (
                 <span />

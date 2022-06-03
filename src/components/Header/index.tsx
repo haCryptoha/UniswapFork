@@ -366,20 +366,22 @@ export default function Header() {
             </StyledNavLink>
          </NavLinkOutBack>
         </NavLinkOutLine>
-        <NavLinkOutLine to={'/migrate/v2'} id={`pool-nav-link-out`}>
+        
+        <NavLinkOutLine to={'/lend'} id={`pool-nav-link-out`}>
          <NavLinkOutBack>
-          <StyledNavLink className="header-nav-link" id={`migrate-nav-link`} to={'/migrate/v2'}>
+          <StyledNavLink className="header-nav-link" id={`lend-nav-link`} to={'/lend'}>
             Token
           </StyledNavLink>
          </NavLinkOutBack>
         </NavLinkOutLine>
-        <NavLinkOutLine to={'/lend'} id={`pool-nav-link-out`}>
+        <NavLinkOutLine to={'/migrate/v2'} id={`pool-nav-link-out`}>
          <NavLinkOutBack>
-          <StyledNavLink className="header-nav-link" id={`lend-nav-link`} to={'/lend'}>
+          <StyledNavLink className="header-nav-link" id={`migrate-nav-link`} to={'/migrate/v2'}>
             Pair
           </StyledNavLink>
          </NavLinkOutBack>
-        </NavLinkOutLine>
+        </NavLinkOutLine>        
+
         <NavLinkOutLine to={'/join'} id={`pool-nav-link-out`}>
          <NavLinkOutBack>
           <StyledNavLink className="header-nav-link" id={`join-nav-link`} to={'/join'}>

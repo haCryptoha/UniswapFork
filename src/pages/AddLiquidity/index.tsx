@@ -363,6 +363,7 @@ export default function AddLiquidity({
                             currency={currencies[Field.CURRENCY_A] ?? null}
                             id="add-liquidity-input-tokena"
                             fiatValue={usdcValues[Field.CURRENCY_A]}
+                            approved={approvalA === ApprovalState.APPROVED}
                             showCommonBases
                           />
                       </div>
@@ -380,6 +381,7 @@ export default function AddLiquidity({
                             fiatValue={usdcValues[Field.CURRENCY_B]}
                             currency={currencies[Field.CURRENCY_B] ?? null}
                             onCurrencySelect={handleCurrencyBSelect}
+                            approved={approvalB === ApprovalState.APPROVED}
                             id="add-liquidity-input-tokenb"
                             showCommonBases
                           />
@@ -401,7 +403,7 @@ export default function AddLiquidity({
             <div className='add-liquidity-footer'>
               { approvalA === ApprovalState.NOT_APPROVED ? <button className='Approve-pair' style={{ border: "0px" }} onClick={approveACallback} >Approve</button>
                 : approvalA === ApprovalState.PENDING ? <div className='Approve-success-warrap'>
-                  <button className='Approve-success' style={{ border: "0px" }}><p style={{ color: "white" }}>Approving</p></button>
+                  <button className='Approve-success' style={{ border: "0px", opacity:'0.45' }}><p style={{ color: "white" }}>Approving...</p></button>
                 </div>
                   : <div className='add-liquidity-warrap'>
                     <button className='add-liquidity' style={clickable?{ border: "0px" }:{border:'0px',cursor: 'not-allowed'}} onClick={onAdd}><p>{waiting?'Transaction in progress-Please wait':'Add Liquidity'}</p></button>

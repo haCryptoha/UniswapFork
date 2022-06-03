@@ -39,14 +39,6 @@
     stroke: white;
 }
 
-.add-liquidity-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-	margin-top: 10px;
-}
-
-.add-liquidity-footer button {}
 
 
 .add-liquidity {

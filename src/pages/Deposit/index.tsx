@@ -338,6 +338,7 @@ export default function Deposit({
                                 fiatValue={usdcValues[Field.CURRENCY_B]}
                                 currency={currencies[Field.CURRENCY_B] ?? null}
                                 onCurrencySelect={handleCurrencyBSelect}
+                                approved={approvalB === ApprovalState.APPROVED}
                                 id="add-liquidity-input-tokenb"
                                 showCommonBases
                               />

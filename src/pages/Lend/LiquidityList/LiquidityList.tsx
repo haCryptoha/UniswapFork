@@ -25,33 +25,33 @@ const StyledHelpCircle = styled(HelpCircle)`
   color:white;
 `
 
-const LiquidityBox = () =>{
+const LiquidityBox = ({id}:{id:number}) =>{
     const { independentField, typedValue, startPriceTypedValue } = useMintState();
-const {
-    dependentField,
-    currencies,
-    pair,
-    pairState,
-    currencyBalances,
-    parsedAmounts,
-    price,
-    noLiquidity,
-    liquidityMinted,
-    poolTokenPercentage,
-    error,
-  } = useDerivedMintInfo(undefined, undefined)
+    const {
+        dependentField,
+        currencies,
+        pair,
+        pairState,
+        currencyBalances,
+        parsedAmounts,
+        price,
+        noLiquidity,
+        liquidityMinted,
+        poolTokenPercentage,
+        error,
+    } = useDerivedMintInfo(undefined, undefined)
 
-const formattedAmounts = {
-    [independentField]: typedValue,
-    [dependentField]: parsedAmounts[dependentField]?.toSignificant(6) ?? '',
-  }
-  const [showConfirm, setShowConfirm] = useState(false);
-   const { onFieldAInput, onFieldBInput } =
-  useMintActionHandlers(noLiquidity)
-  const handleDismissConfirmation = useCallback(() => {
-    setShowConfirm(false)
-   
-  },[showConfirm])
+    const formattedAmounts = {
+        [independentField]: typedValue,
+        [dependentField]: parsedAmounts[dependentField]?.toSignificant(6) ?? '',
+    }
+    const [showConfirm, setShowConfirm] = useState(false);
+    const { onFieldAInput, onFieldBInput } =
+    useMintActionHandlers(noLiquidity)
+    const handleDismissConfirmation = useCallback(() => {
+        setShowConfirm(false)
+    
+    },[showConfirm])
 	const [collapse, setCollapse] = useState(true);
 	const [removeClicked, setRemoveClicked] = useState(false)
 	const [removed, setRemoved] = useState(false);
@@ -108,48 +108,39 @@ const formattedAmounts = {
           )}
           
         />
-	{!removeClicked?(<>{!removed?<div className="single-liquidity-lend">
+	{!removeClicked?(<>{!removed?<div className="single-liquidity-lend" style={id%2===0?{background:'#201D29'}:{background:'#2F2A3C'}}>
 						<a onClick={changeCollpase} style={{ cursor: "pointer" }}>
 							<div className="single-liquidity-header-lend">
 								<div className="single-liquidity-header-left">
-								 	<p >WETH</p>
+								 	 <img style={{width:'32px', height:'32px',marginRight:'16px'}}></img>
+                                     <p >WETH</p>
 								</div>
-								<div className="single-liquidity-header-left" >
-								 	<p >10000</p>
-								</div>
-								<div className="single-liquidity-header-right">
-									<img src="./images/up.png" style={{ width: "20px", height: "20px", display: collapse ? "none" : "block" }} />
-									<img src="./images/down.png" style={{ width: "20px", height: "20px", display: collapse ? "block" : "none" }} />
-								</div>
+                                <div style={{display:'flex'}}>
+                                    <div className="single-liquidity-header-left" style={{marginRight:'24px'}}>
+                                        <p >10000</p>
+                                    </div>
+                                    <div className="single-liquidity-header-right">
+                                        <img src="./images/up.png" style={{ width: "20px", height: "20px", display: collapse ? "none" : "block" }} />
+                                        <img src="./images/down.png" style={{ width: "20px", height: "20px", display: collapse ? "block" : "none" }} />
+                                    </div>
+                                </div>
+								
 							</div>
 						</a>
-                    <div className="single-liquidity-content" style={{ height: collapse ? "0px" : "296px",overflow: 'hidden' }}>
-                        <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
-                            <p className="single-token-left">Your total pool tokens</p>
-                            <p className="single-token-right">0.00092110891</p>
+                        <div className="single-liquidity-content" style={{ height: collapse ? "0px" : "170px",overflow: 'hidden' }}>
+                            
+                            <div className="withdraw-description" style={{ display: collapse ? "none" : "flex", transition: "1s",marginTop:'20px' }}>
+                                <p>1000</p>
+                            </div>
+                            <div className="withdraw-available" style={{ display: collapse ? "none" : "flex", transition: "1s" }}>
+                                <p>Available: 120,000</p>
+                            </div>
+                            <div style={{ display: collapse ? "none" : "flex", justifyContent: "center", transition: "1s" }}>
+                                <button style={{color:"white",borderRadius:'100px'}} onClick={onWithdraw}><p className="font-bold">Withdraw</p></button>
+                            </div>
                         </div>
-                        <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
-                            <p className="single-token-left">Pooled Eth</p>
-                            <p className="single-token-right">0.000226482 ETH</p>
-                        </div>
-                        <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
-                            <p className="single-token-left">Pooled AWC</p>
-                            <p className="single-token-right">0.00069512692 AWC</p>
-                        </div>
-                        <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
-                            <p className="single-token-left">Your pool share</p>
-                            <p className="single-token-right">0.14%</p>
-                        </div>
-                        <div className="description" style={{ display: collapse ? "none" : "flex", transition: "1s" }}>
-                            <p>View Accured Fees and Analytics</p>
-                        </div>
-                        <div style={{ display: collapse ? "none" : "flex", justifyContent: "center", transition: "1s" }}>
-                            <button style={{background:"#1C1924",borderRadius:'100px'}} onClick={onWithdraw}><p className="font-bold">Withdraw</p></button>
-							<div style={{width:"20px"}}></div>
-							<button style={{background:"#1C1924",borderRadius:'100px'}} onClick={onClaim}><p className="font-bold">Claim</p></button>
-                        </div>
-                    </div>
-		    </div>:<></>}
+		                </div>:<></>
+                        }
 			</>)		
 		    :withdraw?
 				(<div className="lend-confirm-withdraw-warrap">
@@ -240,17 +231,18 @@ const LiquidityList = () => {
 	const [removeClicked, setRemoveClicked] = useState(false);
     const [removeStatus, setRemovestatus] = useState(false);
 	const [removeStatus1, setRemovestatus1] = useState(false);
-	const [removeStatus2, setRemovestatus2] = useState(false);
-    
+	const [removeStatus2, setRemovestatus2] = useState(false);   
     
     return (
         <>
             <div className="LiquidityList">
                
 				   <>
-					<LiquidityBox />
-					<LiquidityBox />
-					<LiquidityBox />
+                
+					<LiquidityBox id={0} />
+					<LiquidityBox id={1} />
+					<LiquidityBox id={2}/>
+                    <LiquidityBox id={3}/>
 				   </>
 				
             </div>
