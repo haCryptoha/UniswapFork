@@ -64,7 +64,7 @@ const CurrencySelect = styled(ButtonGray)<{ visible: boolean; selected: boolean;
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.075);
   color: ${({ selected, theme }) => (selected ? theme.text1 : theme.white)};
   cursor: pointer;
-  border-radius: 16px;
+  border-radius: 100px;
   outline: none;
   user-select: none;
   border: none;

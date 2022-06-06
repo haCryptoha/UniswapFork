@@ -17,11 +17,12 @@ import {
   useV3MintState,
 } from 'state/mint/v3/hooks'
 import { ThemeContext } from 'styled-components/macro'
-
+import styled from 'styled-components/macro'
 import { ButtonError, ButtonLight, ButtonPrimary, ButtonText, ButtonYellow } from '../../components/Button'
 import { BlueCard, OutlineCard, YellowCard } from '../../components/Card'
 import { AutoColumn } from '../../components/Column'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
+import { Input as NumericalInput } from '../../components/NumericalInput'
 import FeeSelector from '../../components/FeeSelector'
 import HoverInlineText from '../../components/HoverInlineText'
 import LiquidityChartRangeInput from '../../components/LiquidityChartRangeInput'
@@ -71,6 +72,10 @@ import {
   Wrapper,
 } from './styled'
 require("./style.css");
+const AmountNumericalInput = styled(NumericalInput)`
+  
+  text-align: left;
+`
 
 const DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE = new Percent(50, 10_000)
 
@@ -140,19 +145,7 @@ export default function AddToken({
     useV3MintActionHandlers(noLiquidity)
 
   const isValid = !errorMessage && !invalidRange
-  // show addliquiditybutton
-  const[approved, setApproved] = useState(false) 
-  const showAddLiquidityButton = () => {
-    setApprove(true)
-    const timeId = setTimeout(() => {
-          setApproved(true)
-        }, 1000)
-
-        return () => {
-            clearTimeout(timeId)
-            }
-
-  }
+ 
 
   // modal and loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
@@ -316,7 +309,7 @@ export default function AddToken({
       return
     }
   }
-
+  const showConnectAWallet = Boolean(!account)
   const handleCurrencySelect = useCallback(
     (currencyNew: Currency, currencyIdOther?: string): (string | undefined)[] => {
       const currencyIdNew = currencyId(currencyNew)
@@ -488,6 +481,19 @@ export default function AddToken({
 
   const [inputA, setInputA] = useState('');
   const [inputB,setInputB] = useState('');
+  const [approved, setApproved] = useState(false);
+  const [approving, setApproving] = useState(false);
+  const onClickApprove = () =>{
+    if(approving || approved){
+      return;
+    }
+    setApproving(true);
+    const timer = setTimeout(() => {
+      setApproved(true);
+      setApproving(false);
+     }, 3000);
+     return () => clearTimeout(timer);
+  }
   const changeInputA = (value:string) => {
 	  setInputA(value)
 	  if(value=='') {return;}
@@ -584,35 +590,11 @@ export default function AddToken({
                           </ThemedText.Label>
                         </RowBetween>
                         <RowBetween>
-                          {/* <CurrencyDropdown
-                          value={formattedAmounts[Field.CURRENCY_A]}
-                          onUserInput={onFieldAInput}
-                          hideInput={true}
-                          onMax={() => {
-                            onFieldAInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
-                          }}
-                          onCurrencySelect={handleCurrencyASelect}
-                          showMaxButton={!atMaxAmounts[Field.CURRENCY_A]}
-                          currency={currencies[Field.CURRENCY_A] ?? null}
-                          id="add-liquidity-input-tokena"
-                          showCommonBases
-                        /> */}
+                         
 
                           <div style={{ width: '12px' }} />
 
-                          {/* <CurrencyDropdown
-                          value={formattedAmounts[Field.CURRENCY_B]}
-                          hideInput={true}
-                          onUserInput={onFieldBInput}
-                          onCurrencySelect={handleCurrencyBSelect}
-                          onMax={() => {
-                            onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
-                          }}
-                          showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
-                          currency={currencies[Field.CURRENCY_B] ?? null}
-                          id="add-liquidity-input-tokenb"
-                          showCommonBases
-                        /> */}
+                         
                         </RowBetween>
 
                         <FeeSelector
@@ -639,43 +621,85 @@ export default function AddToken({
                     disabled={tickLower === undefined || tickUpper === undefined || invalidPool || invalidRange}
                     className="deposit-amount"
                   >
-                        <AutoColumn gap="md">
-                          <ThemedText.Label style={{ fontSize: "16px", color: "white" }}>
-                            LP Token
-                          </ThemedText.Label>
-                          <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
-                                <CurrencyInputPanel
-                                value={formattedAmounts[Field.CURRENCY_A]}
-                                onUserInput={onFieldBInput}
-                                onMax={() => {
-                                  onFieldBInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
-                                }}
-                                showMaxButton={!atMaxAmounts[Field.CURRENCY_A]}
-                                fiatValue={usdcValues[Field.CURRENCY_A]}
-                                currency={currencies[Field.CURRENCY_A] ?? null}
-                                onCurrencySelect={handleCurrencyBSelect}
-                                id="add-liquidity-input-tokenb"
-                                showCommonBases
-                                locked={depositBDisabled}
-                              />                 
-                          </div>
-                          <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
-                                <CurrencyInputPanel
+                        <AutoRow gap="md">                          
+                          <RowBetween style={{marginBottom:'32px'}}>
+                              <ThemedText.Label style={{ fontSize: "16px", color: "white" }}>
+                                Select a Capital
+                              </ThemedText.Label>
+                              <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
+                                    <CurrencyInputPanel
+                                    value={formattedAmounts[Field.CURRENCY_A]}
+                                    onUserInput={onFieldBInput}
+                                    onMax={() => {
+                                      onFieldBInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
+                                    }}
+                                    showMaxButton={!atMaxAmounts[Field.CURRENCY_A]}
+                                    fiatValue={usdcValues[Field.CURRENCY_A]}
+                                    currency={currencies[Field.CURRENCY_A] ?? null}
+                                    onCurrencySelect={handleCurrencyBSelect}
+                                    id="add-liquidity-input-tokenb"
+                                    showCommonBases
+                                    locked={depositBDisabled}
+                                    hideInput={true}
+                                  />                 
+                              </div>
+                          </RowBetween>
+                          <RowBetween>
+                            <ThemedText.Label style={{ fontSize: "16px", color: "white" }}>
+                              Select a Token
+                            </ThemedText.Label>
+                            <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
+                                  <CurrencyInputPanel
+                                  value={formattedAmounts[Field.CURRENCY_B]}
+                                  onUserInput={onFieldBInput}
+                                  onMax={() => {
+                                    onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
+                                  }}
+                                  showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
+                                  fiatValue={usdcValues[Field.CURRENCY_B]}
+                                  currency={currencies[Field.CURRENCY_B] ?? null}
+                                  onCurrencySelect={handleCurrencyBSelect}
+                                  id="add-liquidity-input-tokenb"
+                                  showCommonBases
+                                  locked={depositBDisabled}
+                                  hideInput={true}
+                                />                 
+                            </div>            
+                          </RowBetween>
+                          <RowBetween>
+                            <RowBetween>
+                              <AmountNumericalInput
+                                className="token-amount-input"
                                 value={formattedAmounts[Field.CURRENCY_B]}
-                                onUserInput={onFieldBInput}
-                                onMax={() => {
-                                  onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
-                                }}
-                                showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
-                                fiatValue={usdcValues[Field.CURRENCY_B]}
-                                currency={currencies[Field.CURRENCY_B] ?? null}
-                                onCurrencySelect={handleCurrencyBSelect}
-                                id="add-liquidity-input-tokenb"
-                                showCommonBases
-                                locked={depositBDisabled}
-                              />                 
-                          </div>
-                        </AutoColumn>
+                                onUserInput={onFieldBInput}                             
+                              />
+                            </RowBetween>
+                           
+                            <RowBetween width='252px'>
+                              <p>DAI/DBL</p>
+                              <RowBetween width='72px'>
+                                <img style={{width:'32px', height:'32px'}}></img>
+                                <img style={{width:'32px', height:'32px'}}></img>
+                              </RowBetween>
+                            </RowBetween>
+                          </RowBetween>
+                          {account ? (
+                            <RowFixed style={{ height: '17px', width:'100%' }}>
+                              <ThemedText.Body
+                                color={theme.text3}
+                                fontWeight={500}
+                                fontSize={14}
+                                style={{ display: 'inline', cursor: 'pointer' }}
+                              >
+                               
+                                    Balance: {'1234546'}
+                              </ThemedText.Body>
+                            
+                            </RowFixed>
+                          ) : (
+                            <span />
+                          )} 
+                        </AutoRow>
                     </DynamicSection>
                 </div>
 
@@ -917,17 +941,26 @@ export default function AddToken({
                 )}
               </ResponsiveTwoColumns>
             </Wrapper>
-            <div className='add-liquidity-footer'>
-              {approve === false ? <button className='Approve-pair' style={{ border: "0px" }} onClick={showAddLiquidityButton} >Approve</button>
-                : !approved ? <div className='Approve-success-warrap'>
-                                <button className='Approve-success' style={{ border: "0px" }}><p style={{color: "white"}}>Waiting...</p></button>
-                              </div>
-                  :<div className='add-liquidity-warrap'>
-                    <button className='add-liquidity' style={{ border: "0px" }} onClick = {()=>setShowConfirm(true)}><p>Import</p></button>
-                    </div>
-                  }
-              
+            {showConnectAWallet ? (
+              <div className='add-liquidity-warrap'>
+                <button className='add-liquidity'  onClick={toggleWalletModal}><p>Connect Wallet</p></button>
+              </div>
+            ):(false?
+            <div className='add-liquidity-warrap'>
+                <button className='add-liquidity' style={{border:'0px',cursor: 'not-allowed'}} ><p>{"error"}</p></button>
             </div>
+            :
+            <div className='add-liquidity-footer'>
+              { !approved ? <button className='Approve-pair' style={{ border: "0px" }} onClick={approveACallback} >Approve</button>
+                : approving ? <div className='Approve-success-warrap'>
+                  <button className='Approve-success' style={{ border: "0px", opacity:'0.45' }}><p style={{ color: "white" }}>Approving...</p></button>
+                </div>
+                  : <div className='add-liquidity-warrap'>
+                    <button className='add-liquidity' style={{border:'0px'}} onClick={() =>setShowConfirm(true)}><p>Import</p></button>
+                  </div>
+              }
+            </div>)
+            } 
           </PageWrapper>
         </div>
 
