@@ -1,288 +1,306 @@
 // @ts-nocheck
-import { Currency, CurrencyAmount, Token } from '@uniswap/sdk-core'
+
+import { ApolloClient, gql, InMemoryCache } from '@apollo/client'
+import { ButtonGray, ButtonPrimary, ButtonText } from 'components/Button'
+import { AutoColumn } from 'components/Column'
+import Dropdown from 'components/Dropdown'
+import { FlyoutAlignment, NewMenu } from 'components/Menu'
+import { SwapPoolTabs } from 'components/NavigationTabs'
+import PairList from 'components/PairList'
+import { RowBetween, RowFixed } from 'components/Row'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import JSBI from 'jsbi'
-import { useCallback, useEffect, useState } from 'react'
-import { Plus } from 'react-feather'
-import { useLocation } from 'react-router'
-import { Text } from 'rebass'
+import { useContext, useEffect, useState } from 'react'
+import { ChevronDown, Inbox } from 'react-feather'
+import { Link, useParams } from 'react-router-dom'
+import { useWalletModalToggle } from 'state/application/hooks'
+import { useUserHideClosedPositions } from 'state/user/hooks'
+import styled, { ThemeContext } from 'styled-components/macro'
+import { HideSmall, ThemedText } from 'theme'
 
-import { useMigratorContract } from '../../hooks/useContract'
-import { ButtonDropdownLight } from '../../components/Button'
-import { LightCard } from '../../components/Card'
-import { BlueCard } from '../../components/Card'
-import { AutoColumn, ColumnCenter } from '../../components/Column'
-import CurrencyLogo from '../../components/CurrencyLogo'
-import { FindPoolTabs } from '../../components/NavigationTabs'
-import { MinimalPositionCard } from '../../components/PositionCard'
-import Row from '../../components/Row'
-import CurrencySearchModal from '../../components/SearchModal/CurrencySearchModal'
-import { nativeOnChain } from '../../constants/tokens'
-import { PairState, useV2Pair } from '../../hooks/useV2Pairs'
-import { usePairAdder } from '../../state/user/hooks'
-import { useTokenBalance } from '../../state/wallet/hooks'
-import { StyledInternalLink } from '../../theme'
-import { ThemedText } from '../../theme'
-import { currencyId } from '../../utils/currencyId'
-import AppBody from '../AppBody'
-import { Dots } from '../Pool/styleds'
-import { ApprovalState, useApproveCallback } from '../../hooks/useApproveCallback'
-import { LP_MIGRATOR_ADDRESSES } from '../../constants/addresses'
+import { LoadingRows } from './styleds'
 
-enum Fields {
-  TOKEN0 = 0,
-  TOKEN1 = 1,
-}
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search)
-}
+require('./style.css');
 
-export default function MigrateV2() {
-  const query = useQuery()
 
-  const { account, chainId } = useActiveWeb3React()
+const PageWrapper = styled(AutoColumn)`
+  max-width: 870px;
+  
 
-  const [showSearch, setShowSearch] = useState<boolean>(false)
-  const [activeField, setActiveField] = useState<number>(Fields.TOKEN1)
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+    max-width: 800px;
+  `};
 
-  const migrateContract = useMigratorContract();
-  const [currency0, setCurrency0] = useState<Currency | null>(() => (chainId ? nativeOnChain(chainId) : null))
-  const [currency1, setCurrency1] = useState<Currency | null>(null)
-  const [waiting, setWaiting] = useState<boolean>(false)
-  const [clickable, setClickable] = useState<boolean>(true)
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    max-width: 500px;
+  `};
+`
+const TitleRow = styled(RowBetween)`
+  color: ${({ theme }) => theme.text2};
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
+`
+const ButtonRow = styled(RowFixed)`
+  & > *:not(:last-child) {
+    margin-left: 0px;
+  }
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+`
+const Menu = styled(NewMenu)`
+  
+  margin-left: 0;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    flex: 1 1 auto;
+    width: 49%;
+    right: 0px;
+  `};
 
-  const [pairState, pair] = useV2Pair(currency0 ?? undefined, currency1 ?? undefined)
+  a {
+    width: 100%;
+  }
+`
+const MenuItem = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: 500;
+`
+const MoreOptionsButton = styled(ButtonGray)`
+  border-radius: 12px;
+  flex: 1 1 auto;
+  padding: 6px 8px;
+  width: 100%;
+  border: none;
+  background-color: ${({ theme }) => theme.bg0};
+  margin-right: 8px;
+`
+const NoLiquidity = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  max-width: 300px;
+  min-height: 25vh;
+`
+const ResponsiveButtonPrimary = styled(ButtonPrimary)`
+  border-radius: 100px;
+  padding: 6px 8px;
+  width: 184px;
+  height:48px;
+  border: none;
+  font-size:20px;
+  font-weight:400;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+        width: 48%;
+  `};
+`
 
-  const addPair = usePairAdder()
-  useEffect(() => {
-    if (pair) {
-      addPair(pair)
-    }
-  }, [pair, addPair])
+const MainContentWrapper = styled.main`
+  background-color: ${({ theme }) => theme.bg0};
 
-  const validPairNoLiquidity: boolean =
-    pairState === PairState.NOT_EXISTS ||
-    Boolean(
-      pairState === PairState.EXISTS &&
-        pair &&
-        JSBI.equal(pair.reserve0.quotient, JSBI.BigInt(0)) &&
-        JSBI.equal(pair.reserve1.quotient, JSBI.BigInt(0))
-    )
+  display: flex;
+  flex-direction: column;
+`
+const ResponsiveTitle = styled.div`
+   font-size : 20px;
+   color: white;
+   margin-bottom: -52px;
+   text-align: center;
+    width: 320px;
+    margin-left: 5px;
+   ${({ theme }) => theme.mediaWidth.upToSmall`
+       margin-bottom:0px;
 
-  const position: CurrencyAmount<Token> | undefined = useTokenBalance(account ?? undefined, pair?.liquidityToken)
-  const hasPosition = Boolean(position && JSBI.greaterThan(position.quotient, JSBI.BigInt(0)))
 
-  const handleCurrencySelect = useCallback(
-    (currency: Currency) => {
-      if (activeField === Fields.TOKEN0) {
-        setCurrency0(currency)
-      } else {
-        setCurrency1(currency)
-      }
-    },
-    [activeField]
+  `};
+
+`
+
+function PositionsLoadingPlaceholder() {
+  return (
+    <LoadingRows>
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+    </LoadingRows>
   )
+}
 
-  const [approval, approveManually] = useApproveCallback(position, chainId ? LP_MIGRATOR_ADDRESSES[chainId] : undefined)
-  const approve = useCallback(async () => {
-    await approveManually()
-  });
+export default function Pair() {
+  const { account, chainId } = useActiveWeb3React()
+  const toggleWalletModal = useWalletModalToggle()
+  const theme = useContext(ThemeContext)
+  const [userHideClosedPositions, setUserHideClosedPositions] = useUserHideClosedPositions()
+  const [filteredPositions, setFilteredPositions] = useState([]);
+  const [positionsLoading, setPositionsLoading] = useState(true);
+  const params: any = useParams()
+  const showConnectAWallet = Boolean(!account)
 
-  const handleSearchDismiss = useCallback(() => {
-    setShowSearch(false)
-  }, [setShowSearch])
-
-  async function onImport() {
-    if(!clickable) return
-    setClickable(false)
-    if (!chainId || !account) return
-
-    if (migrateContract && account) {
-      try {
-        setWaiting(true);
-        console.log(pair);
-        console.log(position.quotient.toString());
-        await migrateContract.importLPTokens(pair?.liquidityToken.address, position.quotient.toString()).then((response: TransactionResponse) => {
-          setAttemptingTxn(false)
-          setWaiting(false);
-        })
-
-        ReactGA.event({
-          category: 'Liquidity',
-          action: 'Import',
-          label: [pair?.token0?.symbol, pair?.token1?.symbol].join('/'),
-        })
-      }
-      catch (error) {
-
-        setWaiting(false);
-        console.error('Failed to send transaction', error)
-        setAttemptingTxn(false)
-        // we only care if the error is something _other_ than the user rejected the tx
-        if (error?.code !== 4001) {
-          console.error(error)
+  const loadPools = async (accountAddr, ammType) => {
+    if (accountAddr != undefined) {
+      const APIURL = 'https://api.thegraph.com/subgraphs/name/muranox/double2win'
+      const tokensQuery = `
+        query {
+          liquidities(where: {owner: "${accountAddr.toLowerCase()}", ammType : "${ammType}"}) {
+            id
+            asset
+            capital
+            lpAmount
+            ammType
+            capitalAmount
+            assetAmount
+            bundle
+          }
         }
+      `
+      const client = new ApolloClient({
+        uri: APIURL,
+        cache: new InMemoryCache(),
+      })
+
+      const resp = await client
+        .query({
+          query: gql(tokensQuery),
+        });
+
+      if (resp.data.liquidities) {
+        console.log(resp);
+        return resp.data.liquidities;
       }
     }
+    return [];
   }
 
-  const prerequisiteMessage = (
-    <LightCard padding="45px 10px">
-      <Text textAlign="center">
-        {!account ? (
-          "Connect to a wallet to find pools"
-        ) : (
-          "Select a token to find your liquidity."
-        )}
-      </Text>
-    </LightCard>
-  )
+  const [textContent, setContent] = useState('Uniswap V2')
 
+  useEffect(() => {
+    async function fetchData() {
+      // You can await here
+      console.log("first arrived");
+      setPositionsLoading(true);
+      const closed = [], opened = [];
+      //fetch pool
+      const pools = await loadPools(account, capitalizeFirstLetter(textContent));
+      for (let i = 0; i < pools.length; i++) {
+        if (pools[i].lpAmount == 0) {
+          closed.push(pools[i]);
+        } else {
+          opened.push(pools[i]);
+        }
+      }
+      console.log(userHideClosedPositions);
+      console.log(closed);
+      setFilteredPositions([...opened, ...(userHideClosedPositions ? [] : closed)])
+      setPositionsLoading(false);
+
+      // ...
+    }
+    fetchData();
+  }, [textContent, account, userHideClosedPositions])
+
+  const capitalizeFirstLetter = (string: string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
+  
   return (
-    <div style={{background:'linear-gradient(73.6deg,rgb(133,255,196) 2.11%,rgb(92,198,255) 42.39%,rgb(188,133,255) 85.72%)', padding:'1px',borderRadius:'8px'}}>
-      <AppBody>
-        <FindPoolTabs origin={query.get('origin') ?? '/pool/v2'} />
-        <AutoColumn style={{ padding: '1rem',display:'grid' }} gap="md">
-          <BlueCard>
-            <AutoColumn gap="10px">
-              <ThemedText.Link fontWeight={400} color={'primaryText1'}>
-               
-              <b>Tip:</b> Use this tool to find liquidity pools that wasn&apos;t added using the Double interface.
+    <>
+      <PageWrapper>
+        <SwapPoolTabs active={'pool'} />
+        <AutoColumn gap="lg" justify="center">
+          <AutoColumn gap="lg" style={{ width: '100%', justifyContent: "center" }}>
+           {/* <TitleRow style={{ marginBottom: '1rem', display: "flex" }} padding={'0'}>
+              
+              <ButtonRow className="test" style={{ justifyContent: "space-between", width: "100%" }}>
                 
-              </ThemedText.Link>
-            </AutoColumn>
-          </BlueCard>
-          <ButtonDropdownLight
-            onClick={() => {
-              setShowSearch(true)
-              setActiveField(Fields.TOKEN0)
-            }}
-          >
-            {currency0 ? (
-              <Row>
-                <CurrencyLogo currency={currency0} />
-                <Text fontWeight={500} fontSize={20} marginLeft={'12px'}>
-                  {currency0.symbol}
-                </Text>
-              </Row>
-            ) : (
-              <Text fontWeight={500} fontSize={20} marginLeft={'12px'}>
-                Select a token
-              </Text>
-            )}
-          </ButtonDropdownLight>
+                
+                
+              </ButtonRow>
+            </TitleRow>
+            */}
+            <TitleRow style={{ marginBottom: '1rem', justifyContent: 'center' }} padding={'0'}>
+                <ResponsiveTitle  >
+                  
+                </ResponsiveTitle>
+              
+                <ButtonRow>  
+                  <Dropdown  onUserClick={setContent}/>
+                              
+                  <ResponsiveButtonPrimary className = "gradientButton" id="join-pool-button" as={Link} to="/import/0x139F097A7693B9f2080b44D71818e3120c8fFeF0/0xA2ce5b1D008Ac391DD41c1F7dEaa674D1Cb205f4" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
+                    Import
+                  </ResponsiveButtonPrimary>
+                </ButtonRow>
+            </TitleRow>
 
-          <ColumnCenter>
-            <Plus size="16" color="#888D9B" />
-          </ColumnCenter>
+            <div style={(filteredPositions && filteredPositions.length > 0) ?{padding:'0px'}:{ background:  "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", padding:'1px',borderRadius:'40px' }}>
+              <MainContentWrapper  style={(filteredPositions && filteredPositions.length > 0) ?{background:"rgb(9, 8, 12)",minHeight: "586px"}:{ background:  "#16161F", minHeight: "586px",borderRadius:'40px'  }} >
+                {positionsLoading ? (
+                  <PositionsLoadingPlaceholder />
+                ) : (filteredPositions && filteredPositions.length > 0) ? (
+                  <PairList
+                    positions={filteredPositions}
+                    setUserHideClosedPositions={setUserHideClosedPositions}
+                    userHideClosedPositions={userHideClosedPositions}
+                  />
 
-          <ButtonDropdownLight
-            onClick={() => {
-              setShowSearch(true)
-              setActiveField(Fields.TOKEN1)
-            }}
-          >
-            {currency1 ? (
-              <Row>
-                <CurrencyLogo currency={currency1} />
-                <Text fontWeight={500} fontSize={20} marginLeft={'12px'}>
-                  {currency1.symbol}
-                </Text>
-              </Row>
-            ) : (
-              <Text fontWeight={500} fontSize={20} marginLeft={'12px'}>
-                Select a token
-              </Text>
-            )}
-          </ButtonDropdownLight>
+                ) : (
+                  <NoLiquidity >
+                    <ThemedText.Body color={theme.text3} textAlign="center">
+                      <svg width="75" height="75" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display:"flex" }}>
+                        <path d="M68.75 37.5H50L43.75 46.875H31.25L25 37.5H6.25" stroke="url(#paint0_linear_3832_13200)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M17.0313 15.9688L6.25 37.5V56.25C6.25 57.9076 6.90848 59.4973 8.08058 60.6694C9.25269 61.8415 10.8424 62.5 12.5 62.5H62.5C64.1576 62.5 65.7473 61.8415 66.9194 60.6694C68.0915 59.4973 68.75 57.9076 68.75 56.25V37.5L57.9688 15.9688C57.4513 14.9275 56.6537 14.0512 55.6655 13.4384C54.6773 12.8256 53.5378 12.5006 52.375 12.5H22.625C21.4622 12.5006 20.3227 12.8256 19.3345 13.4384C18.3463 14.0512 17.5487 14.9275 17.0313 15.9688V15.9688Z" stroke="url(#paint1_linear_3832_13200)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <defs>
+                          <linearGradient id="paint0_linear_3832_13200" x1="7.95454" y1="46.875" x2="24.2825" y2="14.8373" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#85FFC4" />
+                            <stop offset="0.411458" stopColor="#5CC6FF" />
+                            <stop offset="0.854167" stopColor="#BC85FF" />
+                          </linearGradient>
+                          <linearGradient id="paint1_linear_3832_13200" x1="7.95454" y1="62.5" x2="77.7043" y2="36.8389" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#85FFC4" />
+                            <stop offset="0.411458" stopColor="#5CC6FF" />
+                            <stop offset="0.854167" stopColor="#BC85FF" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
 
-          {hasPosition && (
-            <ColumnCenter
-              style={{ justifyItems: 'center', backgroundColor: '', padding: '12px 0px', borderRadius: '12px' }}
-            >
-              <Text textAlign="center" fontWeight={500}>
-                Pool Found!
-              </Text>
-              <StyledInternalLink to={`/pool/v2`}>
-                <Text textAlign="center">
-                  Manage this pool.
-                </Text>
-              </StyledInternalLink>
-            </ColumnCenter>
-          )}
+                    </ThemedText.Body>
+                    <ButtonText
+                        style={{ marginTop: '.5rem', color: "white", fontSize: "14px" }}
+                        onClick={() => setUserHideClosedPositions(!userHideClosedPositions)}
+                      >
+                        Your Active Position will appear here
+                    </ButtonText>
+                    {showConnectAWallet && (
 
-          {currency0 && currency1 ? (
-            pairState === PairState.EXISTS ? (
-              hasPosition && pair ? (
-                <>
-                  <MinimalPositionCard pair={pair} border="1px solid #CED0D9" />
-                  <div className='add-liquidity-warrap'>
-                    {
-                      approval === ApprovalState.NOT_APPROVED ? 
-                        <button className='add-liquidity' style={clickable?{ border: "0px" }:{border:'0px',cursor: 'not-allowed'}} onClick={approve}><p>{approval === ApprovalState.PENDING?'Approving':'Approve'}</p></button>
-                      :
-                        <button className='add-liquidity' style={clickable?{ border: "0px" }:{border:'0px',cursor: 'not-allowed'}} onClick={onImport}><p>{waiting?'Transaction in progress-Please wait':'Import Liquidity'}</p></button>
-                    }
-                  </div>
-                </>
-              ) : (
-                <LightCard padding="45px 10px">
-                  <AutoColumn gap="sm" justify="center">
-                    <Text textAlign="center">
-                      You don’t have liquidity in this pool yet.
-                    </Text>
-                    <StyledInternalLink to={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}>
-                      <Text textAlign="center">
-                        Add liquidity.
-                      </Text>
-                    </StyledInternalLink>
-                  </AutoColumn>
-                </LightCard>
-              )
-            ) : validPairNoLiquidity ? (
-              <LightCard padding="45px 10px">
-                <AutoColumn gap="sm" justify="center">
-                  <Text textAlign="center">
-                    No pool found.
-                  </Text>
-                  <StyledInternalLink to={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}>
-                    Create pool.
-                  </StyledInternalLink>
-                </AutoColumn>
-              </LightCard>
-            ) : pairState === PairState.INVALID ? (
-              <LightCard padding="45px 10px">
-                <AutoColumn gap="sm" justify="center">
-                  <Text textAlign="center" fontWeight={500}>
-                    Invalid pair.
-                  </Text>
-                </AutoColumn>
-              </LightCard>
-            ) : pairState === PairState.LOADING ? (
-              <LightCard padding="45px 10px">
-                <AutoColumn gap="sm" justify="center">
-                  <Text textAlign="center">
-                    Loading
-                    <Dots />
-                  </Text>
-                </AutoColumn>
-              </LightCard>
-            ) : null
-          ) : (
-            prerequisiteMessage
-          )}
+                        <ButtonPrimary style={{ marginTop: '2em', padding: '8px 16px', width: "140%", height: "48px" }} className="pool-body-connect" onClick={toggleWalletModal}>
+                          Connect Wallet
+                        </ButtonPrimary>
+                    )}
+                  </NoLiquidity>
+
+                )}
+              </MainContentWrapper>
+            </div>
+
+            {/* <HideSmall>
+              <CTACards />
+            </HideSmall> */}
+          </AutoColumn>
         </AutoColumn>
-
-        <CurrencySearchModal
-          isOpen={showSearch}
-          onCurrencySelect={handleCurrencySelect}
-          onDismiss={handleSearchDismiss}
-          showCommonBases
-          selectedCurrency={(activeField === Fields.TOKEN0 ? currency1 : currency0) ?? undefined}
-        />
-      </AppBody>
-      
-    </div>
+      </PageWrapper>
+    </>
   )
 }

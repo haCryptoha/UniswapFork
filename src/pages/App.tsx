@@ -24,7 +24,7 @@ import Deposit from './Deposit'
 import { RedirectDepositTokenId } from './Deposit/redirects'
 import Manage from './Earn/Manage'
 import Lend from './Lend'
-import MigrateV2 from './MigrateV2'
+import Pair from './MigrateV2'
 import Pool from './Pool'
 import { PositionPage } from './Pool/PositionPage'
 import RemoveLiquidity from './RemoveLiquidity'
@@ -117,6 +117,12 @@ const BodyContent = ({setBarState}:BodyContentProps) => {
                 <Route
                   exact
                   strict
+                  path="/import/:currencyIdA?/:currencyIdB?/:feeAmount?"
+                  component={RedirectMigrateTokenId}
+                />
+                <Route
+                  exact
+                  strict
                   path="/lend/deposit/:currencyIdA?/:currencyIdB?/:feeAmount?"
                   component={RedirectDepositTokenId}
                 />
@@ -152,8 +158,8 @@ const BodyContent = ({setBarState}:BodyContentProps) => {
                 <Route exact strict path="/remove/v2/:currencyIdA/:currencyIdB" component={RemoveLiquidity} />
                 <Route exact strict path="/remove/:tokenId" component={RemoveLiquidityV3} />
 
-                <Route exact strict path="/migrate/v2" component={MigrateV2} />
-                <Route exact strict path="/migrate/:platform" component={MigrateV2} />
+                <Route exact strict path="/migrate/v2" component={Pair} />
+                <Route exact strict path="/migrate/:platform" component={Pair} />
                 <Route exact strict path="/migrate_import" component={AddToken} />
 
                 <Route component={RedirectPathToSwapOnly} />

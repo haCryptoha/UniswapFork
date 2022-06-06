@@ -195,6 +195,7 @@
     -webkit-background-clip: text;
 }
 .view-etherscan{
+    background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -203,7 +204,6 @@
 	width: 100%;
 	height: 48px;
 	/* Gray/22 */
-	background: #1C1924;
 	border-radius: 100px;
 	margin:auto;
 	margin-top: 29px;
@@ -229,11 +229,7 @@
 
 	/* Gradient/5 */
 
-	background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
-	text-fill-color: transparent;
+	color:white;
 
 
 	/* Inside auto layout */

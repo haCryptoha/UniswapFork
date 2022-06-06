@@ -39,7 +39,7 @@ const StyledDialogContent = styled(({ minHeight, maxHeight, mobile, isOpen, ...r
 
   &[data-reach-dialog-content] {
     
-    background-color: rgb(32 30 30 / 80%);
+    background-color: rgba(19, 17, 24, 0.9);
     border: 1px solid ${({ theme }) => theme.bg1};
 	  color:white;
     box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadow1)};
@@ -63,7 +63,7 @@ const StyledDialogContent = styled(({ minHeight, maxHeight, mobile, isOpen, ...r
         min-height: ${minHeight}vh;
       `}
     display: flex;
-    border-radius: 8px;
+    border-radius: 40px;
     ${({ theme }) => theme.mediaWidth.upToMedium`
       width: 65vw;
       margin: 0;

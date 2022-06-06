@@ -103,7 +103,10 @@
 }
 
 .single-liquidity-content button p {
-    color:white
+    color:white;
+    font-size:20px;
+    font-weight:600;
+    margin:0;
 }
 .gradientButton{
     height: 30px;

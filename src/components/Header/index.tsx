@@ -376,7 +376,15 @@ export default function Header() {
         </NavLinkOutLine>
         <NavLinkOutLine to={'/migrate/v2'} id={`pool-nav-link-out`}>
          <NavLinkOutBack>
-          <StyledNavLink className="header-nav-link" id={`migrate-nav-link`} to={'/migrate/v2'}>
+          <StyledNavLink 
+          className="header-nav-link" 
+          id={`migrate-nav-link`}
+          to={'/migrate/v2'}
+          isActive={(match, { pathname }) =>
+                Boolean(match) ||
+                pathname.startsWith('/migrate') ||
+                pathname.startsWith('/import') 
+              }>
             Pair
           </StyledNavLink>
          </NavLinkOutBack>

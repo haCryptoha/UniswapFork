@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ButtonText } from 'components/Button'
-import PositionListItem from 'components/PositionListItem'
+import PairListItem from 'components/PairListItem'
 import React, {useState} from 'react'
 import styled from 'styled-components/macro'
 import { MEDIA_WIDTHS } from 'theme'
@@ -42,7 +42,7 @@ type PositionListProps = React.PropsWithChildren<{
 }>
  
  
-export default function PositionList({
+export default function PairList({
   positions,
   setUserHideClosedPositions,
   userHideClosedPositions,
@@ -68,7 +68,7 @@ export default function PositionList({
         if(p.amount) {
           return <AssetListItme key={p.id.toString()} positionDetails={p} />
         } else {
-          return <PositionListItem setActiveKey={setActiveKey} activeKey ={activeKey}  key={p.id.toString()} positionDetails={p} />
+          return <PairListItem setActiveKey={setActiveKey} activeKey ={activeKey}  key={p.id.toString()} positionDetails={p} />
         }
       })}
     </>

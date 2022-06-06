@@ -100,7 +100,6 @@ export default function AddToken({
     feeAmountFromUrl && Object.values(FeeAmount).includes(parseFloat(feeAmountFromUrl))
       ? parseFloat(feeAmountFromUrl)
       : undefined
-  currencyIdA = "ETH"
   const baseCurrency = useCurrency(currencyIdA)
   const currencyB = useCurrency(currencyIdB)
   // prevent an error if they input ETH/WETH
@@ -644,7 +643,22 @@ export default function AddToken({
                           <ThemedText.Label style={{ fontSize: "16px", color: "white" }}>
                             LP Token
                           </ThemedText.Label>
-                      
+                          <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
+                                <CurrencyInputPanel
+                                value={formattedAmounts[Field.CURRENCY_A]}
+                                onUserInput={onFieldBInput}
+                                onMax={() => {
+                                  onFieldBInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
+                                }}
+                                showMaxButton={!atMaxAmounts[Field.CURRENCY_A]}
+                                fiatValue={usdcValues[Field.CURRENCY_A]}
+                                currency={currencies[Field.CURRENCY_A] ?? null}
+                                onCurrencySelect={handleCurrencyBSelect}
+                                id="add-liquidity-input-tokenb"
+                                showCommonBases
+                                locked={depositBDisabled}
+                              />                 
+                          </div>
                           <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
                                 <CurrencyInputPanel
                                 value={formattedAmounts[Field.CURRENCY_B]}

@@ -25,6 +25,7 @@ import AnimatedConfirmation from './AnimatedConfirmation'
 
 const Wrapper = styled.div`
   width: 100%;
+  padding:padding: 88px 41px 128px 40px;
   padding: 1rem;
   backdrop-filter: blur(5px);
 
@@ -41,6 +42,7 @@ const BottomSection = styled(Section)`
 
 const ConfirmedIcon = styled(ColumnCenter)<{ inline?: boolean }>`
   padding: ${({ inline }) => (inline ? '20px 0' : '32px 0;')};
+  padding:0px;
 `
 
 const StyledLogo = styled.img`
@@ -105,7 +107,7 @@ function TransactionSubmittedContent({
   const { addToken, success } = useAddTokenToMetamask(currencyToAdd)
 
   return (
-    
+ 
     <Wrapper>
       <Section inline={inline}>
         {!inline && (
@@ -114,48 +116,51 @@ function TransactionSubmittedContent({
             <CloseIcon onClick={onDismiss} />
           </RowBetween>
         )}
-        <ConfirmedIcon inline={inline}>
-          <img style={{'margin':'0px'}} src="images/transaction.png" ></img>
-        </ConfirmedIcon>
-        <AutoColumn gap="12px" justify={'center'}>
-          <Text fontWeight={500} fontSize={20} textAlign="center">
-            Transaction Submitted
-          </Text>
-          <Text fontWeight={500} fontSize={17.5} textAlign="center" color="#A6A0BB"  margin="15px 0 30px 0">
-            Liquidity Position Created
-          </Text>
-          	
-          {chainId && hash && (
-            <ExternalLink href={getExplorerLink(chainId, hash, ExplorerDataType.TRANSACTION)}>
-              <Text fontWeight={500} fontSize={14}  textAlign="center" className='view-etherscan'>
-                <p>View on Etherscan</p>
-              </Text>
-            </ExternalLink>
-          )}
-          {currencyToAdd && library?.provider?.isMetaMask && (
-            <ButtonLight mt="12px" padding="6px 12px" width="fit-content" onClick={addToken}>
-              {!success ? (
-                <RowFixed>
-                  
-                    Add {currencyToAdd.symbol} to Metamask <StyledLogo src={MetaMaskLogo} />
-                  
-                </RowFixed>
-              ) : (
-                <RowFixed>
-                  Added {currencyToAdd.symbol} 
-                  <CheckCircle size={'16px'} stroke={theme.green1} style={{ marginLeft: '6px' }} />
-                </RowFixed>
-              )}
-            </ButtonLight>
-          )}
-          {/*<ButtonPrimary onClick={onDismiss} style={{ margin: '20px 0 0 0' }}>
-            <Text fontWeight={500} fontSize={20}>
-              {inline ? 'Return' : 'Close'}
+        <div style={{padding:'50px 40px 77px 40px', width:'100%'}}>
+          <ConfirmedIcon inline={inline}>
+            <img style={{'margin':'0px', width:'92px'}} src="images/transaction.png" ></img>
+          </ConfirmedIcon>
+          <AutoColumn gap="12px" justify={'center'}>
+            <Text fontWeight={500} fontSize={20} textAlign="center" style={{marginTop:'41px', marginBottom:'70px'}} >
+              Transaction Submitted
             </Text>
-              </ButtonPrimary>*/}
-        </AutoColumn>
+          
+              
+            {chainId && hash && (
+              <ExternalLink href={getExplorerLink(chainId, hash, ExplorerDataType.TRANSACTION)}>
+                <Text fontWeight={500} fontSize={14}  textAlign="center" className='view-etherscan'>
+                  <p>View on Etherscan</p>
+                </Text>
+              </ExternalLink>
+            )}
+            {currencyToAdd && library?.provider?.isMetaMask && (
+              <ButtonLight mt="12px" padding="6px 12px" width="fit-content" onClick={addToken}>
+                {!success ? (
+                  <RowFixed>
+                    
+                      Add {currencyToAdd.symbol} to Metamask <StyledLogo src={MetaMaskLogo} />
+                    
+                  </RowFixed>
+                ) : (
+                  <RowFixed>
+                    Added {currencyToAdd.symbol} 
+                    <CheckCircle size={'16px'} stroke={theme.green1} style={{ marginLeft: '6px' }} />
+                  </RowFixed>
+                )}
+              </ButtonLight>
+            )}
+            {/*<ButtonPrimary onClick={onDismiss} style={{ margin: '20px 0 0 0' }}>
+              <Text fontWeight={500} fontSize={20}>
+                {inline ? 'Return' : 'Close'}
+              </Text>
+                </ButtonPrimary>*/}
+          </AutoColumn>
+        </div>
+        
       </Section>
     </Wrapper>
+
+    
   )
 }
 

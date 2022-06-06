@@ -1,7 +1,67 @@
 import React from "react";
 
 import { ActivatorButton, DropdownList, Wrapper } from "./styles";
+import { ExternalLink, MEDIA_WIDTHS } from 'theme'
+import styled from 'styled-components/macro'
 
+const SelectorWrapper = styled.div`
+
+  @media screen and (min-width: ${MEDIA_WIDTHS.upToSmall}px) {
+    position: relative;
+    
+  }
+`
+const Logo = styled.img`
+  height: 32px;
+  width: 32px;
+  margin-right: 8px;
+`
+const SelectorLogo = styled(Logo) <{ interactive?: boolean }>`
+  margin-right: ${({ interactive }) => (interactive ? 8 : 0)}px;
+  @media screen and (min-width: ${MEDIA_WIDTHS.upToSmall}px) {
+    margin-right: 8px;
+  }
+
+`
+const NetworkLabel = styled.div`
+  flex: 1 1 auto;
+  color: white;
+  width: 80px;
+  overflow: hidden;
+  height: 24px;
+`
+const SelectorLabel = styled(NetworkLabel)`
+  display: none;
+  font-size:20px;
+  font-weight:400;
+  color: white;
+  @media screen and (min-width: ${MEDIA_WIDTHS.upToSmall}px) {
+    display: block;
+    margin-right: 8px;
+  }
+`
+const FlyoutRow = styled.div<{ active: boolean }>`
+  align-items: center;
+ 
+  background-color: ${({ active, theme }) => (active ? 'rgb(60 60 60)' : 'transparent')};
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  font-weight: 500;
+  justify-content: space-between;
+  padding: 6px 8px;
+  text-align: left;
+  width: 100%;
+`
+const ActiveRowWrapper = styled.div`
+
+  background-color: 'rgb(60 60 60)';
+  
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0px;
+  width: 100%;
+`
 interface IDropdownItem {
   id: number;
   text: string;
@@ -80,7 +140,47 @@ export default function Dropdown({
     setIsOpen(false);
   };
 
-
+  function Row({
+    active,
+    logoUrl,
+    label,
+  }: {
+    active: boolean
+    logoUrl:string
+    label:string
+  }) {      
+    const rowContent = (
+      <FlyoutRow  active={active}>
+        <Logo src={logoUrl}  />
+        <NetworkLabel >{label}</NetworkLabel>
+      </FlyoutRow>
+    )
+    if (active) {
+      return (
+        <ActiveRowWrapper>
+          {rowContent}
+          {/*<ActiveRowLinkList>
+            {bridge ? (
+              <ExternalLink href={bridge}>
+                <BridgeLabel chainId={chainId} /> <LinkOutCircle />
+              </ExternalLink>
+            ) : null}
+            {explorer ? (
+              <ExternalLink href={explorer}>
+                <ExplorerLabel chainId={chainId} /> <LinkOutCircle />
+              </ExternalLink>
+            ) : null}
+            {helpCenterUrl ? (
+              <ExternalLink href={helpCenterUrl}>
+                Help Center <LinkOutCircle />
+              </ExternalLink>
+            ) : null}
+          </ActiveRowLinkList>*/}
+        </ActiveRowWrapper>
+      )
+    }
+    return rowContent
+   }
 
   React.useEffect(() => {
     if (!isOpen) {
@@ -101,22 +201,30 @@ export default function Dropdown({
         ref={activatorRef}
         onFocus={() => setActiveIndex(-1)}
       >
-        {isTrisolaris?'Trisolaris':'Uniswap V2'}
+        <SelectorLogo interactive src={'a'} />
+        <SelectorLabel>{'Uniswap V2'}</SelectorLabel>
+        
       </ActivatorButton>
-      <DropdownList id="dropdown1" ref={listRef} active={isOpen} role="list">
-       
-          <li key={1}>
-            <button onClick = {() =>{ setTrisolaris(true); onUserClick("Trisolaris");setIsOpen(false)}}>
-             {"Trisolaris"}
-            </button>
-          </li>
-          <li key={2}>
-            <button onClick = {() => {setTrisolaris(false); onUserClick("Uniswap V2");setIsOpen(false)}}>
-              {"Uniswap V2"}
-            </button>
-          </li>
-       
-      </DropdownList>
+
+        <DropdownList id="dropdown1" ref={listRef} active={isOpen} role="list">
+          <div style={{background:'#1F1E22', borderRadius:'8px'}}>
+            <li key={1}>
+                <button onClick = {() =>{ setTrisolaris(true); onUserClick("Trisolaris");setIsOpen(false)}}>
+                  {"Trisolaris"}
+                </button>
+              </li>
+              <li key={2}>
+                <button onClick = {() => {setTrisolaris(false); onUserClick("Uniswap V2");setIsOpen(false)}}>
+                  {"Uniswap V2"}
+                </button>
+              </li>
+            {/*<Row active={true} logoUrl={''} label={'Trisolaris'} /> 
+            <Row active={false} logoUrl={''} label={'Uniswap V2'} /> */}
+          </div>
+            
+        
+        </DropdownList>
+      
     </Wrapper>
   );
 };
