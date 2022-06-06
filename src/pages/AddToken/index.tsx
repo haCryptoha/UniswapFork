@@ -512,7 +512,7 @@ export default function AddToken({
           isOpen={showConfirm}
           onDismiss={handleDismissConfirmation}
           attemptingTxn={attemptingTxn}
-          hash={txHash}
+          hash={'0x4698e1e048d920e0551c927363ba9a4746dc72394484d9974b8a37eb075ba2e3'}
           content={() => (
             <ConfirmationModalContent
               title={""}
@@ -639,6 +639,7 @@ export default function AddToken({
                                     onCurrencySelect={handleCurrencyBSelect}
                                     id="add-liquidity-input-tokenb"
                                     showCommonBases
+                                    approved={approved}
                                     locked={depositBDisabled}
                                     hideInput={true}
                                   />                 
@@ -661,6 +662,7 @@ export default function AddToken({
                                   onCurrencySelect={handleCurrencyBSelect}
                                   id="add-liquidity-input-tokenb"
                                   showCommonBases
+                                  approved={approved}
                                   locked={depositBDisabled}
                                   hideInput={true}
                                 />                 
@@ -951,12 +953,12 @@ export default function AddToken({
             </div>
             :
             <div className='add-liquidity-footer'>
-              { !approved ? <button className='Approve-pair' style={{ border: "0px" }} onClick={approveACallback} >Approve</button>
+              { !approved ? <button className='Approve-pair' style={{ border: "0px" }} onClick={onClickApprove} >Approve</button>
                 : approving ? <div className='Approve-success-warrap'>
                   <button className='Approve-success' style={{ border: "0px", opacity:'0.45' }}><p style={{ color: "white" }}>Approving...</p></button>
                 </div>
                   : <div className='add-liquidity-warrap'>
-                    <button className='add-liquidity' style={{border:'0px'}} onClick={() =>setShowConfirm(true)}><p>Import</p></button>
+                    <button className='add-liquidity' style={{ border: "0px" }} onClick={() => setShowConfirm(true)}><p>Import</p></button>
                   </div>
               }
             </div>)
