@@ -132,8 +132,9 @@ const DataText = styled.div`
 interface PositionListItemProps {
   setActiveKey:(value: bundleID) => void;
   activeKey: bundleID;
-  key: string;
+  key: number;
   positionDetails: PositionDetails;
+  index:number;
  }
 
 export function getPriceOrderingFromPositionForUI(position?: Position): {
@@ -190,7 +191,7 @@ export function getPriceOrderingFromPositionForUI(position?: Position): {
   }
 }
 
-export default function PairListItem({ setActiveKey, activeKey, key, positionDetails }: PositionListItemProps) {
+export default function PairListItem({ setActiveKey, activeKey, key, positionDetails , index}: PositionListItemProps) {
   const {
     capital: token0Address,
     asset: token1Address,
@@ -200,7 +201,7 @@ export default function PairListItem({ setActiveKey, activeKey, key, positionDet
     bundle: bundleID,
   } = positionDetails;
   
-  console.log("bundle:",bundleID);
+
   const [collapse, setCollapse] = useState(true);
   const [removeClicked, setRemoveClicked] = useState(false);
   const vaultManager = useVaultManagerContract();
@@ -354,7 +355,7 @@ export default function PairListItem({ setActiveKey, activeKey, key, positionDet
       <RowBetween>
         <>{!removeClicked ? 
         <>
-         <div className="single-liquidity">
+         <div className="single-liquidity" style={index%2==0?{backgroundColor:'#2F2A3C'}:{backgroundColor:'#201D29'}}>
             <a onClick={changeCollpase} style={{ cursor: "pointer" }}>
               <div className="single-liquidity-header">
                 <div className="single-liquidity-header-left">

@@ -40,10 +40,11 @@ export const ActivatorButton = styled.button`
   border:none;
   font-weight:500;
   font-size: 16px;
+
   ${({ theme }) => theme.mediaWidth.upToSmall`
-
+  max-width: 500px;
+  width:100%;
   `};
-
   &:disabled {
     opacity: 50%;
     cursor: auto;
@@ -66,7 +67,7 @@ export const ActivatorButton = styled.button`
     border-bottom: 1px solid #fff;
     border-right: 1px solid #fff;
     height: 8px;
-    margin-left: 30px;
+    margin-left: 18px;
     margin-right: 16px;
     width: 8px;
     transform: rotate(45deg);

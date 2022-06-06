@@ -181,7 +181,9 @@ export default function Dropdown({
   const focusHandler = (index: number) => {
     setActiveIndex(index);
   };
-
+ const decreaseLong = (text:string) =>{
+  return (text.substr(0,5)+"...")
+ }
   return (
     <Wrapper onKeyUp={keyHandler}>
       <ActivatorButton
@@ -192,7 +194,7 @@ export default function Dropdown({
         onFocus={() => setActiveIndex(-1)}
       >
         <SelectorLogo interactive src={`/images/${textContent}.png`} />
-        <SelectorLabel>{textContent}</SelectorLabel>
+        <SelectorLabel>{decreaseLong(textContent)}</SelectorLabel>
         
       </ActivatorButton>
 

@@ -37,9 +37,12 @@ const PageWrapper = styled(AutoColumn)`
 `
 const TitleRow = styled(RowBetween)`
   color: ${({ theme }) => theme.text2};
-  flex-wrap: wrap;
-  gap: 12px;
-  width: 100%;
+  width: 512px;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+`};
 `
 const ButtonRow = styled(RowFixed)`
   & > *:not(:last-child) {
@@ -223,10 +226,7 @@ export default function Pair() {
           <AutoColumn gap="lg" style={{ width: '100%', justifyContent: "center" }}>
          
             <TitleRow style={{ marginBottom: '1rem', justifyContent: 'center' }} padding={'0'}>
-                <ResponsiveTitle  >
-                  
-                </ResponsiveTitle>
-              
+               
                 <ButtonRow>  
                   <Dropdown  onUserClick={setContent} textContent={textContent} />
                               
@@ -236,8 +236,8 @@ export default function Pair() {
                 </ButtonRow>
             </TitleRow>
 
-            <div style={(filteredPositions && filteredPositions.length > 0) ?{padding:'0px'}:{ background:  "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", padding:'1px',borderRadius:'40px' }}>
-              <MainContentWrapper  style={(filteredPositions && filteredPositions.length > 0) ?{background:"rgb(9, 8, 12)",minHeight: "586px"}:{ background:  "#16161F", minHeight: "586px",borderRadius:'40px'  }} >
+            <div style={{ background:  "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", padding:'1px',borderRadius:'40px' }}>
+              <MainContentWrapper  style={{ background:  "#16161F", minHeight: "586px",borderRadius:'40px',padding: '32px' }} >
                 {positionsLoading ? (
                   <PositionsLoadingPlaceholder />
                 ) : (filteredPositions && filteredPositions.length > 0) ? (

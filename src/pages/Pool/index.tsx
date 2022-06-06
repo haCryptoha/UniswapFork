@@ -91,10 +91,13 @@ const NoLiquidity = styled.div`
   min-height: 25vh;
 `
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
-  border-radius: 12px;
+  border-radius: 100px;
   padding: 6px 8px;
-  width: fit-content;
+  width: 184px;
+  height:48px;
   border: none;
+  font-size:20px;
+  font-weight:400;
   ${({ theme }) => theme.mediaWidth.upToSmall`
         width: 48%;
   `};
@@ -237,7 +240,7 @@ export default function Pool() {
                 </ResponsiveTitle>
               
                 <ButtonRow>  
-                  <Dropdown  onUserClick={setContent}/>             
+                  <Dropdown  onUserClick={setContent} textContent={textContent}/>             
                   <ResponsiveButtonPrimary className = "gradientButton" id="join-pool-button" as={Link} to="/add/0x139F097A7693B9f2080b44D71818e3120c8fFeF0" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
                     New Position
                   </ResponsiveButtonPrimary>

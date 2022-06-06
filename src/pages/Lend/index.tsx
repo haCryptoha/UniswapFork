@@ -40,6 +40,7 @@ const PageWrapper = styled(AutoColumn)`
 `
 const TitleRow = styled(RowBetween)`
   color: ${({ theme }) => theme.text2};
+  width: 512px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     flex-wrap: wrap;
     gap: 12px;
@@ -97,15 +98,17 @@ const NoLiquidity = styled.div`
   min-height: 25vh;
 `
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
-  border-radius: 12px;
+  border-radius: 100px;
   padding: 6px 8px;
-  width: fit-content;
+  width: 184px;
+  height:48px;
   border: none;
+  font-size:20px;
+  font-weight:400;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     flex: 1 1 auto;
     width: 100%;
   `};
-  height: 30px;
   padding: 0 10px !important;
 `
 
@@ -208,11 +211,9 @@ export default function Lend() {
       <PageWrapper>
         <SwapPoolTabs active={'pool'} />
         <AutoColumn gap="lg" justify="center">
-          <AutoColumn gap="lg" style={{ width: '100%', justifyContent: "center" }}>
+          <AutoColumn gap="lg" style={{  justifyContent: "center" }}>
             <TitleRow style={{ marginBottom: '1rem', display:  "flex" }} padding={'0'}>
-              <ThemedText.Body fontSize={'20px'} color={'white'} style={{width:'283px'}}>
-                   
-              </ThemedText.Body>
+              
               <ButtonRow >         
                 
                 <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/lend/deposit/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/0x139F097A7693B9f2080b44D71818e3120c8fFeF0" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>

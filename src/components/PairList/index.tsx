@@ -64,11 +64,11 @@ export default function PairList({
       <MobileHeader style={{color:'white'}}>
         Your positions
       </MobileHeader>
-      {positions.map((p) => {
+      {positions.map((p,index) => {
         if(p.amount) {
           return <AssetListItme key={p.id.toString()} positionDetails={p} />
         } else {
-          return <PairListItem setActiveKey={setActiveKey} activeKey ={activeKey}  key={p.id.toString()} positionDetails={p} />
+          return <PairListItem setActiveKey={setActiveKey} activeKey ={activeKey}  key={index} index={index} positionDetails={p} />
         }
       })}
     </>
