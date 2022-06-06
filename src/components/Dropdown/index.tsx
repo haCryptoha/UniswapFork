@@ -29,6 +29,7 @@ const NetworkLabel = styled.div`
   width: 80px;
   overflow: hidden;
   height: 24px;
+  font-size:16px;
 `
 const SelectorLabel = styled(NetworkLabel)`
   display: none;
@@ -40,7 +41,7 @@ const SelectorLabel = styled(NetworkLabel)`
     margin-right: 8px;
   }
 `
-const FlyoutRow = styled.div<{ active: boolean }>`
+const FlyoutRow = styled.button<{ active: boolean }>`
   align-items: center;
  
   background-color: ${({ active, theme }) => (active ? 'rgb(60 60 60)' : 'transparent')};
@@ -52,6 +53,7 @@ const FlyoutRow = styled.div<{ active: boolean }>`
   padding: 6px 8px;
   text-align: left;
   width: 100%;
+  border:none;
 `
 const ActiveRowWrapper = styled.div`
 
@@ -71,7 +73,7 @@ interface IProps {
   onUserClick: (value: string) => void
   activatorText?: string;
   items?: IDropdownItem[];
-  
+  textContent:string;
 }
 
 const dropdownItems = [
@@ -90,7 +92,8 @@ const dropdownItems = [
 export default function Dropdown({
   onUserClick,
   activatorText = '',
-  items = dropdownItems
+  items = dropdownItems,
+  textContent,
 }: IProps)  {
   const activatorRef = React.useRef<HTMLButtonElement | null>(null);
   const listRef = React.useRef<HTMLUListElement | null>(null);
@@ -139,18 +142,22 @@ export default function Dropdown({
     }
     setIsOpen(false);
   };
+  const userClick = (text: string) =>{
+    onUserClick(text);
+    setIsOpen(false);
+  }
 
   function Row({
     active,
     logoUrl,
-    label,
+    label    
   }: {
     active: boolean
     logoUrl:string
     label:string
   }) {      
     const rowContent = (
-      <FlyoutRow  active={active}>
+      <FlyoutRow  active={active} onClick={() => userClick(label)}>
         <Logo src={logoUrl}  />
         <NetworkLabel >{label}</NetworkLabel>
       </FlyoutRow>
@@ -159,23 +166,6 @@ export default function Dropdown({
       return (
         <ActiveRowWrapper>
           {rowContent}
-          {/*<ActiveRowLinkList>
-            {bridge ? (
-              <ExternalLink href={bridge}>
-                <BridgeLabel chainId={chainId} /> <LinkOutCircle />
-              </ExternalLink>
-            ) : null}
-            {explorer ? (
-              <ExternalLink href={explorer}>
-                <ExplorerLabel chainId={chainId} /> <LinkOutCircle />
-              </ExternalLink>
-            ) : null}
-            {helpCenterUrl ? (
-              <ExternalLink href={helpCenterUrl}>
-                Help Center <LinkOutCircle />
-              </ExternalLink>
-            ) : null}
-          </ActiveRowLinkList>*/}
         </ActiveRowWrapper>
       )
     }
@@ -201,25 +191,15 @@ export default function Dropdown({
         ref={activatorRef}
         onFocus={() => setActiveIndex(-1)}
       >
-        <SelectorLogo interactive src={'a'} />
-        <SelectorLabel>{'Uniswap V2'}</SelectorLabel>
+        <SelectorLogo interactive src={`/images/${textContent}.png`} />
+        <SelectorLabel>{textContent}</SelectorLabel>
         
       </ActivatorButton>
 
         <DropdownList id="dropdown1" ref={listRef} active={isOpen} role="list">
           <div style={{background:'#1F1E22', borderRadius:'8px'}}>
-            <li key={1}>
-                <button onClick = {() =>{ setTrisolaris(true); onUserClick("Trisolaris");setIsOpen(false)}}>
-                  {"Trisolaris"}
-                </button>
-              </li>
-              <li key={2}>
-                <button onClick = {() => {setTrisolaris(false); onUserClick("Uniswap V2");setIsOpen(false)}}>
-                  {"Uniswap V2"}
-                </button>
-              </li>
-            {/*<Row active={true} logoUrl={''} label={'Trisolaris'} /> 
-            <Row active={false} logoUrl={''} label={'Uniswap V2'} /> */}
+            <Row active={textContent=='Trisolaris'} logoUrl={'/images/Trisolaris.png'} label={'Trisolaris'} /> 
+            <Row active={textContent=='Uniswap V2'} logoUrl={'/images/Uniswap V2.png'} label={'Uniswap V2'}/> 
           </div>
             
         

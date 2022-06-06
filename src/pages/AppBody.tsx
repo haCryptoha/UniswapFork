@@ -9,7 +9,7 @@ export const BodyWrapper = styled.main<{ margin?: string; maxWidth?: string }>`
   width: 100%;
   background: #131118;
   color:white;
-  border-radius:8px;
+  border-radius:40px;
   
   
   z-index: ${Z_INDEX.deprecated_content};

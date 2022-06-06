@@ -71,6 +71,7 @@ import {
   StyledInput,
   Wrapper,
 } from './styled'
+import { faBedPulse } from '@fortawesome/free-solid-svg-icons'
 require("./style.css");
 const AmountNumericalInput = styled(NumericalInput)`
   
@@ -487,22 +488,16 @@ export default function AddToken({
     if(approving || approved){
       return;
     }
+    setApproved(true);
     setApproving(true);
+
     const timer = setTimeout(() => {
-      setApproved(true);
       setApproving(false);
      }, 3000);
-     return () => clearTimeout(timer);
-  }
-  const changeInputA = (value:string) => {
-	  setInputA(value)
-	  if(value=='') {return;}
-	  setInputB((parseFloat(value)*200).toString());
-  }
-  const changeInputB = (value:string) => {
-	  setInputB(value)
-	  if(value=='') {return;}
-	  setInputA((parseFloat(value)/200).toString());
+     return () => {
+      clearTimeout(timer);
+      
+     }
   }
   
   return (
@@ -545,7 +540,7 @@ export default function AddToken({
             <AddRemoveTabs
               creating={false}
               adding={false}
-              migrate={true}
+              migrate={true}              
               positionID={tokenId}
               defaultSlippage={DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE}
               showBackLink={!hasExistingPosition}
@@ -668,23 +663,26 @@ export default function AddToken({
                                 />                 
                             </div>            
                           </RowBetween>
+                          {!showConnectAWallet &&
                           <RowBetween>
-                            <RowBetween>
-                              <AmountNumericalInput
-                                className="token-amount-input"
-                                value={formattedAmounts[Field.CURRENCY_B]}
-                                onUserInput={onFieldBInput}                             
-                              />
-                            </RowBetween>
-                           
-                            <RowBetween width='252px'>
-                              <p>DAI/DBL</p>
-                              <RowBetween width='72px'>
-                                <img style={{width:'32px', height:'32px'}}></img>
-                                <img style={{width:'32px', height:'32px'}}></img>
-                              </RowBetween>
+                          <RowBetween>
+                            <AmountNumericalInput
+                              className="token-amount-input"
+                              value={formattedAmounts[Field.CURRENCY_B]}
+                              onUserInput={onFieldBInput}                             
+                            />
+                          </RowBetween>
+                         
+                          <RowBetween width='252px'>
+                            <p>DAI/DBL</p>
+                            <RowBetween width='72px'>
+                              <img style={{width:'32px', height:'32px'}}></img>
+                              <img style={{width:'32px', height:'32px'}}></img>
                             </RowBetween>
                           </RowBetween>
+                        </RowBetween>
+                          }
+                          
                           {account ? (
                             <RowFixed style={{ height: '17px', width:'100%' }}>
                               <ThemedText.Body
@@ -944,22 +942,22 @@ export default function AddToken({
               </ResponsiveTwoColumns>
             </Wrapper>
             {showConnectAWallet ? (
-              <div className='add-liquidity-warrap'>
+              <div className='add-liquidity-footer'>
                 <button className='add-liquidity'  onClick={toggleWalletModal}><p>Connect Wallet</p></button>
               </div>
             ):(false?
-            <div className='add-liquidity-warrap'>
+            <div className='add-liquidity-footer'>
                 <button className='add-liquidity' style={{border:'0px',cursor: 'not-allowed'}} ><p>{"error"}</p></button>
             </div>
             :
             <div className='add-liquidity-footer'>
               { !approved ? <button className='Approve-pair' style={{ border: "0px" }} onClick={onClickApprove} >Approve</button>
-                : approving ? <div className='Approve-success-warrap'>
+                : (approving ? <div className='Approve-success-warrap'>
                   <button className='Approve-success' style={{ border: "0px", opacity:'0.45' }}><p style={{ color: "white" }}>Approving...</p></button>
                 </div>
                   : <div className='add-liquidity-warrap'>
                     <button className='add-liquidity' style={{ border: "0px" }} onClick={() => setShowConfirm(true)}><p>Import</p></button>
-                  </div>
+                  </div>)
               }
             </div>)
             } 

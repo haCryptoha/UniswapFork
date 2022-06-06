@@ -117,7 +117,7 @@ const BodyContent = ({setBarState}:BodyContentProps) => {
                 <Route
                   exact
                   strict
-                  path="/import/:currencyIdA?/:currencyIdB?/:feeAmount?"
+                  path="/migrate/import/:currencyIdA?/:currencyIdB?/:feeAmount?"
                   component={RedirectMigrateTokenId}
                 />
                 <Route
@@ -126,12 +126,7 @@ const BodyContent = ({setBarState}:BodyContentProps) => {
                   path="/lend/deposit/:currencyIdA?/:currencyIdB?/:feeAmount?"
                   component={RedirectDepositTokenId}
                 />
-				        <Route
-                  exact
-                  strict
-                  path="/migrat/add/:currencyIdA?/:currencyIdB?/:feeAmount?"
-                  component={RedirectMigrateTokenId}
-                />
+				      
                 <Route exact strict path="/pool/:platform" component={Pool} />
                 <Route exact strict path="/pool/detail/:tokenId" component={PositionPage} />
 

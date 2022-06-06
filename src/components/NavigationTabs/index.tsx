@@ -126,6 +126,8 @@ export function AddRemoveTabs({
     : '/pool' + (!!positionID ? `/${positionID.toString()}` : '')
   poolLink = location.pathname.includes('lend')
     ? '/lend' : ''  
+  poolLink = location.pathname.includes('import')
+    ? '/migrate/v2' : ''  
 
   return (
     <Tabs>

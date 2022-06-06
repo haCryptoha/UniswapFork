@@ -186,7 +186,6 @@ export default function Pair() {
   }
 
   const [textContent, setContent] = useState('Uniswap V2')
-
   useEffect(() => {
     async function fetchData() {
       // You can await here
@@ -222,24 +221,16 @@ export default function Pair() {
         <SwapPoolTabs active={'pool'} />
         <AutoColumn gap="lg" justify="center">
           <AutoColumn gap="lg" style={{ width: '100%', justifyContent: "center" }}>
-           {/* <TitleRow style={{ marginBottom: '1rem', display: "flex" }} padding={'0'}>
-              
-              <ButtonRow className="test" style={{ justifyContent: "space-between", width: "100%" }}>
-                
-                
-                
-              </ButtonRow>
-            </TitleRow>
-            */}
+         
             <TitleRow style={{ marginBottom: '1rem', justifyContent: 'center' }} padding={'0'}>
                 <ResponsiveTitle  >
                   
                 </ResponsiveTitle>
               
                 <ButtonRow>  
-                  <Dropdown  onUserClick={setContent}/>
+                  <Dropdown  onUserClick={setContent} textContent={textContent} />
                               
-                  <ResponsiveButtonPrimary className = "gradientButton" id="join-pool-button" as={Link} to="/import/0x139F097A7693B9f2080b44D71818e3120c8fFeF0/0xA2ce5b1D008Ac391DD41c1F7dEaa674D1Cb205f4" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
+                  <ResponsiveButtonPrimary className = "gradientButton" id="join-pool-button" as={Link} to="/migrate/import/0x139F097A7693B9f2080b44D71818e3120c8fFeF0/0xA2ce5b1D008Ac391DD41c1F7dEaa674D1Cb205f4" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
                     Import
                   </ResponsiveButtonPrimary>
                 </ButtonRow>
