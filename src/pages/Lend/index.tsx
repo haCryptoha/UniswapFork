@@ -42,6 +42,7 @@ const PageWrapper = styled(AutoColumn)`
 const TitleRow = styled(RowBetween)`
   color: ${({ theme }) => theme.text2};
   width: 512px;
+  height:50px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     flex-wrap: wrap;
     gap: 12px;
@@ -223,7 +224,7 @@ export default function Lend() {
               </ButtonRow>
             </TitleRow>
             <div className="main-warrap" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", borderRadius:'40px' }}>
-              <MainContentWrapper className='pool-body-NoLiquidity' style={{ background: "#16161F", minHeight: "584px", padding: '32px',borderRadius:'40px' }} >
+              <MainContentWrapper className='pool-body-NoLiquidity' style={{ background: "#16161F", minHeight: "586px", padding: '32px',borderRadius:'40px' }} >
                 {
                   !showLiquidityComponent ?(positionsLoading ? (
                     <PositionsLoadingPlaceholder />

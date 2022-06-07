@@ -24,8 +24,9 @@ import { RowBetween, RowFixed } from '../Row'
 import AnimatedConfirmation from './AnimatedConfirmation'
 
 const WrapperBack = styled.div`
-width: 512px;
+width: 50vw;
 height: 512px;
+max-width:512px;
 position: absolute;
 /* top: 50%; */
 /* left: 50%; */
@@ -36,7 +37,16 @@ border-radius: 40px;
 padding: 2px;
 background: linear-gradient(to right,#11bbfe,#8c41fb);
 -webkit-mask: linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
--webkit-mask-composite: xor;`
+-webkit-mask-composite: xor;
+${({ theme }) => theme.mediaWidth.upToMedium`
+      width: 65vw;
+      margin: 0;
+    `}
+    ${({ theme, mobile }) => theme.mediaWidth.upToSmall`
+      width:  85vw;
+     
+    `}
+`
 const Wrapper = styled.div`
   width: 100%;
 
