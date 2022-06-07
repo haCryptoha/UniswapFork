@@ -63,21 +63,6 @@
     align-items: center;
 }
 
-.single-token-left {
-    font-size: 16px;
-    font-weight: 400;
-    color: #A6A0BB;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.single-token-right {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 16px;
-    font-weight: 400;
-    color: white;
-}
 
 .description {
     display: flex;

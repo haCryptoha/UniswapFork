@@ -7,6 +7,7 @@ import { FlyoutAlignment, NewMenu } from 'components/Menu'
 import { SwapPoolTabs } from 'components/NavigationTabs'
 import PositionList from 'components/PositionList'
 import { RowBetween, RowFixed } from 'components/Row'
+import Dropdown from 'components/Dropdown'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useContext, useEffect, useState } from 'react'
 import { ChevronDown, Inbox } from 'react-feather'
@@ -26,7 +27,7 @@ require('./style.css');
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 870px;
-  width:588px;
+ 
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
     max-width: 800px;
@@ -212,17 +213,17 @@ export default function Lend() {
         <SwapPoolTabs active={'pool'} />
         <AutoColumn gap="lg" justify="center">
           <AutoColumn gap="lg" style={{  justifyContent: "center" }}>
-            <TitleRow style={{ marginBottom: '1rem', display:  "flex" }} padding={'0'}>
+            <TitleRow style={{ marginBottom: '1rem'}} padding={'0'}>
               
-              <ButtonRow >         
-                
-                <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/lend/deposit/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/0x139F097A7693B9f2080b44D71818e3120c8fFeF0" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
+              <ButtonRow style={{width:'100%', display:  "flow-root" }}>
+                  
+                <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/lend/deposit/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/0x139F097A7693B9f2080b44D71818e3120c8fFeF0" style={{  background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", float:"right" }}>
                   Deposit
                 </ResponsiveButtonPrimary>
               </ButtonRow>
             </TitleRow>
             <div className="main-warrap" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", borderRadius:'40px' }}>
-              <MainContentWrapper className='pool-body-NoLiquidity' style={{ background: "#16161F", minHeight: "584px", padding: '32px' }} >
+              <MainContentWrapper className='pool-body-NoLiquidity' style={{ background: "#16161F", minHeight: "584px", padding: '32px',borderRadius:'40px' }} >
                 {
                   !showLiquidityComponent ?(positionsLoading ? (
                     <PositionsLoadingPlaceholder />
@@ -268,7 +269,7 @@ export default function Lend() {
                      
                       {showConnectAWallet && (
   
-                        <ButtonPrimary style={{ marginTop: '2em', padding: '8px 16px', width: "100%", height: "48px" }} className="pool-body-connect" onClick={toggleWalletModal}>
+                        <ButtonPrimary style={{ marginTop: '2em', padding: '8px 16px', width: "140%", height: "48px" }} className="pool-body-connect" onClick={toggleWalletModal}>
                           Connect Wallet
                         </ButtonPrimary>
                       )}

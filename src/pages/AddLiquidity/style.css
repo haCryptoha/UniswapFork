@@ -181,10 +181,14 @@
 }
 
 .remove-liquidity-warrap {
-    width: 100%;
+    max-width: 512px;
     padding: 1px;
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
     border-radius:40px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
 .remove-liquidity {

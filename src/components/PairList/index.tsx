@@ -53,11 +53,11 @@ export default function PairList({
   return (
     <>
       <DesktopHeader>
-        <div style={{color:'white'}}>
+        <div style={{color:'white', fontSize:'20px'}}>
           Your positions
           {positions && ' (' + positions.length + ')'}
         </div>
-        <ButtonText style={{ opacity: 1, color:'white' }} onClick={() => setUserHideClosedPositions(!userHideClosedPositions)}>
+        <ButtonText style={{ opacity: 1, color:'white', fontSize:'20px' }} onClick={() => setUserHideClosedPositions(!userHideClosedPositions)}>
           {!userHideClosedPositions ? "Hide" : "Show"} closed positions
         </ButtonText>
       </DesktopHeader>
