@@ -87,8 +87,10 @@ const NoLiquidity = styled.div`
   flex-direction: column;
   justify-content: center;
   margin: auto;
-  max-width: 300px;
-  min-height: 25vh;
+  width:416px;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  width: 300px;
+  `};
 `
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   border-radius: 100px;
@@ -276,7 +278,7 @@ export default function Pair() {
                     </ButtonText>
                     {showConnectAWallet && (
 
-                        <ButtonPrimary style={{ marginTop: '2em', padding: '8px 16px', width: "140%", height: "48px" }} className="pool-body-connect" onClick={toggleWalletModal}>
+                        <ButtonPrimary style={{ marginTop: '2em', padding: '8px 16px', width: "100%", height: "48px" }} className="pool-body-connect" onClick={toggleWalletModal}>
                           Connect Wallet
                         </ButtonPrimary>
                     )}

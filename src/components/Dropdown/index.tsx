@@ -26,7 +26,6 @@ const SelectorLogo = styled(Logo) <{ interactive?: boolean }>`
 const NetworkLabel = styled.div`
   flex: 1 1 auto;
   color: white;
-  width: 80px;
   overflow: hidden;
   height: 24px;
   font-size:16px;
@@ -63,6 +62,33 @@ const ActiveRowWrapper = styled.div`
   cursor: pointer;
   padding: 0px;
   width: 100%;
+`
+const FlyoutMenu = styled.div`
+  background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
+  border: none;
+  padding:1px;
+  position: absolute;
+  border-radius: 20px;
+  min-width: 184px;
+  z-index: 99;
+  @media screen and (min-width: ${MEDIA_WIDTHS.upToSmall}px) {
+  
+  }
+`
+const FlyoutMenuContents = styled.div`
+  align-items: flex-start;
+  background-color: rgb(31 30 34);
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
+    0px 24px 32px rgba(0, 0, 0, 0.01);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  overflow: auto;
+  padding: 16px;
+  & > *:not(:last-child) {
+    margin-bottom: 12px;
+  }
 `
 interface IDropdownItem {
   id: number;
@@ -193,18 +219,28 @@ export default function Dropdown({
         ref={activatorRef}
         onFocus={() => setActiveIndex(-1)}
       >
-        <SelectorLogo interactive src={`/images/${textContent}.png`} />
+        <SelectorLogo interactive src={`/images/${textContent}.svg`} />
         <SelectorLabel>{decreaseLong(textContent)}</SelectorLabel>
         
       </ActivatorButton>
 
         <DropdownList id="dropdown1" ref={listRef} active={isOpen} role="list">
-          <div style={{background:'#1F1E22', borderRadius:'8px'}}>
-            <Row active={textContent=='Trisolaris'} logoUrl={'/images/Trisolaris.png'} label={'Trisolaris'} /> 
-            <Row active={textContent=='Uniswap V2'} logoUrl={'/images/Uniswap V2.png'} label={'Uniswap V2'}/> 
-          </div>
+          
+          
+            <FlyoutMenu>
+                <FlyoutMenuContents>
+                <Row active={textContent=='Uniswap V2'} logoUrl={'/images/Uniswap V2.svg'} label={'Uniswap V2'}/>
+                <Row active={textContent=='Trisolaris'} logoUrl={'/images/Trisolaris.svg'} label={'Trisolaris'} /> 
+                <Row active={textContent=='PancakeSwap'} logoUrl={'/images/PancakeSwap.svg'} label={'PancakeSwap'}/> 
+                <Row active={textContent=='SushiSwap'} logoUrl={'/images/SushiSwap.svg'} label={'SushiSwap'}/>
             
-        
+                
+              
+                </FlyoutMenuContents>
+              </FlyoutMenu>
+       
+            
+         
         </DropdownList>
       
     </Wrapper>

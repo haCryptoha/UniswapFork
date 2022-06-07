@@ -480,8 +480,7 @@ export default function AddToken({
       </AutoColumn>
     )
 
-  const [inputA, setInputA] = useState('');
-  const [inputB,setInputB] = useState('');
+  const [maxBalance, setmaxBalance] = useState(123456);
   const [approved, setApproved] = useState(false);
   const [approving, setApproving] = useState(false);
   const onClickApprove = () =>{
@@ -574,7 +573,7 @@ export default function AddToken({
                 </Row>
               )}
             </AddRemoveTabs>
-            <Wrapper className='remove-tab-content' style={{ minWidth: "400px" }}>
+            <Wrapper className='remove-tab-content' >
               <ResponsiveTwoColumns wide={!hasExistingPosition} style={{ display: "block" }} className="remove-tab-content-inner">
                 <AutoColumn gap="lg" className='select-pair-and-fee-tire' style={{ display: "none" }}>
                   {!hasExistingPosition && (
@@ -647,21 +646,22 @@ export default function AddToken({
                             </ThemedText.Label>
                             <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
                                   <CurrencyInputPanel
-                                  value={formattedAmounts[Field.CURRENCY_B]}
-                                  onUserInput={onFieldBInput}
-                                  onMax={() => {
-                                    onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
-                                  }}
-                                  showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
-                                  fiatValue={usdcValues[Field.CURRENCY_B]}
-                                  currency={currencies[Field.CURRENCY_B] ?? null}
-                                  onCurrencySelect={handleCurrencyBSelect}
-                                  id="add-liquidity-input-tokenb"
-                                  showCommonBases
-                                  approved={approved}
-                                  locked={depositBDisabled}
-                                  hideInput={true}
-                                />                 
+                                    value={formattedAmounts[Field.CURRENCY_B]}
+                                    onUserInput={onFieldBInput}
+                                    onMax={() => {
+                                      onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
+                                    }}
+                                    showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
+                                    fiatValue={usdcValues[Field.CURRENCY_B]}
+                                    currency={currencies[Field.CURRENCY_B] ?? null}
+                                    onCurrencySelect={handleCurrencyBSelect}
+                                    id="add-liquidity-input-tokenb"
+                                    showCommonBases
+                                    approved={approved}
+                                    locked={depositBDisabled}
+                                    hideInput={true}
+                                    maxBalance={maxBalance}
+                                 />                 
                             </div>            
                           </RowBetween>
                           {!showConnectAWallet &&
@@ -670,15 +670,16 @@ export default function AddToken({
                                 <AmountNumericalInput
                                   className="token-amount-input"
                                   value={formattedAmounts[Field.CURRENCY_B]}
-                                  onUserInput={onFieldBInput}                             
+                                  onUserInput={onFieldBInput}
+                                  maxBalance={maxBalance}                             
                                 />
                               </RowBetween>
                             
                               <RowBetween width='252px'>
                                 <p>DAI/DBL</p>
                                 <RowBetween width='72px'>
-                                  <img style={{width:'32px', height:'32px'}}></img>
-                                  <img style={{width:'32px', height:'32px'}}></img>
+                                  <img src='/images/Uniswap V2.svg' style={{width:'32px', height:'32px'}}></img>
+                                  <img src='/images/Trisolaris.svg' style={{width:'32px', height:'32px'}}></img>
                                 </RowBetween>
                               </RowBetween>
                             </RowBetween>
@@ -693,7 +694,7 @@ export default function AddToken({
                                 style={{ display: 'inline', cursor: 'pointer' }}
                               >
                                
-                                    Balance: {'1234546'}
+                                    Balance: {maxBalance}
                               </ThemedText.Body>
                             
                             </RowFixed>
@@ -786,6 +787,7 @@ export default function AddToken({
                                 className="start-price-input"
                                 value={startPriceTypedValue}
                                 onUserInput={onStartPriceInput}
+                                maxBalance={-1}
                               />
                             </OutlineCard>
                             <RowBetween style={{ backgroundColor: theme.bg1, padding: '12px', borderRadius: '12px' }}>
@@ -952,13 +954,11 @@ export default function AddToken({
             </div>
             :
             <div className='add-liquidity-footer'>
-              { !approved ? <button className='Approve-pair' style={{ border: "0px" }} onClick={onClickApprove} >Approve</button>
-                : (approving ? <div className='Approve-success-warrap'>
-                  <button className='Approve-success' style={{ border: "0px", opacity:'0.45' }}><p style={{ color: "white" }}>Approving...</p></button>
-                </div>
-                  : <div className='add-liquidity-warrap'>
-                    <button className='add-liquidity' style={{ border: "0px" }} onClick={() => setShowConfirm(true)}><p>Import</p></button>
-                  </div>)
+              { !approved ? <button className='add-liquidity' style={{ border: "0px" }} onClick={onClickApprove} ><p>Approve</p></button>
+                : (approving ? 
+                  <button className='add-liquidity' style={{ border: "0px", opacity:'0.45' }}><p style={{ color: "white" }}>Approving...</p></button>               
+                  : <button className='add-liquidity' style={{ border: "0px" }} onClick={() => setShowConfirm(true)}><p>Import</p></button>
+                  )
               }
             </div>)
             } 

@@ -46,6 +46,7 @@ export const Input = React.memo(function InnerInput({
   onUserInput,
   placeholder,
   prependSymbol,
+  maxBalance,
   ...rest
 }: {
   value: string | number
@@ -54,6 +55,7 @@ export const Input = React.memo(function InnerInput({
   fontSize?: string
   align?: 'right' | 'left'
   prependSymbol?: string | undefined
+  maxBalance:number
 } & Omit<React.HTMLProps<HTMLInputElement>, 'ref' | 'onChange' | 'as'>) {
   const enforcer = (nextUserInput: string) => {
     if (nextUserInput === '' || inputRegex.test(escapeRegExp(nextUserInput))) {
@@ -66,9 +68,24 @@ export const Input = React.memo(function InnerInput({
       {...rest}
       value={prependSymbol && value ? prependSymbol + value : value}
       onChange={(event) => {
+        console.log("here")
+        const value = event.target.value
+          const valueNum = Number(value)
+          console.log(maxBalance, ":", valueNum)
+          if (maxBalance!=-1 && maxBalance < valueNum){
+            
+              return;
+           
+          }
         if (prependSymbol) {
           const value = event.target.value
-
+          const valueNum = Number(value)
+          console.log(maxBalance, ":", valueNum)
+          if (maxBalance!=-1 && maxBalance < valueNum){
+            
+              return;
+           
+          }
           // cut off prepended symbol
           const formattedValue = value.toString().includes(prependSymbol)
             ? value.toString().slice(1, value.toString().length + 1)

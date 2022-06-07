@@ -164,6 +164,7 @@ const StepCounter = ({
             onUserInput={(val) => {
               setLocalValue(val)
             }}
+            maxBalance={-1}         
           />
 
           {!locked && (

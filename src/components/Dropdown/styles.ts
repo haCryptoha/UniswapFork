@@ -75,8 +75,7 @@ export const ActivatorButton = styled.button`
 `;
 
 export const DropdownList = styled.ul<{ active: boolean }>`
-  background: linear-gradient(73.6deg, rgb(133, 255, 196) 2.11%, rgb(92, 198, 255) 42.39%, rgb(188, 133, 255) 85.72%);
-  padding:1px;
+  padding:0px;
   color: white;
   display: ${props => (props.active ? "block" : "none")};
   margin: 0;

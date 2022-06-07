@@ -6,9 +6,7 @@ import styled from 'styled-components/macro'
 
 export const PageWrapper = styled(BodyWrapper) <{ wide: boolean }>`
  
-  width: 462px ;
-
-
+  
   padding: ${({ wide }) => (wide ? '10px' : '0')};
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
@@ -19,7 +17,7 @@ export const PageWrapper = styled(BodyWrapper) <{ wide: boolean }>`
 export const Wrapper = styled.div`
   position: relative;
   padding: 26px 16px;
-  min-width: 480px;
+  min-width: 400px;
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
     min-width: 400px;

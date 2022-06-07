@@ -127,7 +127,7 @@ const LiquidityBox = ({id}:{id:number}) =>{
 								
 							</div>
 						</a>
-                        <div className="single-liquidity-content" style={{ height: collapse ? "0px" : "170px",overflow: 'hidden' }}>
+                        <div className="single-liquidity-content" style={{ height: collapse ? "0px" : "11px",overflow: 'hidden' }}>
                             
                             <div className="withdraw-description" style={{ display: collapse ? "none" : "flex", transition: "1s",marginTop:'20px' }}>
                                 <p>1000</p>
@@ -165,7 +165,8 @@ const LiquidityBox = ({id}:{id:number}) =>{
                                         
                                             <StyledNumericalInput 
                                             value={formattedAmounts[Field.CURRENCY_A]}
-                                            onUserInput={onFieldAInput}/>
+                                            onUserInput={onFieldAInput}
+                                            maxBalance={-1}/>
                                         
                                         <div className="lend-confirm-text">
                                             <p>WETH</p>

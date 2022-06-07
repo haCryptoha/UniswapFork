@@ -26,11 +26,11 @@ require('./style.css');
 
 
 const PageWrapper = styled(AutoColumn)`
-  max-width: 870px;
+  max-width: 512px;
  
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
-    max-width: 800px;
+    max-width: 512px;
     width:100%;
   `};
 
@@ -91,13 +91,15 @@ const MoreOptionsButton = styled(ButtonGray)`
   margin-right: 8px;
 `
 const NoLiquidity = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: auto;
-  max-width: 300px;
-  min-height: 25vh;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;  
+    width:416px;
+    ${({ theme }) => theme.mediaWidth.upToSmall`
+    width: 300px;
+    `};
 `
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   border-radius: 100px;
@@ -116,8 +118,7 @@ const ResponsiveButtonPrimary = styled(ButtonPrimary)`
 
 const MainContentWrapper = styled.main`
   background-color: ${({ theme }) => theme.bg0};
-  border-radius:40px;
-  padding: 8px;
+
   display: flex;
   flex-direction: column;
 `
@@ -224,7 +225,7 @@ export default function Lend() {
               </ButtonRow>
             </TitleRow>
             <div className="main-warrap" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", borderRadius:'40px' }}>
-              <MainContentWrapper className='pool-body-NoLiquidity' style={{ background: "#16161F", minHeight: "586px", padding: '32px',borderRadius:'40px' }} >
+              <MainContentWrapper className='pool-body-NoLiquidity' style={{ background:  "#16161F", maxWidth:'512px', minHeight: "586px",borderRadius:'40px',padding: '32px' }}  >
                 {
                   !showLiquidityComponent ?(positionsLoading ? (
                     <PositionsLoadingPlaceholder />
@@ -270,7 +271,7 @@ export default function Lend() {
                      
                       {showConnectAWallet && (
   
-                        <ButtonPrimary style={{ marginTop: '2em', padding: '8px 16px', width: "140%", height: "48px" }} className="pool-body-connect" onClick={toggleWalletModal}>
+                        <ButtonPrimary style={{ marginTop: '2em', padding: '8px 16px', width: "100%", height: "48px" }} className="pool-body-connect" onClick={toggleWalletModal}>
                           Connect Wallet
                         </ButtonPrimary>
                       )}

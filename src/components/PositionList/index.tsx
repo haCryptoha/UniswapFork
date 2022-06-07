@@ -53,22 +53,22 @@ export default function PositionList({
   return (
     <>
       <DesktopHeader>
-        <div style={{color:'white'}}>
+        <div style={{color:'white', fontSize:'20px'}}>
           Your positions
           {positions && ' (' + positions.length + ')'}
         </div>
-        <ButtonText style={{ opacity: 1, color:'white' }} onClick={() => setUserHideClosedPositions(!userHideClosedPositions)}>
+        <ButtonText style={{ opacity: 1, color:'white', fontSize:'20px' }} onClick={() => setUserHideClosedPositions(!userHideClosedPositions)}>
           {!userHideClosedPositions ? "Hide" : "Show"} closed positions
         </ButtonText>
       </DesktopHeader>
       <MobileHeader style={{color:'white'}}>
         Your positions
       </MobileHeader>
-      {positions.map((p) => {
+      {positions.map((p,index) => {
         if(p.amount) {
           return <AssetListItme key={p.id.toString()} positionDetails={p} />
         } else {
-          return <PositionListItem setActiveKey={setActiveKey} activeKey ={activeKey}  key={p.id.toString()} positionDetails={p} />
+          return <PositionListItem setActiveKey={setActiveKey} activeKey ={activeKey}  key={index} index={index} positionDetails={p} />
         }
       })}
     </>

@@ -43,6 +43,11 @@ const TitleRow = styled(RowBetween)`
   flex-wrap: wrap;
   gap: 12px;
   width: 100%;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  width: 100%;
+  `};
+  width:512px;
+
 `
 const ButtonRow = styled(RowFixed)`
   & > *:not(:last-child) {
@@ -86,9 +91,11 @@ const NoLiquidity = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: auto;
-  max-width: 300px;
-  min-height: 25vh;
+  margin: auto;  
+  width:416px;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  width: 300px;
+`};
 `
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   border-radius: 100px;
@@ -235,20 +242,17 @@ export default function Pool() {
             </TitleRow>
             */}
             <TitleRow style={{ marginBottom: '1rem', justifyContent: 'center' }} padding={'0'}>
-                <ResponsiveTitle  >
-                  {textContent} Pools Overview
-                </ResponsiveTitle>
-              
+                
                 <ButtonRow>  
                   <Dropdown  onUserClick={setContent} textContent={textContent}/>             
-                  <ResponsiveButtonPrimary className = "gradientButton" id="join-pool-button" as={Link} to="/add/0x139F097A7693B9f2080b44D71818e3120c8fFeF0" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
+                  <ResponsiveButtonPrimary className = "gradientButton" id="join-pool-button" as={Link} to="/add/0x139F097A7693B9f2080b44D71818e3120c8fFeF0/0xA2ce5b1D008Ac391DD41c1F7dEaa674D1Cb205f4" style={{ background: "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)" }}>
                     New Position
                   </ResponsiveButtonPrimary>
                 </ButtonRow>
             </TitleRow>
 
-            <div style={(filteredPositions && filteredPositions.length > 0) ?{padding:'0px'}:{ background:  "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", padding:'1px' }}>
-              <MainContentWrapper  style={(filteredPositions && filteredPositions.length > 0) ?{background:"rgb(9, 8, 12)",minHeight: "586px"}:{ background:  "#1E1E1E", minHeight: "586px" }} >
+            <div style={{background:  "linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%)", padding:'1px',borderRadius:'40px' }}>
+              <MainContentWrapper  style={{ background: "#16161F", minHeight: "586px", padding: '32px',borderRadius:'40px' }} >
                 {positionsLoading ? (
                   <PositionsLoadingPlaceholder />
                 ) : (filteredPositions && filteredPositions.length > 0) ? (
@@ -287,7 +291,7 @@ export default function Pool() {
                     </ButtonText>
                     {showConnectAWallet && (
 
-                        <ButtonPrimary style={{ marginTop: '2em', padding: '8px 16px', width: "140%", height: "48px" }} className="pool-body-connect" onClick={toggleWalletModal}>
+                        <ButtonPrimary style={{ marginTop: '2em', padding: '8px 16px', width: "100%", height: "48px" }} className="pool-body-connect" onClick={toggleWalletModal}>
                           Connect Wallet
                         </ButtonPrimary>
                     )}

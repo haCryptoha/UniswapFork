@@ -17,7 +17,8 @@ const Row = styled(Box)<{
   padding: ${({ padding }) => padding};
   border: ${({ border }) => border};
   border-radius: ${({ borderRadius }) => borderRadius};
-`
+ 
+  `
 
 export const RowBetween = styled(Row)`
   justify-content: space-between;

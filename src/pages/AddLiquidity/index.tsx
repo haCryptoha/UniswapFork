@@ -73,6 +73,7 @@ import {
   StackedItem,
   StyledInput,
   Wrapper,
+  HeaderTabs,
 } from './styled'
 require("./style.css");
 
@@ -332,7 +333,7 @@ export default function AddLiquidity({
 
         <div className='remove-tab-warrap'>
           <PageWrapper wide={!hasExistingPosition} className="remove-tab">
-            <AddRemoveTabs
+            <HeaderTabs
               creating={false}
               adding={true}
               migrate={false}
@@ -340,7 +341,7 @@ export default function AddLiquidity({
               defaultSlippage={DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE}
               showBackLink={!hasExistingPosition}
             >
-            </AddRemoveTabs>
+            </HeaderTabs>
             <Wrapper className='remove-tab-content' >
               <ResponsiveTwoColumns wide={!hasExistingPosition} style={{ display: "block" }} className="remove-tab-content-inner">
                 <div>
@@ -348,7 +349,7 @@ export default function AddLiquidity({
                     disabled={false}
                   >
                     <AutoColumn gap="md">
-                      <ThemedText.Label style={{ fontSize: "16px", color: "white" }}>
+                      <ThemedText.Label style={{ fontSize: "16px", color: "white", fontWeight:'400px',marginBottom:'5px',height:'24px' }}>
                         Capital Type
                       </ThemedText.Label>
                       <div className='fromToken' style={{ display: "flex", justifyContent: "space-between" }}>
@@ -367,7 +368,7 @@ export default function AddLiquidity({
                             showCommonBases
                           />
                       </div>
-                      <ThemedText.Label style={{ fontSize: "16px", color: "white", marginTop:'40px' }}>
+                      <ThemedText.Label  style={{ fontSize: "16px", color: "white", fontWeight:'400px',marginBottom:'5px',height:'24px' }}>
                         Token
                       </ThemedText.Label>
                       <div className='toToken' style={{ display: "flex", justifyContent: "space-between" }}>
@@ -396,14 +397,14 @@ export default function AddLiquidity({
                 <button className='add-liquidity' style={clickable?{ border: "0px" }:{border:'0px',cursor: 'not-allowed'}} onClick={toggleWalletModal}><p>Connect Wallet</p></button>
               </div>
             ):(error?
-            <div className='add-liquidity-warrap'>
+            <div className='add-liquidity-warrap' style={{opacity:'0.45'}}>
                 <button className='add-liquidity' style={{border:'0px',cursor: 'not-allowed'}} ><p>{error}</p></button>
             </div>
             :
             <div className='add-liquidity-footer'>
               { approvalA === ApprovalState.NOT_APPROVED ? <button className='Approve-pair' style={{ border: "0px" }} onClick={approveACallback} >Approve</button>
-                : approvalA === ApprovalState.PENDING ? <div className='Approve-success-warrap'>
-                  <button className='Approve-success' style={{ border: "0px", opacity:'0.45' }}><p style={{ color: "white" }}>Approving...</p></button>
+                : approvalA === ApprovalState.PENDING ? <div className='Approve-success-warrap' style={{opacity:'0.45'}}>
+                  <button className='Approve-success' style={{ border: "0px" }}><p style={{ color: "white" }}>Approving...</p></button>
                 </div>
                   : <div className='add-liquidity-warrap'>
                     <button className='add-liquidity' style={clickable?{ border: "0px" }:{border:'0px',cursor: 'not-allowed'}} onClick={onAdd}><p>{waiting?'Transaction in progress-Please wait':'Add Liquidity'}</p></button>

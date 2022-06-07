@@ -90,6 +90,7 @@ interface ModalProps {
   maxHeight?: number
   initialFocusRef?: React.RefObject<any>
   children?: React.ReactNode
+  searchModal?: boolean
 }
 
 export default function Modal({
@@ -99,6 +100,7 @@ export default function Modal({
   maxHeight = 90,
   initialFocusRef,
   children,
+  searchModal=false,
 }: ModalProps) {
   const fadeTransition = useTransition(isOpen, null, {
     config: { duration: 200 },
@@ -135,13 +137,14 @@ export default function Modal({
                 {...(isMobile
                   ? {
                     ...bind(),
-                    style: { transform: y.interpolate((y) => `translateY(${(y as number) > 0 ? y : 0}px)`) },
+                    style: { transform: y.interpolate((y) => `translateY(${(y as number) > 0 ? y : 0}px)`),borderRadius:searchModal?'8px':'40px' },
                   }
                   : {})}
                 aria-label="dialog content"
                 minHeight={minHeight}
                 maxHeight={maxHeight}
                 mobile={isMobile}
+              
               >
                 {/* prevents the automatic focusing of inputs on mobile by the reach dialog */}
                 {!initialFocusRef && isMobile ? <div tabIndex={1} /> : null}

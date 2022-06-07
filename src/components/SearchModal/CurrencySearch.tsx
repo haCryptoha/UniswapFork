@@ -33,6 +33,7 @@ const ContentWrapper = styled(Column)`
   flex: 1 1;
   position: relative;
   background-color:#141414;
+  border-radius: 8px;
 `
 
 const Footer = styled.div`
@@ -41,7 +42,7 @@ const Footer = styled.div`
   padding: 20px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  background-color: ${({ theme }) => theme.bg1};
+  background-color:black;
   border-top: 1px solid ${({ theme }) => theme.bg2};
 `
 
@@ -234,10 +235,10 @@ export function CurrencySearch({
         <Row justify="center">
           <ButtonText onClick={showManageView} color={theme.primary1} className="list-token-manage-button">
             <RowFixed>
-              <IconWrapper size="16px" marginRight="6px" stroke={theme.primaryText1}>
+              <IconWrapper size="16px" marginRight="6px" stroke={theme.primary2}>
                 <Edit />
               </IconWrapper>
-              <ThemedText.Main color={theme.primaryText1}>
+              <ThemedText.Main color={theme.primary2}>
                 Manage Token Lists
               </ThemedText.Main>
             </RowFixed>

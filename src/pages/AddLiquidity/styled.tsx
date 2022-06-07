@@ -3,14 +3,20 @@ import CurrencyInputPanel from 'components/CurrencyInputPanel'
 import Input from 'components/NumericalInput'
 import { BodyWrapper } from 'pages/AppBody'
 import styled from 'styled-components/macro'
+import { AddRemoveTabs } from '../../components/NavigationTabs'
 
+export const HeaderTabs = styled(AddRemoveTabs)`
+   margin-bottom:30px;
+`
 export const PageWrapper = styled(BodyWrapper) <{ wide: boolean }>`
  
   width: 100% ;
  
-
+  max-width:512px;
+  height:512px;
+  
   padding: ${({ wide }) => (wide ? '10px' : '0')};
-
+  padding: 58px 48px 32px 48px;
   ${({ theme }) => theme.mediaWidth.upToMedium`
     max-width: 480px;
   `};
@@ -18,8 +24,9 @@ export const PageWrapper = styled(BodyWrapper) <{ wide: boolean }>`
 
 export const Wrapper = styled.div`
   position: relative;
-  padding: 26px 16px;
-  min-width: 480px;
+  margin-bottom:64px;
+  min-width: 400px;
+  margin-top: 30px
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
     min-width: 400px;
@@ -34,10 +41,16 @@ export const ScrollablePage = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+ 
   ${({ theme }) => theme.mediaWidth.upToMedium`
     max-width: 480px;
     margin: 0 auto;
   `};
+
 `
 
 export const DynamicSection = styled(AutoColumn) <{ disabled?: boolean }>`

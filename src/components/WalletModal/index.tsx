@@ -50,7 +50,9 @@ const Wrapper = styled.div`
   width: 100%;
   border-radius: 40px;
   width: 507px;
-  
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+  width: 350px;
+`};
  
     
 `

@@ -127,8 +127,8 @@ const AddCircle = styled(PlusCircle)`
 `
 
 const Logo = styled.img`
-  height: 20px;
-  width: 20px;
+  height: 32px;
+  width: 32px;
   margin-right: 8px;
 `
 const NetworkLabel = styled.div`
@@ -229,7 +229,7 @@ function Row({
     <FlyoutRow  active={active}>
       <Logo src={logoUrl} onClick={() => onSelectChain(targetChain)} />
       <NetworkLabel onClick={() => onSelectChain(targetChain)}>{label}</NetworkLabel>
-      {chainId === targetChain && <FlyoutRowActiveIndicator />}
+     
     </FlyoutRow>
   )
 
@@ -357,8 +357,8 @@ export default function NetworkSelector() {
         <StyledChevronDown />
       </SelectorControls>
       {open && (
-           <div style={{ paddingTop: '10px',position: 'absolute' ,   width: '189px'}}>
-              <FlyoutMenu>
+          <div style={{ paddingTop: '10px',position: 'absolute' ,   width: '189px'}}>
+            <FlyoutMenu>
               <FlyoutMenuContents>
                 
                 {

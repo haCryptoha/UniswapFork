@@ -186,6 +186,7 @@ interface CurrencyInputPanelProps {
   locked?: boolean
   loading?: boolean
   approved?: boolean
+  maxBalance?:number
 }
 
 export default function CurrencyInputPanel({
@@ -209,6 +210,7 @@ export default function CurrencyInputPanel({
   locked = false,
   loading = false,
   approved,
+  maxBalance = -1,
   ...rest
 }: CurrencyInputPanelProps) {
   const [modalOpen, setModalOpen] = useState(false)
@@ -239,6 +241,7 @@ export default function CurrencyInputPanel({
               className="token-amount-input"
               value={value}
               onUserInput={onUserInput}
+              maxBalance={maxBalance}
               $loading={loading}
             />
           )}

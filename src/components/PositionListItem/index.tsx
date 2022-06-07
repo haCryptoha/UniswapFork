@@ -132,8 +132,9 @@ const DataText = styled.div`
 interface PositionListItemProps {
   setActiveKey:(value: bundleID) => void;
   activeKey: bundleID;
-  key: string;
+  key: number;
   positionDetails: PositionDetails;
+  index:number;
  }
 
 export function getPriceOrderingFromPositionForUI(position?: Position): {
@@ -190,7 +191,7 @@ export function getPriceOrderingFromPositionForUI(position?: Position): {
   }
 }
 
-export default function PositionListItem({ setActiveKey, activeKey, key, positionDetails }: PositionListItemProps) {
+export default function PositionListItem({ setActiveKey, activeKey, key, positionDetails , index}: PositionListItemProps) {
   const {
     capital: token0Address,
     asset: token1Address,
@@ -200,7 +201,7 @@ export default function PositionListItem({ setActiveKey, activeKey, key, positio
     bundle: bundleID,
   } = positionDetails;
   
-  console.log("bundle:",bundleID);
+
   const [collapse, setCollapse] = useState(true);
   const [removeClicked, setRemoveClicked] = useState(false);
   const vaultManager = useVaultManagerContract();
@@ -288,88 +289,76 @@ export default function PositionListItem({ setActiveKey, activeKey, key, positio
     // <LinkRow to={positionSummaryLink}>
     <>
      <Modal isOpen={removeClicked}  minHeight={false} maxHeight={100}>
+       <div className="hideBackground">
           <div className="remove-liquidity-warrap">
             <div className="remove-liquidity">
-              <RowBetween style={{    padding: "0px 28px"}}>
+              <RowBetween style={{    padding: "32px 28px 0px"}}>
                 <button onClick = {removeOnClick} style={{ width: "0", height: "100%",background:'transparent', border: "0px" }} >
                   <StyledArrowLeft  />
                 </button>
-                <div className="remove-header-top" style={{ display: "flex", justifyContent: "center" }}>
-                    <p>Remove Liquidity</p>
+                <div className="remove-header-top" style={{ display: "flex", margin:'auto', justifyContent: "center" }}>
+                    <p style={{margin:" 0px", fontSize:'24px'}} >Migrate Liquidity</p>
                 </div>
-                <StyledHelpCircle />
               </RowBetween>
              
-              <div className="remove-header">
-                <p >
-                  Confirm to close your position
+            <div className="single-liquidity-content" style={{ marginTop:'32px',overflow: 'hidden', padding:'0px 32px',width:'100%' }}>
+              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                <p className="single-token-left">Capital to receive</p>
+                <p className="single-token-right " style={{ display:"flex", justifyContent: "space-between" }}>
+                  <span className="value-num">{(+token0Amount).toFixed(2)}</span>
+                  <span className="value-unit">   {"LP"}</span>                
                 </p>
               </div>
-              <div className="remove-content">
-                <div className="content-header">
-                  <p>You will receive</p>
-                </div>
-                <div className="description2">
-                  <div className="eth">
-                    <div className="eth-left">
-                      <p>{(+token0Amount).toFixed(2)}</p>
-                    </div>
-                    <div className="eth-right">
-                      <CurrencyLogo currency={currency0} size={'32px'} style={{ marginRight: '12px' }} />
-                      <p>{currency0?.symbol}</p>
-                    </div>
-                  </div>
-                  <div className="eth">
-                    <div className="eth-left">
-                      <p>{(+token1Amount).toFixed(2)}</p>
-                    </div>
-                    <div className="eth-right">
-                      <CurrencyLogo currency={currency1} size={'32px'} style={{ marginRight: '12px' }} />
-                      <p>{currency1?.symbol}</p>
-                    </div>
-                  </div>
-                  <div className="change-description">
-                    <p>Output is estimated. If the price changes by more than 0.5% your transaction will revert.</p>
-                  </div>
-                  <div className="earned-table-header">
-                    <p>{currency0?.symbol}&nbsp;/&nbsp;{currency1?.symbol}</p>
-                  </div>
-                  <div className="earned-table">
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                      <div><p style={{ color: "#A6A0BB" }}>{currency1?.symbol} / {currency1?.symbol}</p></div>
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <p style={{ color: "white" }}>{(+liquidity).toFixed(2)}</p>
-                        <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={36} margin />
-                      </div>
-                    </div>
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                      <div><p style={{ color: "#A6A0BB" }}>{currency0?.symbol} / {currency1?.symbol}</p></div>
-                      <div style={{ display: "flex", flexDirection: "column" }}>
-                        <div style={{ display: "flex", justifyContent: "end" }}>
-                          <p style={{ color: "white" }}>1 {currency0?.symbol}= {(token1Amount / token0Amount).toFixed(2)} {currency1?.symbol}</p>
-                        </div>
-                        <p style={{ color: "white" }}>1 {currency1?.symbol}={(token0Amount / token1Amount).toFixed(2)} {currency0?.symbol}</p>
-                      </div>
-                    </div>
-                    <div style={{ width: "380", height: "71px", display: "flex", justifyContent: "center" }}>
-                      <p style={{ color: "white", fontSize: "20px", fontWeight: "700" }}>You earned 15% APY with Double</p>
-                    </div>
-
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
-                    
-                    <button className="confirm" style={{ width: "100%", height: "48px", margin:'1px',border: "0px" }} onClick={confimrOnClick}><p>confirm</p></button>
-                  </div>
-                </div>
+              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                <p className="single-token-left">Token to deposit</p>
+                <p className="single-token-right" style={{ display:"flex", justifyContent: "space-between" }}>
+                  <span className="value-num">{(+token0Amount).toFixed(2)}</span>
+                  <span className="value-unit">   {currency0?.symbol}</span>                
+                </p>
+              </div>
+              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                <p className="single-token-left">Protocol fee deducted</p>
+                <p className="single-token-right" style={{ display:"flex", justifyContent: "space-between" }}>
+                  <span className="value-num">{(+token0Amount).toFixed(2)}</span>
+                  <span className="value-unit">   {currency0?.symbol}</span>                
+                </p>
+              </div>
+              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                <p className="single-token-left">Capital imported</p>
+                <p className="single-token-right" style={{ display:"flex", justifyContent: "space-between" }}>
+                  <span className="value-num">{'1070'}</span>
+                  <span className="value-unit">   {'DAI'}</span>                
+                </p>
+              </div>
+              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                <p className="single-token-left">Token imported</p>
+                <p className="single-token-right" style={{ display:"flex", justifyContent: "space-between" }}>
+                  <span className="value-num">{(+token0Amount).toFixed(2)}</span>
+                  <span className="value-unit">    {currency0?.symbol}</span>                
+                </p>
+              </div>
+              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                <p className="single-token-left">Return</p>
+                <p className="single-token-right" style={{ display:"flex", justifyContent: "space-between" }}>
+                  <span className="value-num">{'110%'}</span>
+                  <span className="value-unit">   {'APY'}</span>                
+                </p>
+              </div>
+              
+              <div style={{ marginTop:'50px', justifyContent: "center", transition: "1s" }}>
+                <button onClick={() => setShowConfirm(true)}><p>Migrate</p></button>
               </div>
             </div>
+            </div>
           </div>
+       </div>
+         
      </Modal>
       <TransactionConfirmationModal
           isOpen={showConfirm}
           onDismiss={handleDismissConfirmation}
           attemptingTxn={attemptingTxn}
-          hash={txHash}
+          hash={0x4698e1e048d920e0551c927363ba9a4746dc72394484d9974b8a37eb075ba2e3}
           content={() => (
             <ConfirmationModalContent
               title={""}
@@ -387,7 +376,7 @@ export default function PositionListItem({ setActiveKey, activeKey, key, positio
       <RowBetween>
         <>{!removeClicked ? 
         <>
-         <div className="single-liquidity">
+         <div className="single-liquidity" style={index%2==0?{backgroundColor:'#2F2A3C'}:{backgroundColor:'#201D29'}}>
             <a onClick={changeCollpase} style={{ cursor: "pointer" }}>
               <div className="single-liquidity-header">
                 <div className="single-liquidity-header-left">
@@ -402,41 +391,90 @@ export default function PositionListItem({ setActiveKey, activeKey, key, positio
                 </PrimaryPositionIdData>
                 </div>
                 <div className="single-liquidity-header-right">
-                  <img src="./images/up.png" style={{ width: "20px", height: "20px", display: collapse ? "none" : "block" }} />
-                  <img src="./images/down.png" style={{ width: "20px", height: "20px", display: collapse ? "block" : "none" }} />
+                  <img src="./images/up2.png" style={{ width: "20px", height: "20px", display: collapse ? "none" : "block" }} />
+                  <img src="./images/down2.png" style={{ width: "20px", height: "20px", display: collapse ? "block" : "none" }} />
                 </div>
               </div>
             </a>
-            <div className="single-liquidity-content" style={{ height: collapse ? "0px" : "296px", overflow: 'hidden' }}>
-              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
-                <p className="single-token-left">Capital supplied</p>
-                <p className="single-token-right">{(+token0Amount).toFixed(2)} {currency0?.symbol}</p>
-              </div>
-              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
-                <p className="single-token-left">Token matched</p>
-                <p className="single-token-right">{(+token1Amount).toFixed(2)} {currency1?.symbol}</p>
-              </div>
-              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
-                <p className="single-token-left">Pool token amount</p>
-                <p className="single-token-right">{(+liquidity).toFixed(2)}</p>
-              </div>
-              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
-                <p className="single-token-left">Your pool share</p>
-                <p className="single-token-right">0.14%</p>
-              </div>
-              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
-                <p className="single-token-left">Pool capital amount</p>
-                <p className="single-token-right">{(+token0Amount).toFixed(2)} {currency0?.symbol}</p>
-              </div>
-              <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
-                <p className="single-token-left">Pool token amount</p>
-                <p className="single-token-right">{(+token1Amount).toFixed(2)} {currency1?.symbol}</p>
-              </div>
+            
               
-              <div style={{ display: collapse ? "none" : "flex", justifyContent: "center", transition: "1s" }}>
-                <button onClick={() => setRemoveClicked(true)}><p>Remove Liquidity</p></button>
-              </div>
-            </div>
+              {liquidityRaw == 0 ? 
+              <div className="single-liquidity-content" style={{ height: collapse ? "0px" :"115px", overflow: 'hidden' }}>
+                  <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                    <p className="single-token-left">Capital supplied</p>
+                    <p className="single-token-right " style={{ display:"flex", justifyContent: "space-between" }}>
+                      <span className="value-num">{(+token0Amount).toFixed(2)}</span>
+                      <span className="value-unit">   {"WETH"}</span>                
+                    </p>
+                  </div>
+                  <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                    <p className="single-token-left">Capital received</p>
+                    <p className="single-token-right" style={{ display:"flex", justifyContent: "space-between" }}>
+                      <span className="value-num">{(+token0Amount).toFixed(2)}</span>
+                      <span className="value-unit">   {'WETH'}</span>                
+                    </p>
+                  </div>
+                  <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                    <p className="single-token-left">Token received</p>
+                    <p className="single-token-right" style={{ display:"flex", justifyContent: "space-between" }}>
+                      <span className="value-num">{(+token0Amount).toFixed(2)}</span>
+                      <span className="value-unit">   {'DBL'}</span>                
+                    </p>
+                  </div>
+               </div>   
+              : 
+                <div className="single-liquidity-content" style={{ height: collapse ? "0px" :"288px", overflow: 'hidden' }}>
+                  <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                    <p className="single-token-left">Capital supplied</p>
+                    <p className="single-token-right " style={{ display:"flex", justifyContent: "space-between" }}>
+                      <span className="value-num">{(+token0Amount).toFixed(2)}</span>
+                      <span className="value-unit">   {"DAI"}</span>                
+                    </p>
+                  </div>
+                  <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                    <p className="single-token-left">Token borrowed</p>
+                    <p className="single-token-right" style={{ display:"flex", justifyContent: "space-between" }}>
+                      <span className="value-num">{(+token0Amount).toFixed(2)}</span>
+                      <span className="value-unit">   {'DBL'}</span>                
+                    </p>
+                  </div>
+                  <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                    <p className="single-token-left">Pool Token amount</p>
+                    <p className="single-token-right" style={{ display:"flex", justifyContent: "space-between" }}>
+                      <span className="value-num">{(+token0Amount).toFixed(2)}</span>
+                      <span className="value-unit">   {'LP'}</span>                
+                    </p>
+                  </div>              
+                  <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                      <p className="single-token-left">Pool share</p>
+                      <p className="single-token-right" style={{ display:"flex", justifyContent: "space-between" }}>
+                        <span className="value-num">{'0.14%'}</span>
+                        <span className="value-unit">   {'Pool'}</span>                
+                      </p>
+                  </div>
+                  <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                      <p className="single-token-left">Pool capital amount</p>
+                      <p className="single-token-right" style={{ display:"flex", justifyContent: "space-between" }}>
+                        <span className="value-num">{(+token0Amount).toFixed(2)}</span>
+                        <span className="value-unit">    {'DBL'}</span>                
+                      </p>
+                  </div>
+                  <div style={{ display: collapse ? "none" : "flex", justifyContent: "space-between" }}>
+                      <p className="single-token-left">Pool token amount</p>
+                      <p className="single-token-right" style={{ display:"flex", justifyContent: "space-between" }}>
+                        <span className="value-num">{(+token0Amount).toFixed(2)}</span>
+                        <span className="value-unit">   {currency0?.symbol}</span>                
+                      </p>
+                  </div>
+                  <div style={{ display: collapse ? "none" : "flex", justifyContent: "center", transition: "1s" }}>
+                      <button onClick={() => setRemoveClicked(true)}><p style={{fontSize:'20px', fontWeight:'600'}}>Remove Liquidity</p></button>
+                  </div>
+                </div>  
+                }
+               
+              
+              
+              
           </div> 
         </>
           :

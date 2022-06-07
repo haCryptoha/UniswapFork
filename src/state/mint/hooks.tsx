@@ -186,7 +186,7 @@ export function useDerivedMintInfo(
   }
 
   if (!parsedAmounts[Field.CURRENCY_A] || !parsedAmounts[Field.CURRENCY_B]) {
-    error = error ?? "Enter an amount"
+    error = error ?? "Enter Capital Amount..."
   }
 
   const { [Field.CURRENCY_A]: currencyAAmount, [Field.CURRENCY_B]: currencyBAmount } = parsedAmounts

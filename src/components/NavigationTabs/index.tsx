@@ -17,6 +17,12 @@ import SettingsTab from '../Settings'
 
 const Tabs = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
+  width:416px;
+  height: 48px;
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+    width: 100%;
+  `};
+  margin:auto;
   align-items: center;
   border-radius: 3rem;
   justify-content: space-evenly;
@@ -131,7 +137,7 @@ export function AddRemoveTabs({
 if(deposit){poolLink = "/lend" }
   return (
     <Tabs>
-      <RowBetween style={{ padding: '1rem 1rem 0 1rem' }}>
+      <RowBetween >
         <div className="arrow-left-warrap">
           <StyledHistoryLink
             to={poolLink}
@@ -150,7 +156,9 @@ if(deposit){poolLink = "/lend" }
         </div>
 	     <ThemedText.MediumHeader
           fontWeight={500}
-          fontSize={20}
+          fontSize={24}
+          width={158}
+          height={36}
           style={{ flex: '1', margin: 'auto', textAlign: children ? 'center' : 'center', color: "white" }}
         >
            {creating ? (
