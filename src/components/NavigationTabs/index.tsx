@@ -124,11 +124,11 @@ export function AddRemoveTabs({
   let poolLink = location.pathname.includes('add/v2')
     ? '/pool/v2'
     : '/pool' + (!!positionID ? `/${positionID.toString()}` : '')
-  poolLink = location.pathname.includes('lend')
-    ? '/lend' : ''  
+  poolLink = location.pathname.includes('deposit')
+    ? '/lend' : '/lend'  
   poolLink = location.pathname.includes('import')
     ? '/migrate/v2' : ''  
-
+if(deposit){poolLink = "/lend" }
   return (
     <Tabs>
       <RowBetween style={{ padding: '1rem 1rem 0 1rem' }}>

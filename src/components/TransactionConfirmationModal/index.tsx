@@ -23,12 +23,28 @@ import Modal from '../Modal'
 import { RowBetween, RowFixed } from '../Row'
 import AnimatedConfirmation from './AnimatedConfirmation'
 
+const WrapperBack = styled.div`
+width: 512px;
+height: 512px;
+position: absolute;
+/* top: 50%; */
+/* left: 50%; */
+/* -webkit-transform: translate(-50%,-50%); */
+-ms-transform: translate(-50%,-50%);
+/* transform: translate(-50%,-50%); */
+border-radius: 40px;
+padding: 2px;
+background: linear-gradient(to right,#11bbfe,#8c41fb);
+-webkit-mask: linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+-webkit-mask-composite: xor;`
 const Wrapper = styled.div`
   width: 100%;
-  padding:padding: 88px 41px 128px 40px;
-  padding: 1rem;
-  backdrop-filter: blur(5px);
 
+  height: 512px;
+  border-radius: 40px;
+  padding: 50px 40px;
+  backdrop-filter: blur(2px);
+  
  
 `
 const Section = styled(AutoColumn)<{ inline?: boolean }>`
@@ -108,6 +124,10 @@ function TransactionSubmittedContent({
 
   return (
  
+    <>
+    <WrapperBack>
+
+    </WrapperBack>
     <Wrapper>
       <Section inline={inline}>
         {!inline && (
@@ -116,23 +136,17 @@ function TransactionSubmittedContent({
             <CloseIcon onClick={onDismiss} />
           </RowBetween>
         )}
-        <div style={{padding:'50px 40px 77px 40px', width:'100%'}}>
+        <div style={{padding:'52px 40px 0px 40px', width:'100%'}}>
           <ConfirmedIcon inline={inline}>
             <img style={{'margin':'0px', width:'92px'}} src="images/transaction.png" ></img>
           </ConfirmedIcon>
           <AutoColumn gap="12px" justify={'center'}>
-            <Text fontWeight={500} fontSize={20} textAlign="center" style={{marginTop:'41px', marginBottom:'70px'}} >
+            <Text fontWeight={500} fontSize={24} textAlign="center" style={{marginTop:'41px', marginBottom:'70px'}} >
               Transaction Submitted
             </Text>
           
               
-            {chainId && hash && (
-              <ExternalLink href={getExplorerLink(chainId, hash, ExplorerDataType.TRANSACTION)}>
-                <Text fontWeight={500} fontSize={14}  textAlign="center" className='view-etherscan'>
-                  <p>View on Etherscan</p>
-                </Text>
-              </ExternalLink>
-            )}
+            
             {currencyToAdd && library?.provider?.isMetaMask && (
               <ButtonLight mt="12px" padding="6px 12px" width="fit-content" onClick={addToken}>
                 {!success ? (
@@ -156,9 +170,17 @@ function TransactionSubmittedContent({
                 </ButtonPrimary>*/}
           </AutoColumn>
         </div>
-        
+        {chainId && hash && (
+              <ExternalLink href={getExplorerLink(chainId, hash, ExplorerDataType.TRANSACTION)}>
+                <Text fontWeight={500} fontSize={20}  textAlign="center" className='view-etherscan'>
+                  <p>View on Block Exploer</p>
+                </Text>
+              </ExternalLink>
+            )}
       </Section>
     </Wrapper>
+    </>
+    
 
     
   )

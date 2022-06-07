@@ -263,9 +263,9 @@ export default function Lend() {
                         >
                           Your Active Position will appear here
                         </ButtonText>
-                        <button onClick={() => setShowLiquidityComponent(true)}>
+                        {/*<button onClick={() => setShowLiquidityComponent(true)}>
                           show liquidity list component
-                        </button>
+                  </button>*/}
                      
                       {showConnectAWallet && (
   

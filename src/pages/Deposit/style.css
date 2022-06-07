@@ -12,7 +12,7 @@
     height: 364px;
     padding: 1px;
     background: linear-gradient(73.6deg, #85FFC4 2.11%, #5CC6FF 42.39%, #BC85FF 85.72%);
-    border-radius: 8px;
+    border-radius: 40px;
 }
 
 
@@ -207,6 +207,7 @@
 	border-radius: 100px;
 	margin:auto;
 	margin-top: 29px;
+    margin-bottom:128px;
 	border: none;
 }
 .view-etherscan p{
@@ -221,7 +222,7 @@
 	font-family: 'Poppins';
 	font-style: normal;
 	font-weight: 700;
-	font-size: 16px;
+	font-size: 20px;
 	line-height: 24px;
 	/* identical to box height, or 150% */
 

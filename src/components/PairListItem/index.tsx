@@ -292,7 +292,7 @@ export default function PairListItem({ setActiveKey, activeKey, key, positionDet
        <div className="hideBackground">
           <div className="remove-liquidity-warrap">
             <div className="remove-liquidity">
-              <RowBetween style={{    padding: "0px 28px"}}>
+              <RowBetween style={{    padding: "32px 28px 0px"}}>
                 <button onClick = {removeOnClick} style={{ width: "0", height: "100%",background:'transparent', border: "0px" }} >
                   <StyledArrowLeft  />
                 </button>

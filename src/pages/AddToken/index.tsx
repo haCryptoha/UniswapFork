@@ -503,6 +503,7 @@ export default function AddToken({
   return (
     <>
       <ScrollablePage>
+      
         <TransactionConfirmationModal
           isOpen={showConfirm}
           onDismiss={handleDismissConfirmation}
@@ -664,23 +665,23 @@ export default function AddToken({
                             </div>            
                           </RowBetween>
                           {!showConnectAWallet &&
-                          <RowBetween>
-                          <RowBetween>
-                            <AmountNumericalInput
-                              className="token-amount-input"
-                              value={formattedAmounts[Field.CURRENCY_B]}
-                              onUserInput={onFieldBInput}                             
-                            />
-                          </RowBetween>
-                         
-                          <RowBetween width='252px'>
-                            <p>DAI/DBL</p>
-                            <RowBetween width='72px'>
-                              <img style={{width:'32px', height:'32px'}}></img>
-                              <img style={{width:'32px', height:'32px'}}></img>
+                            <RowBetween>
+                              <RowBetween>
+                                <AmountNumericalInput
+                                  className="token-amount-input"
+                                  value={formattedAmounts[Field.CURRENCY_B]}
+                                  onUserInput={onFieldBInput}                             
+                                />
+                              </RowBetween>
+                            
+                              <RowBetween width='252px'>
+                                <p>DAI/DBL</p>
+                                <RowBetween width='72px'>
+                                  <img style={{width:'32px', height:'32px'}}></img>
+                                  <img style={{width:'32px', height:'32px'}}></img>
+                                </RowBetween>
+                              </RowBetween>
                             </RowBetween>
-                          </RowBetween>
-                        </RowBetween>
                           }
                           
                           {account ? (
