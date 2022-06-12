@@ -157,7 +157,8 @@ const BodyContent = ({setBarState}:BodyContentProps) => {
                 <Route exact strict path="/migrate/:platform" component={Pair} />
                 <Route exact strict path="/migrate_import" component={AddToken} />
 
-                <Route component={RedirectPathToSwapOnly} />
+                
+		<Route component={RedirectPathToSwapOnly} />
               </Switch>
             </Suspense>
             <Marginer />
