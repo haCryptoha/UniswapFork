@@ -175,7 +175,7 @@ export default function App() {
       <Route component={ApeModeQueryParamReader} />
       <Web3ReactManager>
         <AppWrapper >
-          <HeaderWrapper style={showBarState?{borderBottom:'1px solid #61cdf9'}:{border:'none'}}>
+          <HeaderWrapper  style={showBarState?{borderBottom:'1px solid #61cdf9'}:{border:'none'}}>
             <Header />
           </HeaderWrapper>
           <BodyContent setBarState={setBarState}/>
