@@ -34,9 +34,9 @@ if (!!window.ethereum) {
 function Updaters() {
   return (
     <>
-      <RadialGradientByChainUpdater />
-      <ListsUpdater />
-      <UserUpdater />
+       <RadialGradientByChainUpdater />
+       <ListsUpdater />
+       <UserUpdater />
       <ApplicationUpdater />
       <TransactionUpdater />
       <BlockUpdater />
