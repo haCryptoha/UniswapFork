@@ -21,11 +21,11 @@ export const network = new NetworkConnector({
 })
 
 let networkLibrary: Web3Provider | undefined
-export function getNetworkLibrary(): Web3Provider {
+ export function getNetworkLibrary(): Web3Provider {
   return (networkLibrary = networkLibrary ?? getLibrary(network.provider))
 }
 
-export const injected = new InjectedConnector({
+ export const injected = new InjectedConnector({
   supportedChainIds: ALL_SUPPORTED_CHAIN_IDS,
 })
 
