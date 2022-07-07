@@ -1,4 +1,4 @@
-// @ts-nocheck
+ // @ts-nocheck
 import Loader from 'components/Loader'
 import ApeModeQueryParamReader from 'hooks/useApeModeQueryParamReader'
 import { Suspense, useRef, useEffect, useCallback, useState } from 'react'
