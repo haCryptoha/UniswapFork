@@ -39,7 +39,7 @@ const PageWrapper = styled(AutoColumn)`
     width:100%;
   `};
 `
-const TitleRow = styled(RowBetween)`
+ const TitleRow = styled(RowBetween)`
   color: ${({ theme }) => theme.text2};
   width: 512px;
   height:50px;
