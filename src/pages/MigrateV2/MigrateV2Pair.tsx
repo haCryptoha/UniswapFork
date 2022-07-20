@@ -64,7 +64,7 @@ function EmptyState({ message }: { message: ReactNode }) {
   )
 }
 
-function LiquidityInfo({
+ function LiquidityInfo({
   token0Amount,
   token1Amount,
 }: {
